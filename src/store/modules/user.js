@@ -1,12 +1,15 @@
 import { login, logout, getInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
+// import { info } from 'autoprefixer'
 
 const getDefaultState = () => {
   return {
     token: getToken(),
     name: '',
-    avatar: ''
+    avatar: '',
+    info: {},
+    claims: {}
   }
 }
 
@@ -24,21 +27,32 @@ const mutations = {
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
+  },
+  SET_USER_INFO: (state, infox) => {
+    state.info = infox
+  },
+  SET_USER_CLAIMS: (state, infox) => {
+    state.claims = infox
   }
 }
 
 const actions = {
   // user login
   login({ commit }, userInfo) {
-    const { username, password } = userInfo
+    const { phone, password, captcha, captcha_timestamp, captcha_challenge } = userInfo
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
-        const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
+      login({ phone: phone.trim(), password: password, captcha_code: captcha.trim(), captcha_challenge, captcha_time: captcha_timestamp }).then(response => {
+        console.log(response)
+        commit('SET_TOKEN', response.token)
+        setToken(response.token)
         resolve()
       }).catch(error => {
-        reject(error)
+        const { status, data } = error.response
+        if (typeof status !== "undefined" && status === 401) {
+          reject("登陆失败:" + data.message)
+        } else {
+          reject(error)
+        }
       })
     })
   },
@@ -47,17 +61,15 @@ const actions = {
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       getInfo(state.token).then(response => {
-        const { data } = response
-
-        if (!data) {
-          return reject('Verification failed, please Login again.')
+        const { claims, user } = response
+        if (response.status !== 0) {
+          return reject('用户信息获取失败，无法登录')
         }
-
-        const { name, avatar } = data
-
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
-        resolve(data)
+        commit('SET_NAME', user.username)
+        commit('SET_AVATAR', "https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg")
+        commit('SET_USER_INFO', user)
+        commit('SET_USER_CLAIMS', claims)
+        resolve(response)
       }).catch(error => {
         reject(error)
       })
