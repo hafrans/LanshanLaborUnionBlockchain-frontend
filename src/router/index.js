@@ -42,7 +42,6 @@ export const constantRoutes = [
     component: () => import('@/views/404'),
     hidden: true
   },
-
   {
     path: '/',
     component: Layout,
@@ -79,8 +78,7 @@ export const constantRoutes = [
             name: 'newCase',
             component: () => import('@/views/caseManagement/newcase/newcase/index'),
             meta: { title: '创建新案件' }
-          }
-
+          },
         ]
       },
       {
@@ -88,6 +86,13 @@ export const constantRoutes = [
         name: 'Examine',
         component: () => import('@/views/caseManagement/examine/index'),
         meta: { title: '查看案件', icon: 'el-icon-search' }
+      },
+      {
+        name: "viewcase",
+        path: "view/:id",
+        props: true,
+        component: () => import('@/views/caseManagement/caseinfo'),
+        hidden: false,
       }
     ]
   },
