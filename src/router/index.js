@@ -51,10 +51,46 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '用户信息管理', icon: 'dashboard' }
     }]
   },
+  {
+    path: '/caseManagement',
+    component: Layout,
+    redirect: '/caseManagement',
+    name: '案件管理',
+    meta: { title: '案件管理', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: '/newcase',
+        name: 'newCase',
+        component: () => import('@/views/caseManagement/newcase/index'),
+        meta: { title: '创建新案件', icon: 'el-icon-folder-add' },
+        children: [
+          {
+            path: 'newform',
+            name: 'newform',
+            component: () => import('@/views/caseManagement/newcase/newform/index'),
+            meta: { title: '创建要素表' }
+          },
 
+          {
+            path: 'newcase',
+            name: 'newCase',
+            component: () => import('@/views/caseManagement/newcase/newcase/index'),
+            meta: { title: '创建新案件' }
+          }
+
+        ]
+      },
+      {
+        path: 'examine',
+        name: 'Examine',
+        component: () => import('@/views/tree/index'),
+        meta: { title: '查看案件', icon: 'el-icon-search' }
+      }
+    ]
+  },
   {
     path: '/example',
     component: Layout,
