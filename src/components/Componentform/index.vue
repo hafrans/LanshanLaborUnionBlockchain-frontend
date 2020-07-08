@@ -3,7 +3,7 @@
     <div class="title">
       劳动争议案件申请调解要素表
     </div>
-    <el-form ref="form" :model="form" label-width="200px">
+    <el-form ref="form" :model="form" label-width="200px" :disabled="state">
       <el-form-item
         prop="main"
         label="主体性质"
@@ -517,7 +517,9 @@ import { formSunmit } from '../../api/case.js'
 export default {
   data() {
     return {
+      state: false,
       form: {},
+      id: '',
       pickerOptions0: {
         disabledDate(time) {
           return time.getTime() > Date.now() - 8.64e6;// 如果没有后面的-8.64e6就是不可以选择今天的
@@ -643,7 +645,6 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.submitWay()
-          this.$router.push({ path: '/Process' })
         } else {
           this.$message({
             message: '请填写必填项',
@@ -660,7 +661,13 @@ export default {
           message: '提交成功',
           type: 'success'
         })
-        // localStorage.setItem('id', res.data.id)
+        this.state = false
+        // this.id = res.data.id
+        this.$router.push({
+          path: "newcase",
+          query: { laborId: res.data.id }
+        });
+        // localStorage.setItem('laborid', res.data.id)
       }
       console.log(res)
     }
