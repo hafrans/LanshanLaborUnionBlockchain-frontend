@@ -3,13 +3,13 @@
 
     <!-- <div class="dashboard-text">name: {{ name }}</div> -->
     <el-form>
-          <el-form-item label="User name">
+      <el-form-item label="User name">
         {{ name }}
       </el-form-item>
       <el-form-item label="User mail">
-        {{email}}
+        {{ email }}
       </el-form-item></el-form>
-<el-form ref="changePassForm" :model="changePassForm" :rules="changePassRules" label-width="120px">
+    <el-form ref="changePassForm" :model="changePassForm" :rules="changePassRules" label-width="120px">
 
       <el-form-item prop="old_password">
         <span class="svg-container">
@@ -73,8 +73,8 @@
 
     </el-form>
 
-<el-form ref="changeMailForm" :model="changeMailForm" :rules="changeMailRules" label-width="120px">
-        <el-form-item prop="email">
+    <el-form ref="changeMailForm" :model="changeMailForm" :rules="changeMailRules" label-width="120px">
+      <el-form-item prop="email">
         <el-input
           v-model="changeMailForm.email"
           placeholder="新邮箱"
@@ -83,7 +83,7 @@
           auto-complete="on"
         />
       </el-form-item>
-        <el-form-item prop="phone">
+      <el-form-item prop="phone">
         <el-input
           v-model="changeMailForm.phone"
           placeholder="新手机"
@@ -92,11 +92,11 @@
           auto-complete="on"
         />
       </el-form-item>
-            <el-form-item>
+      <el-form-item>
         <el-button type="primary" @click="handleChangeMail">Change Email</el-button>
         <el-button @click="cancelMail">Cancel</el-button>
       </el-form-item>
-</el-form>
+    </el-form>
 
   </div>
 </template>
@@ -108,23 +108,21 @@ export default {
   name: 'Dashboard',
   data() {
     const validateOldPass = (rule, value, callback) => {
-          callback()
+      callback()
     };
 
     const validateNewPass = (rule, value, callback) => {
       if (value.length < 4) {
         callback(new Error("密码长度不能小于4"));
-      }
-      else if(this.changePassForm.old_password==value){
+      } else if (this.changePassForm.old_password == value) {
         callback(new Error("新旧密码不能相同"));
-      }
-       else {
+      } else {
         callback();
       }
     };
 
     const validateConfirmPass = (rule, value, callback) => {
-      if (this.changePassForm.new_password==value) {
+      if (this.changePassForm.new_password == value) {
         callback();
       } else {
         callback(new Error("两次输入密码不一致"));
@@ -132,7 +130,7 @@ export default {
     };
 
     const validateMail = (rule, value, callback) => {
-      let reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+      const reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
       if (reg.test(value)) {
         callback();
       } else {
@@ -140,7 +138,7 @@ export default {
       }
     };
     const validatePhone = (rule, value, callback) => {
-          callback()
+      callback()
     };
 
     return {
@@ -151,7 +149,7 @@ export default {
       },
       changePassRules: {
         old_password: [
-        { required: true, trigger: "blur", validator: validateOldPass }],
+          { required: true, trigger: "blur", validator: validateOldPass }],
         new_password: [
           { required: true, trigger: "blur", validator: validateNewPass }
         ],
@@ -160,16 +158,16 @@ export default {
         ]
       },
       passwordType: "password",
-      changeMailForm:{
-        email:"",
-        phone:""
+      changeMailForm: {
+        email: "",
+        phone: ""
       },
-      changeMailRules:{
-        email:[
-      {required: true, trigger: "blur", validator: validateMail }],
-      phone:[
-      {required: true, trigger: "blur", validator: validatePhone}]
-    }
+      changeMailRules: {
+        email: [
+          { required: true, trigger: "blur", validator: validateMail }],
+        phone: [
+          { required: true, trigger: "blur", validator: validatePhone }]
+      }
     }
   },
   methods: {
@@ -183,52 +181,52 @@ export default {
         this.$refs.password.focus();
       });
     },
-    handleChangePass(){
+    handleChangePass() {
       this.$refs.changePassForm.validate(valid => {
         if (valid) {
           this.$store
             .dispatch("user/setPass", this.changePassForm)
             .then(() => {
-              })
+            })
             .catch(err => {
               this.$message({
                 type: "error",
                 message: err
               });
             });
-          } else {
+        } else {
           console.log("error submit!!");
           return false;
         }
-        });
+      });
     },
-    cancelPass(){
-      this.changePassForm.old_password="";
-      this.changePassForm.new_password="";
-      this.changePassForm.confirm_password="";
+    cancelPass() {
+      this.changePassForm.old_password = "";
+      this.changePassForm.new_password = "";
+      this.changePassForm.confirm_password = "";
     },
-    handleChangeMail(){
+    handleChangeMail() {
       this.$refs.changeMailForm.validate(valid => {
         if (valid) {
           this.$store
             .dispatch("user/setEmail", this.changeMailForm)
             .then(() => {
-              })
+            })
             .catch(err => {
               this.$message({
                 type: "error",
                 message: err
               });
             });
-          } else {
+        } else {
           console.log("error submit!!");
           return false;
         }
-        });      
+      });
     },
-    cancelMail(){
-      this.changeMailForm.email="";
-      this.changeMailForm.phone="";
+    cancelMail() {
+      this.changeMailForm.email = "";
+      this.changeMailForm.phone = "";
     }
   },
   computed: {

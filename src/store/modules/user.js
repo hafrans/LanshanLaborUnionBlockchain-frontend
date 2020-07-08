@@ -1,4 +1,4 @@
-import { login, logout, getInfo,setPass,setEmail } from '@/api/user'
+import { login, logout, getInfo, setPass, setEmail } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 // import { info } from 'autoprefixer'
@@ -7,7 +7,7 @@ const getDefaultState = () => {
   return {
     token: getToken(),
     name: '',
-    email:'',
+    email: '',
     avatar: '',
     info: {},
     claims: {}
@@ -23,7 +23,7 @@ const mutations = {
   SET_TOKEN: (state, token) => {
     state.token = token
   },
-  SET_PASS:(state, password) => {
+  SET_PASS: (state, password) => {
     state.password = password
   },
   SET_NAME: (state, name) => {
@@ -64,16 +64,16 @@ const actions = {
     })
   },
 
-  //user change password
-  setPass({ commit }, userPassInfo){
+  // user change password
+  setPass({ commit }, userPassInfo) {
     const { old_password, new_password, confirm_password } = userPassInfo
     return new Promise((resolve, reject) => {
-      setPass({ old_password: old_password, new_password: new_password, confirm_password: confirm_password}).then(response => {
+      setPass({ old_password: old_password, new_password: new_password, confirm_password: confirm_password }).then(response => {
         console.log(response)
         // commit('SET_TOKEN', response.token)
         // setToken(response.token)
         resolve()
-         }).catch(error => {
+      }).catch(error => {
         const { status, data } = error.response
         if (typeof status !== "undefined" && status === 401) {
           reject("登陆失败:" + data.message)
@@ -84,16 +84,16 @@ const actions = {
     })
   },
 
-    //user change password
-  setEmail({ commit }, userPassInfo){
-    const { email ,phone} = userPassInfo
+  // user change password
+  setEmail({ commit }, userPassInfo) {
+    const { email, phone } = userPassInfo
     return new Promise((resolve, reject) => {
-      setEmail({ email: email,phone:phone}).then(response => {
+      setEmail({ email: email, phone: phone }).then(response => {
         console.log(response)
         // commit('SET_TOKEN', response.token)
         // setToken(response.token)
         resolve()
-         }).catch(error => {
+      }).catch(error => {
         const { status, data } = error.response
         if (typeof status !== "undefined" && status === 401) {
           reject("登陆失败:" + data.message)

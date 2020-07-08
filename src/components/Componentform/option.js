@@ -1,5 +1,6 @@
 module.exports = {
   option: {
+    detail: true,
     size: this.sizeValue,
     // mockBtn: true,
     labelWidth: 200,

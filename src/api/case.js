@@ -16,6 +16,13 @@ export function createNewCases(data) {
   })
 }
 
+export function modifyForm(data) {
+  return request({
+    url: 'v1/case/update/' + data.id,
+    method: 'post',
+    data
+  })
+}
 // export function getInfo(token) {
 //   return request({
 //     url: '/v1/user/info',
@@ -35,6 +42,12 @@ export function getFormExm() {
 export function getAllCase() {
   return request({
     url: 'v1/case/',
+    method: 'get'
+  })
+}
+export function getCase(params) {
+  return request({
+    url: 'v1/case/caseId/' + params.caseId,
     method: 'get'
   })
 }
