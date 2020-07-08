@@ -38,3 +38,10 @@ export function getAllCase() {
     method: 'get'
   })
 }
+
+export function getOneCase({id}) {
+  return request({
+    url: 'v1/case/id/'+id,
+    method: 'get'
+  })
+}
