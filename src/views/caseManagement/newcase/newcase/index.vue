@@ -40,7 +40,6 @@ export default {
     }
   },
   created() {
-    console.log("555555555", this.obj)
     this.labor = this.$route.query.laborId;
     console.log("labor00000000000000", this.labor)
     // console.log(Data)

@@ -46,7 +46,7 @@
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
-      
+
       <el-form-item prop="captcha">
         <span class="svg-container">
           <i class="el-icon-c-scale-to-original" />
