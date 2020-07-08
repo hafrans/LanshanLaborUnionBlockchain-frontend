@@ -8,6 +8,14 @@ export function formSunmit(data) {
   })
 }
 
+export function createNewCases(data) {
+  return request({
+    url: 'v1/case/create',
+    method: 'post',
+    data
+  })
+}
+
 // export function getInfo(token) {
 //   return request({
 //     url: '/v1/user/info',
@@ -18,9 +26,15 @@ export function formSunmit(data) {
 //   })
 // }
 
-// export function logout() {
-//   return request({
-//     url: '/auth/logout',
-//     method: 'get'
-//   })
-// }
+export function getFormExm() {
+  return request({
+    url: 'v1/test/case/template',
+    method: 'get'
+  })
+}
+export function getAllCase() {
+  return request({
+    url: 'v1/case/',
+    method: 'get'
+  })
+}

@@ -57,7 +57,7 @@ export const constantRoutes = [
   {
     path: '/caseManagement',
     component: Layout,
-    redirect: '/caseManagement',
+    redirect: '/caseManagement/newcase',
     name: '案件管理',
     meta: { title: '案件管理', icon: 'el-icon-s-help' },
     children: [
@@ -84,9 +84,9 @@ export const constantRoutes = [
         ]
       },
       {
-        path: 'examine',
+        path: '/examine',
         name: 'Examine',
-        component: () => import('@/views/tree/index'),
+        component: () => import('@/views/caseManagement/examine/index'),
         meta: { title: '查看案件', icon: 'el-icon-search' }
       }
     ]

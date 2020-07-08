@@ -1,12 +1,92 @@
 module.exports = {
   option: {
-    // detail: false,
+    detail: false,
     size: this.sizeValue,
     // mockBtn: true,
     labelWidth: 200,
     gutter: 150,
     submitText: '提交',
     // printBtn: true,
+    column: [
+      {
+        label: "争议类型",
+        prop: "category_id",
+        span: 12,
+        type: "select",
+        dicData: [
+          {
+            value: 1,
+            label: '社会保险'
+          },
+          {
+            value: 2,
+            label: '劳动报酬'
+          },
+          {
+            value: 3,
+            label: '经济补偿金'
+          },
+          {
+            value: 4,
+            label: '双倍工资'
+          },
+          {
+            value: 5,
+            label: '工伤'
+          },
+          {
+            value: 6,
+            label: '赔偿金'
+          },
+          {
+            value: 7,
+            label: '劳动关系'
+          },
+          {
+            value: 8,
+            label: '其他'
+          }
+        ],
+        mock: {
+          type: 'dic'
+        },
+        rules: [
+          {
+            required: true,
+            message: '争议类型',
+            trigger: 'blur'
+          }
+        ]
+        // change: ({ value, column }) => {
+        //   this.$message.success('change')
+        // }
+      },
+      {
+        label: '调解事项',
+        prop: 'title',
+        span: 12,
+        rules: [
+          {
+            required: true,
+            message: '调解事项',
+            trigger: 'blur'
+          }
+        ]
+      },
+      {
+        label: '调解事实与理由',
+        prop: 'content',
+        span: 16,
+        rules: [
+          {
+            required: true,
+            message: '调解事实与理由',
+            trigger: 'blur'
+          }
+        ]
+      }
+
+    ],
     group: [
       {
         label: '劳动者信息',
