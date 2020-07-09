@@ -2,14 +2,14 @@
   <div class="dashboard-container">
 
     <!-- <div class="dashboard-text">name: {{ name }}</div> -->
-    <el-form>
+    <!--     <el-form>
       <el-form-item label="User name">
         {{ name }}
       </el-form-item>
       <el-form-item label="User mail">
         {{ email }}
       </el-form-item></el-form>
-    <!--     <el-form ref="changePassForm" :model="changePassForm" :rules="changePassRules" label-width="120px">
+    <el-form ref="changePassForm" :model="changePassForm" :rules="changePassRules" label-width="120px">
 
       <el-form-item prop="old_password">
         <span class="svg-container">
@@ -71,7 +71,7 @@
         <el-button @click="cancelPass">Cancel</el-button>
       </el-form-item>
 
-    </el-form>
+    </el-form> -->
 
     <el-form ref="changeMailForm" :model="changeMailForm" :rules="changeMailRules" label-width="120px">
       <el-form-item prop="email">
@@ -96,7 +96,7 @@
         <el-button type="primary" @click="handleChangeMail">Change Email</el-button>
         <el-button @click="cancelMail">Cancel</el-button>
       </el-form-item>
-    </el-form> -->
+    </el-form>
 
   </div>
 </template>
@@ -107,8 +107,29 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'Dashboard',
   data() {
-    return {
+    const validateMail = (rule, value, callback) => {
+      const reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+      if (reg.test(value)) {
+        callback();
+      } else {
+        callback(new Error("邮箱格式不正确"));
+      }
+    };
+    const validatePhone = (rule, value, callback) => {
+      callback()
+    };
 
+    return {
+      changeMailForm: {
+        email: "",
+        phone: ""
+      },
+      changeMailRules: {
+        email: [
+          { required: true, trigger: "blur", validator: validateMail }],
+        phone: [
+          { required: true, trigger: "blur", validator: validatePhone }]
+      }
     }
   },
   computed: {
@@ -118,7 +139,29 @@ export default {
     ])
   },
   methods: {
-
+    handleChangeMail() {
+      this.$refs.changeMailForm.validate(valid => {
+        if (valid) {
+          this.$store
+            .dispatch("user/setEmail", this.changeMailForm)
+            .then(() => {
+            })
+            .catch(err => {
+              this.$message({
+                type: "error",
+                message: err
+              });
+            });
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    },
+    cancelMail() {
+      this.changeMailForm.email = "";
+      this.changeMailForm.phone = "";
+    }
   }
 }
 </script>

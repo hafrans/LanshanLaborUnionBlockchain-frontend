@@ -45,13 +45,36 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
-    children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: '用户信息管理', icon: 'dashboard' }
-    }]
+    redirect: '/dashboard/showinfo',
+    meta: { title: '用户信息管理', icon: 'dashboard' },
+    children: [
+      {
+        path: '/showinfo',
+        name: 'showinfo',
+        component: () => import('@/views/dashboard/index'),
+        meta: { title: '用户信息展示', icon: 'el-icon-search' }
+      },
+      {
+        path: '/updateinfo',
+        name: 'updateinfo',
+        component: () => import('@/views/dashboard/updateinfo/index'),
+        meta: { title: '用户信息修改', icon: 'el-icon-folder-add' },
+        children: [
+          {
+            path: 'changepass',
+            name: 'changepass',
+            component: () => import('@/views/dashboard/updateinfo/changepass/index'),
+            meta: { title: '用户密码修改' }
+          },
+
+          {
+            path: 'changeinfo',
+            name: 'changeinfo',
+            component: () => import('@/views/dashboard/updateinfo/changeinfo/index'),
+            meta: { title: '修改邮箱手机' }
+          }
+        ]
+      }]
   },
   {
     path: '/caseManagement',
