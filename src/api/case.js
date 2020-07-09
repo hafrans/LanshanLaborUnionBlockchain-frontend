@@ -46,9 +46,9 @@ export function getAllCase() {
   })
 }
 
-export function getOneCase({id}) {
+export function getOneCase({ id }) {
   return request({
-    url: 'v1/case/id/'+id,
+    url: 'v1/case/id/' + id,
     method: 'get'
   })
 }

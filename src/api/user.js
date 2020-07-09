@@ -8,6 +8,22 @@ export function login(data) {
   })
 }
 
+export function employerReg(data) {
+  return request({
+    url: '/auth/employer/register',
+    method: 'post',
+    data
+  })
+}
+
+export function laborReg(data) {
+  return request({
+    url: '/auth/labor/register',
+    method: 'post',
+    data
+  })
+}
+
 export function getInfo(token) {
   return request({
     url: '/v1/user/info',

@@ -6,9 +6,9 @@
     <!-- <el-button style="margin-left: 20px" @click="handle">编辑</el-button> -->
     <!-- <el-button v-if="option.detail" style="margin-left: 20px" type="primary" @click="goform">请点击创建案件要素表</el-button> -->
     <avue-form ref="form" v-model="obj" :option="option" @submit="handleSubmit" />
-    <!-- <el-dialog :visible.sync="dialogVisible">
-  <img width="100%" :src="dialogImageUrl" alt="">
-</el-dialog> -->
+    <el-dialog :visible.sync="dialogVisible">
+      <img width="100%" :src="dialogImageUrl" alt="">
+    </el-dialog>
   </div>
 </template>
 
@@ -18,6 +18,8 @@ import { createNewCases, getFormExm } from "@/api/case";
 export default {
   data() {
     return {
+      dialogImageUrl: '',
+      dialogVisible: false,
       option: Data.option,
       labor: '',
       type: 0,
@@ -42,7 +44,7 @@ export default {
   },
   created() {
     this.labor = this.$route.query.laborId;
-    console.log("labor00000000000000", this.labor)
+    console.log("labor", this.labor)
     // console.log(Data)
     this.text()
   },
