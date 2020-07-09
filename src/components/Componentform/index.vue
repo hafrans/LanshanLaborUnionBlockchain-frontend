@@ -3,7 +3,7 @@
     <div class="title">
       劳动争议案件申请调解要素表
     </div>
-    <el-form ref="form" :model="form" label-width="200px" :disabled="state">
+    <el-form ref="form" :model="form" label-width="300px" :disabled="state">
       <el-form-item
         prop="main"
         label="主体性质"
@@ -680,10 +680,10 @@ export default {
   background-color: white;
   padding: 15px 30px;
   .title {
-    margin: 20px 1;
+    margin-bottom: 40px ;
     // background-color: thistle;
     width: 100%;
-    text-align: center;
+    // text-align: center;
     color: rgb(1, 157, 218);
     font-size: 24px;
     font-weight: bold;
