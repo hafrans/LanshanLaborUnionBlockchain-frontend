@@ -78,7 +78,7 @@ export const constantRoutes = [
             name: 'newCase',
             component: () => import('@/views/caseManagement/newcase/newcase/index'),
             meta: { title: '创建新案件' }
-          },
+          }
         ]
       },
       {
@@ -92,7 +92,7 @@ export const constantRoutes = [
         path: "view/:id",
         props: true,
         component: () => import('@/views/caseManagement/caseinfo'),
-        hidden: false,
+        hidden: false
       }
     ]
   },

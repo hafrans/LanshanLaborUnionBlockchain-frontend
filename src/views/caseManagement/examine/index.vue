@@ -6,6 +6,7 @@
           slot="append"
           type="primary"
           icon="el-icon-search"
+          @click="search(searchText)"
         >搜索</el-button>
       </el-input>
     </div>
@@ -14,17 +15,21 @@
         :data="allCase"
         :option="option"
       >
-        <!-- <template slot="infoForm" slot-scope="scope">
-          <avue-form ref="form" v-model="infoData" :option="infoOption" @submit="handleSubmit" />
-        </template> -->
         <template slot="menu" slot-scope="scope">
           <el-button
             type="primary"
-            icon="el-icon-check"
+            icon="el-icon-edit"
             size="small"
             plain
             @click.stop="handleEdit(scope.row,scope.index)"
           >编辑</el-button>
+          <el-button
+            type="primary"
+            icon="el-icon-view"
+            size="small"
+            plain
+            @click.stop="handleView(scope.row,scope.index)"
+          >查看</el-button>
         </template>
       </avue-crud>
       <el-dialog title="案件表单" :visible.sync="dialogFormVisible" width="80%">
@@ -111,20 +116,21 @@ export default {
       this.laborData = text.data.form
     },
     async handleSubmit() {
-      const res = await getCase({ id: this.id, data: this.infoData });
+      const res = await modifyForm({ id: this.id, data: this.infoData });
       if (res.message === "success") {
         this.dialogFormVisible = true
-        // console.log("44444444444444", res.case_id)
-        // this.$alert(res.data.case_id, '请记录案件号方便之后查询', {
-        //   confirmButtonText: '确定',
-        //   callback: action => {
-        //     this.$router.push({
-        //       path: "/examine"
-        //     })
-        //   }
-        // });
-        // this.option.detail = true
+      } else {
+        this.$message({
+          message: '修改失败',
+          type: 'error'
+        });
       }
+    },
+    handleView() {
+      this.$router.push(
+        "/caseManagement/view/1"
+        // query: { id: this.id }
+      )
     }
   }
 }

@@ -3,11 +3,11 @@
     <el-container>
       <el-header>
         <el-steps :active="status" align-center>
-          <el-step title="调解事项已提交"></el-step>
-          <el-step title="部门正在处理"></el-step>
-          <el-step title="正在请求确认"></el-step>
-          <el-step title="用户已确认"></el-step>
-          <el-step title="调解结束"></el-step>
+          <el-step title="调解事项已提交" />
+          <el-step title="部门正在处理" />
+          <el-step title="正在请求确认" />
+          <el-step title="用户已确认" />
+          <el-step title="调解结束" />
         </el-steps>
       </el-header>
       <el-main>
@@ -21,16 +21,16 @@
                 <b>案件号码</b>
               </el-col>
               <el-col :span="18">
-                <span>{{caseinfo.case_id}}</span>
+                <span>{{ caseinfo.case_id }}</span>
               </el-col>
               <el-col :span="6">
                 <b>案件类型</b>
               </el-col>
               <el-col :span="18">
-                <span>{{caseinfo.category.category_name}}</span>
+                <span>{{ caseinfo.category.category_name }}</span>
               </el-col>
             </el-row>
-            <el-divider></el-divider>
+            <el-divider />
             <el-row>
               <el-col :span="24">
                 <b>申请人信息</b>
@@ -41,13 +41,13 @@
                 <b>申请人姓名</b>
               </el-col>
               <el-col :span="6">
-                <span>{{caseinfo.applicant.applicant_name}}</span>
+                <span>{{ caseinfo.applicant.applicant_name }}</span>
               </el-col>
               <el-col :span="6">
                 <b>出生日期</b>
               </el-col>
               <el-col :span="6">
-                <span>{{caseinfo.applicant.applicant_birth}}</span>
+                <span>{{ caseinfo.applicant.applicant_birth }}</span>
               </el-col>
             </el-row>
             <el-row :gutter="20">
@@ -55,13 +55,13 @@
                 <b>身份证号码</b>
               </el-col>
               <el-col :span="6">
-                <span>{{caseinfo.applicant.applicant_id}}</span>
+                <span>{{ caseinfo.applicant.applicant_id }}</span>
               </el-col>
               <el-col :span="6">
                 <b>民族</b>
               </el-col>
               <el-col :span="6">
-                <span>{{caseinfo.applicant.applicant_nationality}}</span>
+                <span>{{ caseinfo.applicant.applicant_nationality }}</span>
               </el-col>
             </el-row>
             <el-row :gutter="20">
@@ -69,16 +69,16 @@
                 <b>联系方式</b>
               </el-col>
               <el-col :span="6">
-                <span>{{caseinfo.applicant.applicant_contact}}</span>
+                <span>{{ caseinfo.applicant.applicant_contact }}</span>
               </el-col>
               <el-col :span="6">
                 <b>地址</b>
               </el-col>
               <el-col :span="6">
-                <span>{{caseinfo.applicant.applicant_address}}</span>
+                <span>{{ caseinfo.applicant.applicant_address }}</span>
               </el-col>
             </el-row>
-            <el-divider></el-divider>
+            <el-divider />
             <el-row>
               <el-col :span="24">
                 <b>被申请人信息</b>
@@ -89,13 +89,13 @@
                 <b>被申请单位名称</b>
               </el-col>
               <el-col :span="6">
-                <span>{{caseinfo.respondent.employer_name}}</span>
+                <span>{{ caseinfo.respondent.employer_name }}</span>
               </el-col>
               <el-col :span="6">
                 <b>单位法人代表</b>
               </el-col>
               <el-col :span="6">
-                <span>{{caseinfo.respondent.employer_faren}}</span>
+                <span>{{ caseinfo.respondent.employer_faren }}</span>
               </el-col>
             </el-row>
             <el-row :gutter="20">
@@ -103,7 +103,7 @@
                 <b>统一社会信用代码</b>
               </el-col>
               <el-col :span="18">
-                <span>{{caseinfo.respondent.employer_uscc}}</span>
+                <span>{{ caseinfo.respondent.employer_uscc }}</span>
               </el-col>
             </el-row>
             <el-row :gutter="20">
@@ -111,22 +111,22 @@
                 <b>联系方式</b>
               </el-col>
               <el-col :span="6">
-                <span>{{caseinfo.respondent.employer_contact}}</span>
+                <span>{{ caseinfo.respondent.employer_contact }}</span>
               </el-col>
               <el-col :span="6">
                 <b>地址</b>
               </el-col>
               <el-col :span="6">
-                <span>{{caseinfo.respondent.employer_address}}</span>
+                <span>{{ caseinfo.respondent.employer_address }}</span>
               </el-col>
             </el-row>
-            <el-divider></el-divider>
+            <el-divider />
             <el-row :gutter="20">
               <el-col :span="6">
                 <b>调解事项</b>
               </el-col>
               <el-col :span="18">
-                <span>{{caseinfo.title}}</span>
+                <span>{{ caseinfo.title }}</span>
               </el-col>
             </el-row>
             <el-row :gutter="20">
@@ -136,7 +136,7 @@
             </el-row>
             <el-row :gutter="20">
               <el-col :span="24">
-                <p>{{caseinfo.content}}</p>
+                <p>{{ caseinfo.content }}</p>
               </el-col>
             </el-row>
           </div>
@@ -147,9 +147,9 @@
           </div>
           <div v-if="caseid != ''">
             <a href="javascript:void(0);">点击跳转查看</a>&nbsp;
-            <i class="el-icon-link"></i>
+            <i class="el-icon-link" />
           </div>
-          <div style="text-aligin:center" v-else>加载中.....</div>
+          <div v-else style="text-aligin:center">加载中.....</div>
         </el-card>
         <el-card class="box-card">
           <div slot="header" class="clearfix">
@@ -157,17 +157,17 @@
           </div>
           <div v-if="caseid != ''">
             <el-table :data="caseinfo.materials" style="width: 100%">
-              <el-table-column prop="id" label="材料唯一识别码" width="120"></el-table-column>
-              <el-table-column prop="name" label="材料名称" width="180"></el-table-column>
+              <el-table-column prop="id" label="材料唯一识别码" width="120" />
+              <el-table-column prop="name" label="材料名称" width="180" />
               <el-table-column label="材料路径" min-width="180">
                 <template #default="scope">
                   <a :href="scope.row.path" target="_blank">点击跳转查看</a>&nbsp;
-                  <i class="el-icon-link"></i>
+                  <i class="el-icon-link" />
                 </template>
               </el-table-column>
             </el-table>
           </div>
-          <div style="text-aligin:center" v-else>加载中.....</div>
+          <div v-else style="text-aligin:center">加载中.....</div>
         </el-card>
         <el-card class="box-card">
           <div slot="header" class="clearfix">
@@ -175,20 +175,20 @@
           </div>
           <div v-if="caseid != ''">
             <el-table :data="caseinfo.records" style="width: 100%">
-              <el-table-column prop="id" label="笔录唯一识别码" width="120"></el-table-column>
-              <el-table-column prop="name" label="笔录名称" width="180"></el-table-column>
-              <el-table-column prop="department_info.name" label="提交单位名称" width="180"></el-table-column>
-              <el-table-column prop="department_info.contact" label="联系方式" width="180"></el-table-column>
-              <el-table-column prop="submitter" label="经办人" width="180"></el-table-column>
+              <el-table-column prop="id" label="笔录唯一识别码" width="120" />
+              <el-table-column prop="name" label="笔录名称" width="180" />
+              <el-table-column prop="department_info.name" label="提交单位名称" width="180" />
+              <el-table-column prop="department_info.contact" label="联系方式" width="180" />
+              <el-table-column prop="submitter" label="经办人" width="180" />
               <el-table-column label="材料路径" min-width="180">
                 <template #default="scope">
                   <a :href="scope.row.path" target="_blank">点击跳转查看</a>&nbsp;
-                  <i class="el-icon-link"></i>
+                  <i class="el-icon-link" />
                 </template>
               </el-table-column>
             </el-table>
           </div>
-          <div style="text-aligin:center" v-else>加载中.....</div>
+          <div v-else style="text-aligin:center">加载中.....</div>
         </el-card>
 
         <el-card class="box-card">
@@ -197,14 +197,14 @@
           </div>
           <div v-if="caseid != ''">
             <el-table :data="caseinfo.suggestions" style="width: 100%">
-              <el-table-column prop="id" label="建议唯一识别码" width="120"></el-table-column>
-              <el-table-column prop="content" label="建议内容" min-width="180"></el-table-column>
-              <el-table-column prop="department_info.name" label="提交单位名称" width="180"></el-table-column>
-              <el-table-column prop="department_info.contact" label="联系方式" width="180"></el-table-column>
-              <el-table-column prop="submitter" label="经办人" width="180"></el-table-column>
+              <el-table-column prop="id" label="建议唯一识别码" width="120" />
+              <el-table-column prop="content" label="建议内容" min-width="180" />
+              <el-table-column prop="department_info.name" label="提交单位名称" width="180" />
+              <el-table-column prop="department_info.contact" label="联系方式" width="180" />
+              <el-table-column prop="submitter" label="经办人" width="180" />
             </el-table>
           </div>
-          <div style="text-aligin:center" v-else>加载中.....</div>
+          <div v-else style="text-aligin:center">加载中.....</div>
         </el-card>
 
         <el-card class="box-card">
@@ -214,7 +214,7 @@
           <div v-if="caseid != ''">
             <History :case-id="caseid" />
           </div>
-          <div style="text-aligin:center" v-else>加载中.....</div>
+          <div v-else style="text-aligin:center">加载中.....</div>
         </el-card>
       </el-main>
       <el-footer style="text-align:center">
