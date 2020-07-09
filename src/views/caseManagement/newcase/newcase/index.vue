@@ -6,7 +6,9 @@
     <!-- <el-button style="margin-left: 20px" @click="handle">编辑</el-button> -->
     <!-- <el-button v-if="option.detail" style="margin-left: 20px" type="primary" @click="goform">请点击创建案件要素表</el-button> -->
     <avue-form ref="form" v-model="obj" :option="option" @submit="handleSubmit" />
-
+    <!-- <el-dialog :visible.sync="dialogVisible">
+  <img width="100%" :src="dialogImageUrl" alt="">
+</el-dialog> -->
   </div>
 </template>
 
@@ -20,7 +22,6 @@ export default {
       labor: '',
       type: 0,
       obj: {
-
       },
       // upload: { form_id: this.$route.query.laborId,
       //   applicant: { applicant_name: this.obj.applicant_name, applicant_birth: this.obj.applicant_birth, applicant_nationality: this.obj.applicant_nationality, applicant_id: this.obj.applicant_id, applicant_contact: this.obj.applicant_id, applicant_name: this.obj.applicant_name, applicant_nationality: this.obj.applicant_nationality },
