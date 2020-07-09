@@ -1,5 +1,9 @@
 <template>
   <div class="login-container">
+    <div class="top">
+      <img src="../../../public/img/logo.png" alt="">
+      <p class="name">岚山区总工会区块链共享平台</p>
+    </div>
     <el-form
       ref="loginForm"
       :model="loginForm"
@@ -188,8 +192,8 @@ export default {
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
 $bg: #283443;
-$light_gray: #fff;
-$cursor: #fff;
+$light_gray: #283443;
+$cursor: #283443;
 
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
   .login-container .el-input input {
@@ -199,6 +203,21 @@ $cursor: #fff;
 
 /* reset element-ui css */
 .login-container {
+   background-image: url("../../../public/img/loginbkg.png");
+  background-repeat:no-repeat;
+   background-size:100% 100%;
+   .top {
+     padding: 30px  80px;
+     display: flex;
+     height: 100px;
+     align-items: center;
+     p {
+       padding:20px;
+        color: #fff;
+        font-size: 24px;
+        font-weight: 600;
+      }
+   }
   .el-input {
     display: inline-block;
     height: 47px;
@@ -223,9 +242,11 @@ $cursor: #fff;
 
   .el-form-item {
     border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.1);
+    // background: rgba(0, 0, 0, 0.1);
+    background-color: azure;
     border-radius: 5px;
-    color: #454545;
+    // color: #454545;
+    color: black;
   }
 }
 </style>

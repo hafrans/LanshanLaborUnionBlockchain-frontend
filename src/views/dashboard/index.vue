@@ -1,136 +1,70 @@
 <template>
-  <div class="dashboard-container">
 
-    <!-- <div class="dashboard-text">name: {{ name }}</div> -->
-    <el-form>
-      <el-form-item label="User name">
-        {{ name }}
-      </el-form-item>
-      <el-form-item label="User mail">
-        {{ email }}
-      </el-form-item></el-form>
-    <!--     <el-form ref="changePassForm" :model="changePassForm" :rules="changePassRules" label-width="120px">
-
-      <el-form-item prop="old_password">
-        <span class="svg-container">
-          <svg-icon icon-class="password" />
-        </span>
-        <el-input
-          :key="passwordType"
-          ref="password"
-          v-model="changePassForm.old_password"
-          :type="passwordType"
-          placeholder="旧密码"
-          name="password"
-          tabindex="1"
-          auto-complete="on"
-        />
-      </el-form-item>
-
-      <el-form-item prop="new_password">
-        <span class="svg-container">
-          <svg-icon icon-class="password" />
-        </span>
-        <el-input
-          :key="passwordType"
-          ref="password"
-          v-model="changePassForm.new_password"
-          :type="passwordType"
-          placeholder="新密码"
-          name="password"
-          tabindex="2"
-          auto-complete="on"
-        />
-        <span class="show-pwd" @click="showPwd">
-          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
-        </span>
-      </el-form-item>
-
-      <el-form-item prop="confirm_password">
-        <span class="svg-container">
-          <svg-icon icon-class="password" />
-        </span>
-        <el-input
-          :key="passwordType"
-          ref="password"
-          v-model="changePassForm.confirm_password"
-          :type="passwordType"
-          placeholder="确认新密码"
-          name="password"
-          tabindex="3"
-          auto-complete="on"
-          @keyup.enter.native="handleChangePass"
-        />
-        <span class="show-pwd" @click="showPwd">
-          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
-        </span>
-      </el-form-item>
-
-      <el-form-item>
-        <el-button type="primary" @click="handleChangePass">Change Password</el-button>
-        <el-button @click="cancelPass">Cancel</el-button>
-      </el-form-item>
-
-    </el-form>
-
-    <el-form ref="changeMailForm" :model="changeMailForm" :rules="changeMailRules" label-width="120px">
-      <el-form-item prop="email">
-        <el-input
-          v-model="changeMailForm.email"
-          placeholder="新邮箱"
-          name="email"
-          tabindex="1"
-          auto-complete="on"
-        />
-      </el-form-item>
-      <el-form-item prop="phone">
-        <el-input
-          v-model="changeMailForm.phone"
-          placeholder="新手机"
-          name="phone"
-          tabindex="2"
-          auto-complete="on"
-        />
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="handleChangeMail">Change Email</el-button>
-        <el-button @click="cancelMail">Cancel</el-button>
-      </el-form-item>
-    </el-form> -->
-
+  <!-- <el-container>
+    <el-header><Header></Header></el-header>
+    <el-main><Tab></Tab> <Option></Option></el-main>
+  </el-container> -->
+  <div class="home">
+    <!-- <Header /> -->
+    <div class="main">
+      <!-- <Tab /> -->
+      <div class="item active">
+        <p>调解事项</p>
+      </div>
+      <Option />
+    </div>
+    <Message v-if="false" />
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
+// import Header from "@/components/Header/index.vue";
+// import Tab from "@/components/Tab/index.vue";
+import Option from "@/components/Option/index.vue";
 export default {
-  name: 'Dashboard',
-  data() {
-    return {
-
-    }
-  },
-  computed: {
-    ...mapGetters([
-      'name',
-      'email'
-    ])
-  },
-  methods: {
-
+  components: {
+    // Header,
+    // Tab,
+    Option
   }
-}
+};
 </script>
 
-<style lang="scss" scoped>
-.dashboard {
-  &-container {
-    margin: 30px;
-  }
-  &-text {
-    font-size: 30px;
-    line-height: 46px;
+<style lang="less" scoped>
+.home {
+  width: 100vw;
+  min-width: 1400px;
+  height: 100vh;
+  .main {
+    width: 100vw;
+    height: 100%;
+    .item {
+      width: 250px;
+      margin: 0 100px;
+      padding: 0 20px;
+      font-size: 26px;
+      color: #000;
+      font-weight: 500;
+      text-align: center;
+      // border-bottom: 3px solid #104aaa;
+      p {
+        height: 50px;
+        line-height: 50px;
+      }
+    }
+    .active {
+      p {
+        background: linear-gradient(
+          to bottom,
+          rgb(97, 190, 246),
+          rgb(69, 164, 221)
+        );
+        border-radius: 25px ;
+      }
+      color: #fff;
+    }
+    // margin: 30px auto;
+    // background-color: #999;
   }
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="dashboard-container">
 
     <!-- <div class="dashboard-text">name: {{ name }}</div> -->
-<!--     <el-form>
+    <!--     <el-form>
       <el-form-item label="User name">
         {{ name }}
       </el-form-item>
@@ -41,7 +41,7 @@
           tabindex="2"
           auto-complete="on"
         />
-<!--         <span class="show-pwd" @click="showPwd">
+        <!--         <span class="show-pwd" @click="showPwd">
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span> -->
       </el-form-item>
@@ -73,7 +73,7 @@
 
     </el-form>
 
-<!--     <el-form ref="changeMailForm" :model="changeMailForm" :rules="changeMailRules" label-width="120px">
+    <!--     <el-form ref="changeMailForm" :model="changeMailForm" :rules="changeMailRules" label-width="120px">
       <el-form-item prop="email">
         <el-input
           v-model="changeMailForm.email"
@@ -114,7 +114,7 @@ export default {
     const validateNewPass = (rule, value, callback) => {
       if (value.length < 4) {
         callback(new Error("密码长度不能小于4"));
-      } else if (this.changePassForm.old_password == value) {
+      } else if (this.changePassForm.old_password === value) {
         callback(new Error("新旧密码不能相同"));
       } else {
         callback();
@@ -122,7 +122,7 @@ export default {
     };
 
     const validateConfirmPass = (rule, value, callback) => {
-      if (this.changePassForm.new_password == value) {
+      if (this.changePassForm.new_password === value) {
         callback();
       } else {
         callback(new Error("两次输入密码不一致"));
@@ -157,7 +157,7 @@ export default {
           { required: true, trigger: "blur", validator: validateConfirmPass }
         ]
       },
-      passwordType: "password",
+      passwordType: "password"
       // changeMailForm: {
       //   email: "",
       //   phone: ""
@@ -169,6 +169,12 @@ export default {
       //     { required: true, trigger: "blur", validator: validatePhone }]
       // }
     }
+  },
+  computed: {
+    ...mapGetters([
+      'name',
+      'email'
+    ])
   },
   methods: {
     showPwd() {
@@ -204,7 +210,7 @@ export default {
       this.changePassForm.old_password = "";
       this.changePassForm.new_password = "";
       this.changePassForm.confirm_password = "";
-    },
+    }
     // handleChangeMail() {
     //   this.$refs.changeMailForm.validate(valid => {
     //     if (valid) {
@@ -228,12 +234,6 @@ export default {
     //   this.changeMailForm.email = "";
     //   this.changeMailForm.phone = "";
     // }
-  },
-  computed: {
-    ...mapGetters([
-      'name',
-      'email'
-    ])
   }
 }
 </script>

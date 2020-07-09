@@ -12,9 +12,19 @@
     </div>
     <div class="content">
       <avue-crud
+        v-model="obj"
         :data="allCase"
         :option="option"
       >
+        <template slot="menuLeft" slot-scope="scope">
+          <el-button
+            type="danger"
+            icon="el-icon-plus"
+            size="small"
+            plain
+            @click.stop="handleAdd()"
+          >新增</el-button>
+        </template>
         <template slot="menu" slot-scope="scope">
           <el-button
             type="primary"
@@ -61,6 +71,7 @@ export default {
   },
   data() {
     return {
+      obj: {},
       activeName: 'first',
       dialogFormVisible: false,
       infoOption: Option.option,
@@ -75,6 +86,8 @@ export default {
         menuAlign: 'center',
         // viewBtn: true,
         editBtn: false,
+        addBtn: false,
+        delBtn: false,
         column: [
           {
             label: '姓名',
@@ -131,7 +144,13 @@ export default {
         "/caseManagement/view/1"
         // query: { id: this.id }
       )
+    },
+    handleAdd() {
+      this.$router.push(
+        "/newcase/newform"
+      );
     }
+
   }
 }
 </script>
