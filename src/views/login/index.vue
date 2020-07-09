@@ -448,8 +448,10 @@ $cursor: #283443;
     width: 85%;
 
     input {
+      margin-top: 5px;
+      margin-left: 5px;
       background: transparent;
-      // border: 2px;
+      // border: 0px;
       -webkit-appearance: none;
       // border-radius: 0px;
       padding: 12px 5px 12px 15px;
