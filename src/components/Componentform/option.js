@@ -1,7 +1,7 @@
 module.exports = {
   option: {
     detail: true,
-    size: this.sizeValue,
+    size: "300",
     // mockBtn: true,
     labelWidth: 200,
     gutter: 150,
@@ -43,7 +43,7 @@ module.exports = {
         label: '入职时间',
         prop: 'hire_date',
         type: 'date',
-        span: 14,
+        span: 24,
         format: 'yyyy-MM-dd',
         valueFormat: 'yyyy-MM-dd',
         mock: {
@@ -54,7 +54,7 @@ module.exports = {
       {
         label: '是否签订书面劳动合同',
         prop: 'labor_contract_signed',
-        span: 12,
+        span: 18,
         type: 'radio',
         dicData: [
           {
@@ -84,7 +84,7 @@ module.exports = {
       },
       {
         label: '次数',
-        span: 12,
+        span: 18,
         prop: 'number',
         mock: {
           type: 'number'
@@ -134,7 +134,7 @@ module.exports = {
       {
         label: '是否进行社会保险',
         prop: 'social_insurance',
-        span: 12,
+        span: 18,
         type: 'radio',
         dicData: [
           {
@@ -160,7 +160,7 @@ module.exports = {
       {
         label: '社会保险险种',
         prop: 'social_insurance_type',
-        span: 12,
+        span: 18,
         type: 'radio',
         dicData: [
           {
@@ -199,7 +199,7 @@ module.exports = {
       {
         label: '是否经过工伤认定',
         prop: 'industrial_injury',
-        span: 12,
+        span: 18,
         type: 'radio',
         dicData: [
           {
@@ -290,7 +290,7 @@ module.exports = {
       {
         label: '已办理劳动合同解除手续',
         prop: 'labor_contract_completed',
-        span: 12,
+        span: 18,
         type: 'radio',
         dataType: 'boolean',
         dicData: [
@@ -329,7 +329,7 @@ module.exports = {
       {
         label: '涉及群体性',
         prop: 'involve_group',
-        span: 12,
+        span: 18,
         type: 'radio',
         dataType: 'boolean',
         dicData: [
@@ -358,7 +358,7 @@ module.exports = {
         column: [
           {
             label: '劳动合同约定的工作岗位',
-            span: 12,
+            span: 18,
             prop: 'job_name',
             mock: {
               type: 'string'
@@ -366,7 +366,7 @@ module.exports = {
           },
           {
             label: '劳动合同约定的工作地点',
-            span: 12,
+            span: 18,
             prop: 'job_work_place',
             mock: {
               type: 'string'
@@ -374,7 +374,7 @@ module.exports = {
           },
           {
             label: '劳动合同约定的工资数',
-            span: 12,
+            span: 18,
             prop: 'contract_wage',
             mock: {
               type: 'number'
@@ -382,7 +382,7 @@ module.exports = {
           },
           {
             label: '劳动合同约定的工资构成',
-            span: 12,
+            span: 18,
             prop: 'contract_wage_component',
             mock: {
               type: 'string'
@@ -420,7 +420,7 @@ module.exports = {
         column: [
           {
             label: '实发工资数',
-            span: 12,
+            span: 18,
             prop: 'wage',
             mock: {
               type: 'number'
@@ -428,7 +428,7 @@ module.exports = {
           },
           {
             label: '实发工资构成',
-            span: 12,
+            span: 18,
             prop: 'wage_component',
             mock: {
               type: 'string'
@@ -437,7 +437,7 @@ module.exports = {
           {
             label: '发放形式',
             prop: 'payment_type',
-            span: 12,
+            span: 18,
             type: 'radio',
             dataType: 'number',
             dicData: [
@@ -454,7 +454,7 @@ module.exports = {
           {
             label: '发放周期',
             prop: 'payment_cycle',
-            span: 12,
+            span: 18,
             type: 'radio',
             dataType: 'number',
             dicData: [
@@ -472,7 +472,7 @@ module.exports = {
             label: '最后一次支付工资时间',
             prop: 'last_payment',
             type: 'month',
-            span: 12,
+            span: 18,
             format: 'yyyy-MM',
             valueFormat: 'yyyy-MM',
             mock: {
@@ -482,7 +482,7 @@ module.exports = {
           },
           {
             label: '欠发工资数',
-            span: 12,
+            span: 18,
             prop: 'unpaid_wages',
             mock: {
               type: 'number'
@@ -497,7 +497,7 @@ module.exports = {
           },
           {
             label: '欠发加班费奖金',
-            span: 12,
+            span: 18,
             prop: 'overtime_bonus',
             mock: {
               type: 'number'
@@ -520,13 +520,13 @@ module.exports = {
             label: '劳动者（单位为月）',
             prop: 'laborer_time',
             type: 'number',
-            span: 12
+            span: 18
           },
           {
             label: '用人单位（单位为月）',
             prop: 'employer_time',
             type: 'number',
-            span: 12
+            span: 18
           }
         ]
       },
@@ -537,7 +537,7 @@ module.exports = {
           {
             label: '医疗费',
             prop: 'work_related_treatment_ylf',
-            span: 12,
+            span: 18,
             mock: {
               type: 'number'
             }
@@ -545,7 +545,7 @@ module.exports = {
           {
             label: '假肢安装费',
             prop: 'work_related_treatment_jzaz',
-            span: 12,
+            span: 18,
             mock: {
               type: 'number'
             }
@@ -553,7 +553,7 @@ module.exports = {
           {
             label: '住院期间伙食补助',
             prop: 'work_related_treatment_hsbz',
-            span: 12,
+            span: 18,
             mock: {
               type: 'number'
             }
@@ -561,7 +561,7 @@ module.exports = {
           {
             label: '交通费',
             prop: 'work_related_treatment_jt',
-            span: 12,
+            span: 18,
             mock: {
               type: 'number'
             }
@@ -569,7 +569,7 @@ module.exports = {
           {
             label: '陪护费',
             prop: 'work_related_treatment_ph',
-            span: 12,
+            span: 18,
             mock: {
               type: 'number'
             }
@@ -577,7 +577,7 @@ module.exports = {
           {
             label: '生活护理费',
             prop: 'work_related_treatment_shhl',
-            span: 12,
+            span: 18,
             mock: {
               type: 'number'
             }
@@ -586,7 +586,7 @@ module.exports = {
           {
             label: '伤残津贴',
             prop: 'work_related_treatment_scjt',
-            span: 12,
+            span: 18,
             mock: {
               type: 'number'
             }
@@ -594,7 +594,7 @@ module.exports = {
           {
             label: '一次性伤残补助金',
             prop: 'work_related_treatment_scbz',
-            span: 12,
+            span: 18,
             mock: {
               type: 'number'
             }
@@ -602,7 +602,7 @@ module.exports = {
           {
             label: '一次性工伤医疗补助金',
             prop: 'work_related_treatment_gsylbz',
-            span: 12,
+            span: 18,
             mock: {
               type: 'number'
             }
@@ -610,7 +610,7 @@ module.exports = {
           {
             label: '一次性伤残就业补助金',
             prop: 'work_related_treatment_scjybz',
-            span: 12,
+            span: 18,
             mock: {
               type: 'number'
             }
@@ -618,7 +618,7 @@ module.exports = {
           {
             label: '其他',
             prop: 'work_related_treatment_other',
-            span: 12,
+            span: 18,
             mock: {
               type: 'number'
             }
@@ -632,7 +632,7 @@ module.exports = {
           {
             label: '正常工作日加班小时',
             prop: 'normal_overtime',
-            span: 12,
+            span: 18,
             mock: {
               type: 'number'
             }
@@ -640,7 +640,7 @@ module.exports = {
           {
             label: '法定休息日加班小时',
             prop: 'statutory_rest',
-            span: 12,
+            span: 18,
             mock: {
               type: 'number'
             }
@@ -648,7 +648,7 @@ module.exports = {
           {
             label: '法定节假日加班小时',
             prop: 'statutory_holidays',
-            span: 12,
+            span: 18,
             mock: {
               type: 'number'
             }
@@ -656,7 +656,7 @@ module.exports = {
           {
             label: '加班工资计算基数',
             prop: 'overtime_wage_base',
-            span: 12,
+            span: 18,
             mock: {
               type: 'number'
             }
@@ -670,7 +670,7 @@ module.exports = {
           {
             label: '金额',
             prop: 'before_sever_labor_relationship_avg_wage',
-            span: 12,
+            span: 18,
             mock: {
               type: 'number'
             }
@@ -678,7 +678,7 @@ module.exports = {
           {
             label: '计算期间',
             prop: 'before_sever_labor_relationship_range',
-            span: 12,
+            span: 18,
             mock: {
               type: 'number'
             }
@@ -692,7 +692,7 @@ module.exports = {
           {
             label: '应休天数',
             prop: 'should_rest',
-            span: 12,
+            span: 18,
             mock: {
               type: 'number'
             }
@@ -700,7 +700,7 @@ module.exports = {
           {
             label: '实休天数',
             prop: 'real_rest',
-            span: 12,
+            span: 18,
             mock: {
               type: 'number'
             }
@@ -708,7 +708,7 @@ module.exports = {
           {
             label: '未休天数',
             prop: 'not_take_days',
-            span: 12,
+            span: 18,
             mock: {
               type: 'number'
             }
@@ -722,7 +722,7 @@ module.exports = {
           {
             label: '金额',
             prop: 'no_overtime_avg_wage',
-            span: 12,
+            span: 18,
             mock: {
               type: 'number'
             }
@@ -730,7 +730,7 @@ module.exports = {
           {
             label: '计算期间',
             prop: 'no_overtime_avg_wage_range',
-            span: 12,
+            span: 18,
             mock: {
               type: 'number'
             }
@@ -744,7 +744,7 @@ module.exports = {
           {
             label: '劳动者提出原因',
             prop: 'sever_labor_relationship_labor',
-            span: 12,
+            span: 18,
             mock: {
               type: 'number'
             }
@@ -752,7 +752,7 @@ module.exports = {
           {
             label: '用人单位提出原因',
             prop: 'sever_labor_relationship_employer',
-            span: 12,
+            span: 18,
             mock: {
               type: 'number'
             }
@@ -764,7 +764,7 @@ module.exports = {
       {
         label: '本表遗漏的其他项目',
         prop: 'other_information',
-        span: 12,
+        span: 18,
         type: 'string'
       }
     ]

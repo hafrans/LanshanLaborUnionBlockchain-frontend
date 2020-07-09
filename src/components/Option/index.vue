@@ -1,34 +1,29 @@
 <template>
   <el-row>
-    <el-col
-      :span="24"
-    ><div class="option">
-      <div class="content">
-        <div
-          v-for="(item, index) in sort"
-          :key="index"
-          class="entry"
-          :style="{ top: item.top, left: item.left }"
-        >
-          <div :id="idName[index]" class="round" @click="changCon(index)">
-            <el-image :src="item.pic" />
+    <el-col :span="24">
+      <div class="option">
+        <div class="content">
+          <div
+            v-for="(item, index) in sort"
+            :key="index"
+            class="entry"
+            :style="{ top: item.top, left: item.left }"
+          >
+            <div :id="idName[index]" class="round" @click="changCon(index)">
+              <el-image :src="item.pic" />
+            </div>
+            <div class="text">{{ item.text }}</div>
           </div>
-          <div class="text">{{ item.text }}</div>
         </div>
+        <el-dialog title="温馨提示" :visible.sync="dialogVisible" width="30%" center>
+          <p class="context">{{ text }}</p>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="goFormPage">确 定</el-button>
+          </span>
+        </el-dialog>
       </div>
-      <el-dialog
-        title="温馨提示"
-        :visible.sync="dialogVisible"
-        width="30%"
-        center
-      >
-        <p class="context">{{ text }}</p>
-        <span slot="footer" class="dialog-footer">
-          <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="goFormPage">确 定</el-button>
-        </span>
-      </el-dialog>
-    </div></el-col>
+    </el-col>
   </el-row>
   <!-- <div class="option">
     <div class="content">
@@ -56,7 +51,7 @@
         <el-button type="primary" @click="goFormPage">确 定</el-button>
       </span>
     </el-dialog>
-  </div> -->
+  </div>-->
 </template>
 
 <script>
@@ -90,50 +85,50 @@ export default {
         {
           pic: require("../../../public/img/insurance.png"),
           text: "社会保险",
-          top: "50px",
-          left: "450px"
+          top: "0%",
+          left: "35%"
         },
         {
           pic: require("../../../public/img/remuneration.png"),
           text: "劳动报酬",
-          top: "202px",
-          left: "250px"
+          top: "25%",
+          left: "15%"
         },
         {
           pic: require("../../../public/img/econ.png"),
           text: "经济补偿金",
-          top: "400px",
-          left: "400px"
+          top: "50%",
+          left: "35%"
         },
         {
           pic: require("../../../public/img/wage.png"),
           text: "双倍工资",
-          top: "580px",
-          left: "250px"
+          top: "75%",
+          left: "15%"
         },
         {
           pic: require("../../../public/img/inductrial_injury.png"),
           text: "工伤",
-          top: "30px",
-          left: "950px"
+          top: "0%",
+          left: "65%"
         },
         {
           pic: require("../../../public/img/compensation.png"),
           text: "赔偿金",
-          top: "230px",
-          left: "1150px"
+          top: "25%",
+          left: "85%"
         },
         {
           pic: require("../../../public/img/labor_relations.png"),
           text: "劳动关系",
-          top: "450px",
-          left: "1000px"
+          top: "50%",
+          left: "65%"
         },
         {
           pic: require("../../../public/img/other.png"),
           text: "其他",
-          top: "580px",
-          left: "1200px"
+          top: "75%",
+          left: "85%"
         }
       ]
     };
@@ -144,12 +139,10 @@ export default {
       this.dialogVisible = true;
     },
     goFormPage() {
-      this.$router.push(
-        "/newcase/newform"
-      );
+      this.$router.push("/newcase/newform");
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -158,8 +151,8 @@ export default {
 //   height: auto;
 // }
 .option {
-  width: 100vw;
-  height: 85vh;
+  width: 85%;
+  height: 75vh;
   display: flex;
   justify-content: center;
   // background-image: url("../../../public/img/bkg.png");
@@ -168,17 +161,19 @@ export default {
     text-indent: 2em;
   }
   .content {
-    // background-color: aqua;
     background-image: url("../../../public/img/bkg.png");
+    background-repeat: no-repeat;
+    background-size: 90%;
+    background-position: 45% 45%;
     width: 100%;
-    height: 90%;
-    margin: 30px 0;
+    height: 100%;
+    margin: 10px 0;
     position: relative;
     .entry {
       position: absolute;
       .round {
-        height: 8rem;
-        width: 8rem;
+        height: 7rem;
+        width: 7rem;
         border-radius: 50%;
         display: flex;
         align-items: center;

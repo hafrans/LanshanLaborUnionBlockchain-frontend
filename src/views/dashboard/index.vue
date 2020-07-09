@@ -11,7 +11,7 @@
       <div class="item active">
         <p>调解事项</p>
       </div>
-      <Option />
+      <Option style="margin:0 auto;" />
     </div>
     <Message v-if="false" />
   </div>
@@ -32,24 +32,26 @@ export default {
 
 <style lang="less" scoped>
 .home {
-  width: 100vw;
-  min-width: 1400px;
-  height: 100vh;
+  width: 100%;
+  min-width: 1366px;
+  max-width: 1366px;
+  height: 90vh;
+  margin: 0 auto;
+  position: relative;
   .main {
-    width: 100vw;
-    height: 100%;
+    position: relative;
+    height: 90%;
+    width:100%;
     .item {
-      width: 250px;
-      margin: 0 100px;
-      padding: 0 20px;
-      font-size: 26px;
+      width: 10rem;
+      margin: 0 50px;
+      font-size: 1.2rem;
       color: #000;
-      font-weight: 500;
+      font-weight: bold;
       text-align: center;
-      // border-bottom: 3px solid #104aaa;
       p {
-        height: 50px;
-        line-height: 50px;
+        height: 40px;
+        line-height: 40px;
       }
     }
     .active {
