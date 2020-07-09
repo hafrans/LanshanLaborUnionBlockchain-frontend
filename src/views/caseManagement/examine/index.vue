@@ -6,7 +6,7 @@
           slot="append"
           type="primary"
           icon="el-icon-search"
-          @click="search(searchText)"
+          @click="search()"
         >搜索</el-button>
       </el-input>
     </div>
@@ -16,7 +16,7 @@
         :data="allCase"
         :option="option"
       >
-        <template slot="menuLeft" slot-scope="scope">
+        <template slot="menuLeft">
           <el-button
             type="danger"
             icon="el-icon-plus"
@@ -149,6 +149,22 @@ export default {
       this.$router.push(
         "/newcase/newform"
       );
+    },
+    async search() {
+      await getCase({ caseId: this.searchText })
+        .then(res => {
+          this.allCase = [{ "applicant_name": "", "case_id": "", "title": "", "updated_at": "", "respondent_name": "" }]
+          this.allCase[0].applicant_name = res.data.applicant.applicant_name
+          this.allCase[0].case_id = res.data.case_id
+          this.allCase[0].title = res.data.title
+          this.allCase[0].updated_at = res.data.updated_at
+          this.allCase[0].respondent_name = res.data.respondent.employer_name
+        })
+        .catch(err => {
+          alert("未查到该案件的信息")
+          console.log(err)
+          this.text()
+        })
     }
 
   }
