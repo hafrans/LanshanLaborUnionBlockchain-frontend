@@ -39,7 +39,7 @@
             size="small"
             plain
             @click.stop="handleView(scope.row,scope.index)"
-          >查看</el-button>
+          > 案件追溯</el-button>
         </template>
       </avue-crud>
       <el-dialog title="案件表单" :visible.sync="dialogFormVisible" width="80%">
@@ -131,7 +131,7 @@ export default {
     async handleSubmit() {
       const res = await modifyForm({ id: this.id, data: this.infoData });
       if (res.message === "success") {
-        this.dialogFormVisible = true
+        this.dialogFormVisible = false
       } else {
         this.$message({
           message: '修改失败',

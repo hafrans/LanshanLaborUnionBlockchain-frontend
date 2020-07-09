@@ -9,7 +9,11 @@
         <p>4.本表的设计系针对一般劳动争议案件，有些内容可能与您的案件无关，您认为与案件无关的项目可以填“无”或不填；对于本表中勾选项可以在对应项选中；您认为另有重要内容未予列明的，可以在本表尾部填写。</p>
       </div>
     </div>
+<<<<<<< HEAD
     <el-form ref="form" :model="form" label-width="250px" :disabled="state">
+=======
+    <el-form ref="form" :model="form" label-width="300px" :disabled="state">
+>>>>>>> 5afaca4a745b84eba2190d0c0d86e28c9c65db12
       <el-form-item
         prop="main"
         label="主体性质"
@@ -667,10 +671,10 @@ export default {
   background-color: white;
   padding: 15px 30px;
   .title {
-    margin: 20px 1;
+    margin-bottom: 40px ;
     // background-color: thistle;
     width: 100%;
-    text-align: center;
+    // text-align: center;
     color: rgb(1, 157, 218);
     font-size: 2rem;
     font-weight: bold;

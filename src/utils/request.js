@@ -6,7 +6,7 @@ import { getToken } from '@/utils/auth'
 let baseURL = "http://fnl.vip.qydev.com/api"
 
 if (process.env.NODE_ENV === 'production') {
-  baseURL = "http://server.ls.dev.scanf.cc/api"
+  baseURL = "http://server.ls.dev.scanf.cc:8081/api"
 }
 
 // create an axios instance

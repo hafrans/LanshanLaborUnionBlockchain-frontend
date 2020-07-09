@@ -146,10 +146,24 @@
             <span>要素表查看</span>
           </div>
           <div v-if="caseid != ''">
-            <a href="javascript:void(0);">点击跳转查看</a>&nbsp;
-            <i class="el-icon-link" />
+            <!-- <a href="javascript:void(0);" onclick="goform()">点击跳转查看</a>&nbsp;
+            <i class="el-icon-link" /> -->
+            <el-button
+              type="primary"
+              icon="el-icon-view"
+              size="small"
+              plain
+              @click.stop="goform()"
+            >点击查看</el-button>
           </div>
           <div v-else style="text-aligin:center">加载中.....</div>
+          <el-dialog title="案件要素表" :visible.sync="dialogFormVisible" width="70%">
+            <avue-form
+              ref="form"
+              v-model="laborData"
+              :option="infolaborOption"
+            />
+          </el-dialog>
         </el-card>
         <el-card class="box-card">
           <div slot="header" class="clearfix">
@@ -232,6 +246,7 @@
 <script>
 import { getOneCase } from "@/api/case";
 import History from "@/components/history";
+import laborOption from '@/components/Componentform/option'
 export default {
   components: {
     History
@@ -245,12 +260,18 @@ export default {
   data: () => ({
     status: 1,
     caseid: "",
-    caseinfo: {}
+    caseinfo: {},
+    laborData: {},
+    infolaborOption: laborOption.option,
+    dialogFormVisible: false
   }),
   created() {
     this.loadCase();
   },
   methods: {
+    goform() {
+      this.dialogFormVisible = true
+    },
     loadCase() {
       this.$nextTick(() => {
         getOneCase({ id: this.id })
@@ -259,6 +280,7 @@ export default {
               // ok
               this.caseinfo = resp.data;
               this.caseid = resp.data.case_id;
+              this.laborData = resp.data.form;
               if (this.caseinfo.status === 0) {
                 this.status = 1;
               } else if (this.caseinfo.status === 1) {
