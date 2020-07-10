@@ -6,3 +6,8 @@ export function getCaptcha(params) {
     method: 'get'
   })
 }
+
+
+export function getBaseAddr(){
+  return process.env.NODE_ENV === 'production' ? "http://server.ls.dev.scanf.cc:8081" : "http://fnl.vip.qydev.com"
+}

@@ -16,6 +16,18 @@ const service = axios.create({
   timeout: 5000 // request timeout
 })
 
+
+// 不使用get 缓存
+// service.interceptors.request.use(config => {
+// 	if (/get/i.test(config.method)) { //判断get请求
+// 		config.params  =  config.params || {};
+// 		config.params.t = Date.parse(new Date())/1000; //添加时间戳
+// 	}
+//     return config;
+// }, error => {
+//     return Promise.reject(error);
+// })
+
 // request interceptor
 service.interceptors.request.use(
   config => {

@@ -1,7 +1,19 @@
-module.exports = {
+import { getBaseAddr } from "@/api/common";
+
+export default {
+  setUploadToken(token) {
+    this.option.group[2].column[0].headers = {
+      "Authorization": "Bearer " + token
+    }
+  },
+  form: {
+    // materials: [
+    //   { name: "Hello", path: "http://node-1.hafrans.com:888/phpmyadmin_62850a27bfb437c1/themes/pmahomme/img/logo_right.png" }
+    // ]
+  },
   option: {
     detail: false,
-    size: this.sizeValue,
+    size: "small",
     // mockBtn: true,
     labelWidth: 200,
     gutter: 150,
@@ -76,7 +88,7 @@ module.exports = {
       {
         label: '调解事实与理由',
         prop: 'content',
-        span: 16,
+        span: 24,
         rules: [
           {
             required: true,
@@ -85,7 +97,6 @@ module.exports = {
           }
         ]
       }
-
     ],
     group: [
       {
@@ -259,35 +270,43 @@ module.exports = {
         ]
       },
       {
-        label: '材料上传',
-        prop: 'materials',
+        label: '相关材料上传（最多5张图片）',
+        // prop: 'materialxs',
         icon: 'el-icon-edit-outline',
         column: [
-          {
-            label: '资料描述',
-            prop: 'name',
-            span: 12,
-            dataType: 'string',
-            rules: [
-              {
-                required: true,
-                message: '资料描述',
-                trigger: 'blur'
-              }
-            ]
-          },
+          // {
+          //   label: '资料描述',
+          //   prop: 'name',
+          //   span: 12,
+          //   dataType: 'string',
+          //   rules: [
+          //     {
+          //       required: true,
+          //       message: '资料描述',
+          //       trigger: 'blur'
+          //     }
+          //   ]
+          // },
           {
             label: '资料上传',
             prop: 'materials',
-            dataType: 'array',
-            type: 'upload',
-            propsHttp: {
-              res: 'data.0'
+            props: {
+              label: "name",
+              value: "path"
             },
+            type: 'upload',
+            listType: "picture-card",
             span: 24,
-            listType: 'picture-card',
-            tip: '只能上传jpg/png文件，且不超过500kb',
-            action: '/imgupload'
+            limit: 5,
+            tip: '只能上传jpg/png文件，且不超过2MiB，图片要保持清晰',
+            propsHttp: {
+              res: 'data',
+              name: 'filename',
+              url: 'path',
+              home: getBaseAddr(),
+            },
+            headers: {},
+            action: getBaseAddr() + "/api/v1/upload",
           }
         ]
       }

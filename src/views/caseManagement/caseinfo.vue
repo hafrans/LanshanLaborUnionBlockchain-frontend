@@ -146,8 +146,6 @@
             <span>要素表查看</span>
           </div>
           <div v-if="caseid != ''">
-            <!-- <a href="javascript:void(0);" onclick="goform()">点击跳转查看</a>&nbsp;
-            <i class="el-icon-link" /> -->
             <el-button
               type="primary"
               icon="el-icon-view"
@@ -158,11 +156,7 @@
           </div>
           <div v-else style="text-aligin:center">加载中.....</div>
           <el-dialog title="案件要素表" :visible.sync="dialogFormVisible" width="70%">
-            <avue-form
-              ref="form"
-              v-model="laborData"
-              :option="infolaborOption"
-            />
+            <avue-form v-model="caseinfo.form" :option="infolaborOption" />
           </el-dialog>
         </el-card>
         <el-card class="box-card">
@@ -175,7 +169,7 @@
               <el-table-column prop="name" label="材料名称" width="180" />
               <el-table-column label="材料路径" min-width="180">
                 <template #default="scope">
-                  <a :href="scope.row.path" target="_blank">点击跳转查看</a>&nbsp;
+                  <a :href="getTruePath(scope.row.path)" target="_blank">点击跳转查看</a>&nbsp;
                   <i class="el-icon-link" />
                 </template>
               </el-table-column>
@@ -246,7 +240,8 @@
 <script>
 import { getOneCase } from "@/api/case";
 import History from "@/components/history";
-import laborOption from '@/components/Componentform/option'
+import laborOption from "@/components/Componentform/option";
+import { getBaseAddr } from "@/api/common";
 export default {
   components: {
     History
@@ -269,8 +264,15 @@ export default {
     this.loadCase();
   },
   methods: {
+    getTruePath(path) {
+      if (path.indexOf("http://") == 0 || path.indexOf("https://") == 0) {
+        return path;
+      } else {
+        return getBaseAddr() + path;
+      }
+    },
     goform() {
-      this.dialogFormVisible = true
+      this.dialogFormVisible = true;
     },
     loadCase() {
       this.$nextTick(() => {
@@ -281,6 +283,7 @@ export default {
               this.caseinfo = resp.data;
               this.caseid = resp.data.case_id;
               this.laborData = resp.data.form;
+              console.log(resp.data);
               if (this.caseinfo.status === 0) {
                 this.status = 1;
               } else if (this.caseinfo.status === 1) {

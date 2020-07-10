@@ -1,9 +1,4 @@
 <template>
-
-  <!-- <el-container>
-    <el-header><Header></Header></el-header>
-    <el-main><Tab></Tab> <Option></Option></el-main>
-  </el-container> -->
   <div class="home">
     <!-- <Header /> -->
     <div class="main">
@@ -16,7 +11,6 @@
     <Message v-if="false" />
   </div>
 </template>
-
 <script>
 // import Header from "@/components/Header/index.vue";
 // import Tab from "@/components/Tab/index.vue";

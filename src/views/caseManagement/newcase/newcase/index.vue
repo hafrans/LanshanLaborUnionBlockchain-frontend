@@ -1,52 +1,54 @@
 <template>
   <div class="form">
-    <div class="title">
-      案件申请调解表
-    </div>
+    <div class="title">案件申请调解表</div>
     <!-- <el-button style="margin-left: 20px" @click="handle">编辑</el-button> -->
     <!-- <el-button v-if="option.detail" style="margin-left: 20px" type="primary" @click="goform">请点击创建案件要素表</el-button> -->
     <avue-form ref="form" v-model="obj" :option="option" @submit="handleSubmit" />
     <el-dialog :visible.sync="dialogVisible">
-      <img width="100%" :src="dialogImageUrl" alt="">
+      <img width="100%" :src="dialogImageUrl" alt />
     </el-dialog>
   </div>
 </template>
 
 <script>
-import Data from './elements.js'
+import Data from "./elements.js";
 import { createNewCases, getFormExm } from "@/api/case";
+import { mapGetters, mapState } from "vuex";
 export default {
   data() {
     return {
-      dialogImageUrl: '',
+      dialogImageUrl: "",
       dialogVisible: false,
       option: Data.option,
-      labor: '',
+      labor: "",
       type: 0,
       obj: {
+        materials: [
+          // {
+          //   name: "Hello",
+          //   path:
+          //     "/static/2020/7/9/MTExMUFMT0hB5Y2P6K6u77ya5pWw5o2u5rqQ6KGM5Li6LnBuZw==.png"
+          // }
+        ]
       },
-      // upload: { form_id: this.$route.query.laborId,
-      //   applicant: { applicant_name: this.obj.applicant_name, applicant_birth: this.obj.applicant_birth, applicant_nationality: this.obj.applicant_nationality, applicant_id: this.obj.applicant_id, applicant_contact: this.obj.applicant_id, applicant_name: this.obj.applicant_name, applicant_nationality: this.obj.applicant_nationality },
-      //   category_id: this.obj.category_id,
-      //   content: this.obj.content,
-      //   materials: [{ name: this.obj.name, path: this.obj.path }],
-      //   respondent: { employer_name: this.obj.employer_name, employer_faren: this.obj.employer_faren, employer_uscc: this.obj.employer_uscc, employer_contact: this.obj.employer_contact, employer_address: this.obj.employer_address },
-      //   title: this.obj.title
-      // },
-      sizeValue: ''
-
-    }
+      sizeValue: ""
+    };
   },
   computed: {
     title() {
-      return this.type === 0 ? '编辑' : ''
-    }
+      return this.type === 0 ? "编辑" : "";
+    },
+    ...mapState({
+      token: state => state.user.token
+    })
   },
   created() {
     this.labor = this.$route.query.laborId;
-    console.log("labor", this.labor)
-    // console.log(Data)
-    this.text()
+    console.log("labor", this.labor);
+    Data.setUploadToken(this.token);
+    this.text();
+    this.option = Data.option;
+    console.log(Data);
   },
   methods: {
     // goform() {
@@ -54,70 +56,75 @@ export default {
     // },
     handle() {
       if (this.type === 1) {
-        this.option.detail = true
+        this.option.detail = true;
       } else {
-        this.option.detail = false
+        this.option.detail = false;
       }
     },
     handleSubmit() {
       this.$refs.form.validate(vaild => {
         if (vaild) {
-          if (this.labor === '') {
+          if (this.labor === "") {
             this.$message({
-              message: '请先填写并提交案件要素表',
+              message: "请先填写并提交案件要素表",
               type: '"warning"'
-            })
-            return
+            });
+            return;
           }
 
           // console.log("labor", labor)
-          this.postForm()
+          this.postForm();
         } else {
           this.$message({
-            message: '请填写必填项',
+            message: "请填写必填项",
             type: '"warning"'
-          })
-          return false
+          });
+          return false;
         }
-      })
+      });
     },
     async postForm() {
       // var timestamp = (new Date()).getTime();
-      console.log("this.obj", upload)
-      const upload = { form_id: this.$route.query.laborId,
-        applicant: { applicant_name: this.obj.applicant_name,
+      console.log("this.obj", upload);
+      const upload = {
+        form_id: this.$route.query.laborId,
+        applicant: {
+          applicant_name: this.obj.applicant_name,
           applicant_birth: this.obj.applicant_birth,
           applicant_nationality: this.obj.applicant_nationality,
           applicant_id: this.obj.applicant_id,
           applicant_contact: this.obj.applicant_contact,
-          applicant_address: this.obj.applicant_address },
+          applicant_address: this.obj.applicant_address
+        },
         category_id: this.obj.category_id,
         content: this.obj.content,
         materials: [{ name: this.obj.name, path: this.obj.path }],
-        respondent: { employer_name: this.obj.employer_name,
+        respondent: {
+          employer_name: this.obj.employer_name,
           employer_faren: this.obj.employer_faren,
           employer_uscc: this.obj.employer_uscc,
           employer_contact: this.obj.employer_contact,
-          employer_address: this.obj.employer_address },
+          employer_address: this.obj.employer_address
+        },
         title: this.obj.title
       };
       const res = await createNewCases(upload);
       if (res.message === "success") {
         // console.log("44444444444444", res.case_id)
-        this.$alert(res.data.case_id, '请记录案件号方便之后查询', {
-          confirmButtonText: '确定',
+        this.$alert(res.data.case_id, "请记录案件号方便之后查询", {
+          confirmButtonText: "确定",
           callback: action => {
             this.$router.push({
               path: "/examine"
-            })
+            });
           }
         });
         // this.option.detail = true
       } else {
         this.$message({
-          message: '请按正确格式填写',
-          type: 'warning'
-        })
+          message: "请按正确格式填写",
+          type: "warning"
+        });
       }
       console.log("0000000", res);
     },
@@ -125,9 +132,34 @@ export default {
       const text = await getFormExm();
       this.objText = text.data;
       console.log(this.objText);
+    },
+    /// post
+    uploadDelete(column, file) {
+      console.log(column, file);
+      return this.$confirm(`这里是自定义的，是否确定移除该选项？`);
+    },
+    uploadBefore(file, done, loading, column) {
+      console.log("上传前", file, column);
+      //如果你想修改file文件,由于上传的file是只读文件，必须复制新的file才可以修改名字，完后赋值到done函数里,如果不修改的话直接写done()即
+      done();
+      this.$message.success("上传前的方法");
+    },
+    uploadError(error, column) {
+      this.$message.success("上传失败");
+      console.log(error, column);
+    },
+    uploadAfter(res, done, loading, column) {
+      console.log("上传后", res, column);
+      done();
+      this.$message.success("上传后的方法");
+    },
+    uploadPreview(file, column, done) {
+      console.log(file, column);
+      done(); //默认执行打开方法
+      this.$message.success("自定义查看方法,查看控制台");
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
