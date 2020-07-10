@@ -139,11 +139,8 @@ export default {
         });
       }
     },
-    handleView() {
-      this.$router.push(
-        "/caseManagement/view/1"
-        // query: { id: this.id }
-      )
+    handleView(row,index) {
+      this.$router.push("caseManagement/view/" + row.id )
     },
     handleAdd() {
       this.$router.push(
