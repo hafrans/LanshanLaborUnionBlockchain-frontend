@@ -90,11 +90,16 @@ export default {
         delBtn: false,
         column: [
           {
-            label: '姓名',
-            prop: 'applicant_name'
-          }, {
             label: '案件号码',
             prop: 'case_id'
+          },
+          {
+            label: '申诉人姓名',
+            prop: 'applicant_name'
+          },
+          {
+            label: '创建时间',
+            prop: 'created_at'
           },
           {
             label: '调解事项',
