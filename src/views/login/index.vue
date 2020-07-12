@@ -1,19 +1,24 @@
 <template>
   <div class="login-container">
     <div class="top">
-      <img src="../../../public/img/logo.png" alt="">
+      <img src="../../../public/img/logo.png" alt="logo" />
       <p class="name">岚山区总工会区块链共享平台</p>
       <div class="registered">
-        <el-button
-          style="width:100%;margin-bottom:30px;"
-          @click="goRegistered"
-        >{{ regtext }}</el-button>
+        <el-button style="width:100%;margin-bottom:30px;" @click="goRegistered">{{ regtext }}</el-button>
       </div>
     </div>
     <div v-if="clickReg" class="regist">
       <el-tabs type="border-card">
         <el-tab-pane label="用人单位账号注册">
-          <el-form ref="ruleForm" :model="ruleForm" status-icon :rules="rules" label-width="170px" class="ruleForm">
+          <el-form
+            ref="ruleForm"
+            :model="ruleForm"
+            status-icon
+            :rules="rules"
+            label-width="150px"
+            class="ruleForm"
+            size="small"
+          >
             <el-form-item label="用人单位地址" prop="employer_address">
               <el-input v-model="ruleForm.employer.employer_address" />
             </el-form-item>
@@ -46,10 +51,17 @@
               <el-button type="primary" @click="employer('ruleForm')">注册</el-button>
             </el-form-item>
           </el-form>
-
         </el-tab-pane>
         <el-tab-pane label="劳动者账号注册">
-          <el-form ref="laborForm" :model="laborForm" status-icon :rules="rules" label-width="170px" class="laborForm">
+          <el-form
+            ref="laborForm"
+            :model="laborForm"
+            status-icon
+            :rules="rules"
+            label-width="100px"
+            class="laborForm"
+            size="small"
+          >
             <el-form-item label="地址" prop="applicant_address">
               <el-input v-model="laborForm.applicant.applicant_address" />
             </el-form-item>
@@ -72,7 +84,7 @@
             <el-form-item label="姓名" prop="applicant_name">
               <el-input v-model="laborForm.applicant.applicant_name" />
             </el-form-item>
-            <el-form-item label="国籍" prop="applicant_nationality">
+            <el-form-item label="民族" prop="applicant_nationality">
               <el-input v-model="laborForm.applicant.applicant_nationality" />
             </el-form-item>
 
@@ -107,19 +119,22 @@
     <el-tab-pane label="普通用户" name="first">普通用户</el-tab-pane>
     <el-tab-pane label="职能部门" name="second">职能部门</el-tab-pane>
     <el-tab-pane label="管理员" name="third">管理员</el-tab-pane>
-  </el-tabs> -->
+          </el-tabs>-->
           <div class="menuList">
             <ul>
-              <li v-for="(item,index) in list" :key="item.id" :class="{active:num==index}" @click="getNum(index)">
-                {{ item }}
-              </li>
+              <li
+                v-for="(item,index) in list"
+                :key="item.id"
+                :class="{active:num==index}"
+                @click="getNum(index)"
+              >{{ item }}</li>
             </ul>
           </div>
           <!--     <div class="tabCon">
       <div v-for='(itemCon,index) in tabContents' v-show="index == num">
         {{itemCon}}
       </div>
-    </div> -->
+          </div>-->
         </div>
 
         <el-form-item prop="phone">
@@ -182,10 +197,10 @@
           @click.native.prevent="handleLogin"
         >Login</el-button>
 
-        <div class="tips">
+        <!-- <div class="tips">
           <span style="margin-right:20px;">username: admin</span>
           <span>password: any</span>
-        </div>
+        </div> -->
       </el-form>
     </div>
   </div>
@@ -203,20 +218,20 @@ export default {
   },
   data() {
     const validatePass = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入密码'));
+      if (value === "") {
+        callback(new Error("请输入密码"));
       } else {
-        if (this.ruleForm.checkPass !== '') {
-          this.$refs.ruleForm.validateField('checkPass');
+        if (this.ruleForm.checkPass !== "") {
+          this.$refs.ruleForm.validateField("checkPass");
         }
         callback();
       }
     };
     const validatePass2 = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请再次输入密码'));
+      if (value === "") {
+        callback(new Error("请再次输入密码"));
       } else if (value !== this.ruleForm.pass) {
-        callback(new Error('两次输入密码不一致!'));
+        callback(new Error("两次输入密码不一致!"));
       } else {
         callback();
       }
@@ -237,7 +252,7 @@ export default {
     };
 
     const validateCaptcha = (rule, value, callback) => {
-      console.log(value)
+      console.log(value);
       if (value.length !== 6) {
         callback(new Error("验证码长度必须为6"));
       } else {
@@ -250,13 +265,13 @@ export default {
       regtext: "注册账号",
       pickerOptions0: {
         disabledDate(time) {
-          return time.getTime() > Date.now();// 如果没有后面的-8.64e6就是不可以选择今天的
+          return time.getTime() > Date.now(); // 如果没有后面的-8.64e6就是不可以选择今天的
         }
       },
       laborForm: {
-        password: '',
-        confirm_password: '',
-        phone: '',
+        password: "",
+        confirm_password: "",
+        phone: "",
         email: "",
         applicant: {
           applicant_address: "",
@@ -267,9 +282,10 @@ export default {
           applicant_nationality: ""
         }
       },
-      ruleForm: { password: '',
-        confirm_password: '',
-        phone: '',
+      ruleForm: {
+        password: "",
+        confirm_password: "",
+        phone: "",
         email: "",
         employer: {
           employer_address: "",
@@ -277,7 +293,8 @@ export default {
           employer_faren: "",
           employer_name: "",
           employer_uscc: ""
-        }},
+        }
+      },
       rules: {
         // employer_address: [{ required: true, message: '请输入活动名称', trigger: 'blur' }],
         // employer_contact: [{ required: true, trigger: "blur" }],
@@ -291,16 +308,14 @@ export default {
         // applicant_name: [{ required: true, trigger: "blur" }],
         // applicant_nationality: [{ required: true, trigger: "blur" }],
         password: [
-          { validator: validatePass, trigger: 'blur' },
-          { min: 4, message: '长度最少4字符', trigger: 'blur' }
+          { validator: validatePass, trigger: "blur" },
+          { min: 4, message: "长度最少4字符", trigger: "blur" }
         ],
         confirm_password: [
-          { validator: validatePass2, trigger: 'blur' },
-          { min: 4, message: '长度最少4字符', trigger: 'blur' }
+          { validator: validatePass2, trigger: "blur" },
+          { min: 4, message: "长度最少4字符", trigger: "blur" }
         ],
-        phone: [
-          { validator: validatePhone, trigger: 'blur' }
-        ]
+        phone: [{ validator: validatePhone, trigger: "blur" }]
       },
       clickReg: false,
       loginForm: {
@@ -337,15 +352,15 @@ export default {
       this.num = index;
     },
     employer(formName) {
-      this.employeRegistered()
-      this.$refs[formName].validate((valid) => {
+      this.employeRegistered();
+      this.$refs[formName].validate(valid => {
         if (valid) {
-          this.employeRegistered()
-          this.clickReg = false
+          this.employeRegistered();
+          this.clickReg = false;
         } else {
           this.$message({
-            message: '请填写所有内容',
-            type: 'warning'
+            message: "请填写所有内容",
+            type: "warning"
           });
           return false;
         }
@@ -353,18 +368,18 @@ export default {
     },
     async employeRegistered() {
       const text = await employerReg(this.ruleForm);
-      console.log("employeRegistered", text)
+      console.log("employeRegistered", text);
     },
     labor(formName) {
-      this.laborRegistered()
-      this.$refs[formName].validate((valid) => {
+      this.laborRegistered();
+      this.$refs[formName].validate(valid => {
         if (valid) {
-          this.employeRegistered()
-          this.clickReg = false
+          this.employeRegistered();
+          this.clickReg = false;
         } else {
           this.$message({
-            message: '请填写所有内容',
-            type: 'warning'
+            message: "请填写所有内容",
+            type: "warning"
           });
           return false;
         }
@@ -374,15 +389,15 @@ export default {
       const text = await laborReg(this.laborForm);
       if (text.message !== "注册成功") {
         this.$message({
-          message: '请填写所有内容',
-          type: 'warning'
+          message: "请填写所有内容",
+          type: "warning"
         });
       }
-      console.log("laborRegistered", text)
+      console.log("laborRegistered", text);
     },
     goRegistered() {
-      this.clickReg = !this.clickReg
-      this.regtext = this.clickReg ? "返回" : "点击注册"
+      this.clickReg = !this.clickReg;
+      this.regtext = this.clickReg ? "返回" : "点击注册";
     },
     showPwd() {
       if (this.passwordType === "password") {
@@ -439,32 +454,32 @@ $cursor: #283443;
 
 /* reset element-ui css */
 .login-container {
-   background-image: url("../../../public/img/loginbkg.png");
+  background-image: url("../../../public/img/loginbkg.png");
   //  opacity:0.7;
-  background-repeat:no-repeat;
-   background-size:100% 100%;
-   .regist {
-     width: 35%;
-     margin: 0 auto;
-   }
-   .top {
-     padding: 30px  80px;
-     display: flex;
-     height: 100px;
-     align-items: center;
-     position: relative;
-     .registered {
-       position: absolute;
-       right: 100px;
-       top: 30px;
-     };
-     p {
-       padding:20px;
-        color: #fff;
-        font-size: 24px;
-        font-weight: 600;
-      }
-   }
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  .regist {
+    width: 35%;
+    margin: 0 auto;
+  }
+  .top {
+    padding: 30px 80px;
+    display: flex;
+    height: 100px;
+    align-items: center;
+    position: relative;
+    .registered {
+      position: absolute;
+      right: 100px;
+      top: 30px;
+    }
+    p {
+      padding: 20px;
+      color: #fff;
+      font-size: 24px;
+      font-weight: 600;
+    }
+  }
   .el-input {
     display: inline-block;
     height: 47px;
@@ -505,44 +520,43 @@ $bg: #2d3a4b;
 $dark_gray: #889aa4;
 $light_gray: #eee;
 
-    .active {
-      color: #fff;
-      background: #18B3C3;
-    }
+.active {
+  color: #fff;
+  background: #18b3c3;
+}
 .menuList {
-      width: 100%;
-      height: 60px;
-      background-color:   rgb(64,82,148);
-      margin-bottom: 15px;
-    }
+  width: 100%;
+  height: 60px;
+  background-color: rgb(64, 82, 148);
+  margin-bottom: 15px;
+}
 
-    ul {
-      width: 100%;
-      display: flex;
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      color: #fff;
-      font-weight: bold;
-      font-size: 16px;
-      line-height: 60px;
+ul {
+  width: 100%;
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 60px;
+}
 
-    }
+ul li {
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+}
 
-    ul li {
-      flex: 1;
-      text-align: center;
-      cursor: pointer;
-    }
-
-    .tabCon {
-      width: 700px;
-      margin: 0 auto;
-      padding: 40px 20px;
-      color: #999;
-      font-size: 14px;
-      background-color: #fff;
-    }
+.tabCon {
+  width: 700px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  color: #999;
+  font-size: 14px;
+  background-color: #fff;
+}
 
 .login-container {
   min-height: 100%;
@@ -552,9 +566,11 @@ $light_gray: #eee;
 
   .login-form {
     position: relative;
-    width: 520px;
+    width: 420px;
     max-width: 100%;
-    padding: 160px 35px 0;
+    left: 20%;
+    top: 5%;
+    // padding: 160px 35px 0;
     margin: 0 auto;
     overflow: hidden;
   }
