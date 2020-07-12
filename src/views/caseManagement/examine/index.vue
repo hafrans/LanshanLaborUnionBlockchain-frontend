@@ -79,7 +79,7 @@ export default {
       laborData: {},
       infoData: {},
       searchText: '',
-      allCase: '',
+      allCase: [],
       id: '',
       option: {
         align: 'center',

@@ -93,8 +93,8 @@
         />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="handleChangeMail">Change Email</el-button>
-        <el-button @click="cancelMail">Cancel</el-button>
+        <el-button type="primary" @click="handleChangeMail">确认修改</el-button>
+        <el-button @click="cancelMail">取消修改</el-button>
       </el-form-item>
     </el-form>
 
@@ -116,7 +116,12 @@ export default {
       }
     };
     const validatePhone = (rule, value, callback) => {
-      callback()
+      const reg = /^1[0-9]{10}$/;
+      if (reg.test(value)) {
+        callback();
+      } else {
+        callback(new Error("手机格式不正确"));
+      }
     };
 
     return {
