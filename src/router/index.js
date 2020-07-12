@@ -127,6 +127,12 @@ export const constantRoutes = [
         meta: { title: '查看案件', icon: 'el-icon-search' }
       },
       {
+        path: '/casetrace',
+        name: 'Casetrace',
+        component: () => import('@/views/caseManagement/caseTrace/index'),
+        meta: { title: '案件追溯', icon: 'el-icon-set-up' }
+      },
+      {
         name: "viewcase",
         path: "view/:id",
         props: true,

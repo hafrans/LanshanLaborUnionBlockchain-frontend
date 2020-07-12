@@ -182,10 +182,10 @@
           @click.native.prevent="handleLogin"
         >Login</el-button>
 
-      <!-- <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
-        <span>password: any</span>
-      </div>-->
+        <div class="tips">
+          <span style="margin-right:20px;">username: admin</span>
+          <span>password: any</span>
+        </div>
       </el-form>
     </div>
   </div>
@@ -334,11 +334,8 @@ export default {
   },
   methods: {
     getNum(index) {
-          this.num = index;
-        },
-    tabHandleClick(tab, event) {
-        console.log(tab, event);
-      },
+      this.num = index;
+    },
     employer(formName) {
       this.employeRegistered()
       this.$refs[formName].validate((valid) => {
@@ -443,6 +440,7 @@ $cursor: #283443;
 /* reset element-ui css */
 .login-container {
    background-image: url("../../../public/img/loginbkg.png");
+  //  opacity:0.7;
   background-repeat:no-repeat;
    background-size:100% 100%;
    .regist {

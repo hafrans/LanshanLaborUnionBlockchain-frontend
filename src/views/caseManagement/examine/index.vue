@@ -39,7 +39,7 @@
             size="small"
             plain
             @click.stop="handleView(scope.row,scope.index)"
-          > 案件追溯</el-button>
+          > 案件详情</el-button>
         </template>
       </avue-crud>
       <el-dialog title="案件表单" :visible.sync="dialogFormVisible" width="80%">
@@ -90,11 +90,16 @@ export default {
         delBtn: false,
         column: [
           {
-            label: '姓名',
-            prop: 'applicant_name'
-          }, {
             label: '案件号码',
             prop: 'case_id'
+          },
+          {
+            label: '申诉人姓名',
+            prop: 'applicant_name'
+          },
+          {
+            label: '创建时间',
+            prop: 'created_at'
           },
           {
             label: '调解事项',
@@ -139,8 +144,8 @@ export default {
         });
       }
     },
-    handleView(row,index) {
-      this.$router.push("caseManagement/view/" + row.id )
+    handleView(row, index) {
+      this.$router.push("caseManagement/view/" + row.id)
     },
     handleAdd() {
       this.$router.push(
@@ -170,7 +175,6 @@ export default {
 
 <style lang="less" scoped>
 .app-container {
-
   .input {
     width: 500px;
   }
