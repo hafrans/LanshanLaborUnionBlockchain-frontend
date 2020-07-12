@@ -103,6 +103,11 @@
       >
         <div class="title-container">
           <h3 class="title">统一用户登录</h3>
+            <el-tabs v-model="tabActiveName" @tab-click="tabHandleClick">
+    <el-tab-pane label="普通用户" name="first">普通用户</el-tab-pane>
+    <el-tab-pane label="职能部门" name="second">职能部门</el-tab-pane>
+    <el-tab-pane label="管理员" name="third">管理员</el-tab-pane>
+  </el-tabs>
         </div>
 
         <el-form-item prop="phone">
@@ -228,6 +233,7 @@ export default {
       }
     };
     return {
+      tabActiveName: 'first',
       regtext: "注册账号",
       pickerOptions0: {
         disabledDate(time) {
@@ -314,6 +320,9 @@ export default {
     }
   },
   methods: {
+    tabHandleClick(tab, event) {
+        console.log(tab, event);
+      },
     employer(formName) {
       this.employeRegistered()
       this.$refs[formName].validate((valid) => {

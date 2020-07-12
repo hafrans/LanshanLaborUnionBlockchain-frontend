@@ -3,10 +3,10 @@
 
     <!-- <div class="dashboard-text">name: {{ name }}</div> -->
     <el-form>
-      <el-form-item label="User name">
+      <el-form-item label="用户名">
         {{ name }}
       </el-form-item>
-      <el-form-item label="User mail">
+      <el-form-item label="用户邮箱">
         {{ email }}
       </el-form-item></el-form>
     <!-- <el-form ref="changePassForm" :model="changePassForm" :rules="changePassRules" label-width="120px">

@@ -67,8 +67,8 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="handleChangePass">Change Password</el-button>
-        <el-button @click="cancelPass">Cancel</el-button>
+        <el-button type="primary" @click="handleChangePass">修改密码</el-button>
+        <el-button @click="cancelPass">取消修改</el-button>
       </el-form-item>
 
     </el-form>
