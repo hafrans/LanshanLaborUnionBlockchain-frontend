@@ -103,19 +103,19 @@
       >
         <div class="title-container">
           <h3 class="title">统一用户登录</h3>
-            <!-- <el-tabs v-model="tabActiveName" @tab-click="tabHandleClick">
+          <!-- <el-tabs v-model="tabActiveName" @tab-click="tabHandleClick">
     <el-tab-pane label="普通用户" name="first">普通用户</el-tab-pane>
     <el-tab-pane label="职能部门" name="second">职能部门</el-tab-pane>
     <el-tab-pane label="管理员" name="third">管理员</el-tab-pane>
   </el-tabs> -->
-  <div class="menuList">
-      <ul>
-        <li v-for="(item,index) in list" :key="item.id" :class="{active:num==index}" @click="getNum(index)">
-          {{item}}
-        </li>
-      </ul>
-    </div>
-<!--     <div class="tabCon">
+          <div class="menuList">
+            <ul>
+              <li v-for="(item,index) in list" :key="item.id" :class="{active:num==index}" @click="getNum(index)">
+                {{ item }}
+              </li>
+            </ul>
+          </div>
+          <!--     <div class="tabCon">
       <div v-for='(itemCon,index) in tabContents' v-show="index == num">
         {{itemCon}}
       </div>
@@ -512,7 +512,7 @@ $light_gray: #eee;
 .menuList {
       width: 100%;
       height: 60px;
-      background-color:   #778899;
+      background-color:   rgb(64,82,148);
       margin-bottom: 15px;
     }
 
@@ -523,6 +523,7 @@ $light_gray: #eee;
       padding: 0;
       margin: 0;
       color: #fff;
+      font-weight: bold;
       font-size: 16px;
       line-height: 60px;
 
