@@ -103,11 +103,23 @@
       >
         <div class="title-container">
           <h3 class="title">统一用户登录</h3>
-            <el-tabs v-model="tabActiveName" @tab-click="tabHandleClick">
+            <!-- <el-tabs v-model="tabActiveName" @tab-click="tabHandleClick">
     <el-tab-pane label="普通用户" name="first">普通用户</el-tab-pane>
     <el-tab-pane label="职能部门" name="second">职能部门</el-tab-pane>
     <el-tab-pane label="管理员" name="third">管理员</el-tab-pane>
-  </el-tabs>
+  </el-tabs> -->
+  <div class="menuList">
+      <ul>
+        <li v-for="(item,index) in list" :key="item.id" :class="{active:num==index}" @click="getNum(index)">
+          {{item}}
+        </li>
+      </ul>
+    </div>
+<!--     <div class="tabCon">
+      <div v-for='(itemCon,index) in tabContents' v-show="index == num">
+        {{itemCon}}
+      </div>
+    </div> -->
         </div>
 
         <el-form-item prop="phone">
@@ -233,7 +245,8 @@ export default {
       }
     };
     return {
-      tabActiveName: 'first',
+      num: 0,
+      list: ["普通用户", "职能部门", "管理员"],
       regtext: "注册账号",
       pickerOptions0: {
         disabledDate(time) {
@@ -320,6 +333,9 @@ export default {
     }
   },
   methods: {
+    getNum(index) {
+          this.num = index;
+        },
     tabHandleClick(tab, event) {
         console.log(tab, event);
       },
@@ -490,6 +506,44 @@ $cursor: #283443;
 $bg: #2d3a4b;
 $dark_gray: #889aa4;
 $light_gray: #eee;
+
+    .active {
+      color: #fff;
+      background: #18B3C3;
+    }
+.menuList {
+      width: 100%;
+      height: 60px;
+      background-color:   #778899;
+      margin-bottom: 15px;
+    }
+
+    ul {
+      width: 100%;
+      display: flex;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      color: #fff;
+      font-size: 16px;
+      line-height: 60px;
+
+    }
+
+    ul li {
+      flex: 1;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .tabCon {
+      width: 700px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      color: #999;
+      font-size: 14px;
+      background-color: #fff;
+    }
 
 .login-container {
   min-height: 100%;
