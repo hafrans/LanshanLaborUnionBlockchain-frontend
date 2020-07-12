@@ -5,7 +5,7 @@
     <!-- <el-button v-if="option.detail" style="margin-left: 20px" type="primary" @click="goform">请点击创建案件要素表</el-button> -->
     <avue-form ref="form" v-model="obj" :option="option" @submit="handleSubmit" />
     <el-dialog :visible.sync="dialogVisible">
-      <img width="100%" :src="dialogImageUrl" alt />
+      <img width="100%" :src="dialogImageUrl" alt>
     </el-dialog>
   </div>
 </template>
@@ -133,14 +133,14 @@ export default {
       this.objText = text.data;
       console.log(this.objText);
     },
-    /// post
+    // / post
     uploadDelete(column, file) {
       console.log(column, file);
       return this.$confirm(`这里是自定义的，是否确定移除该选项？`);
     },
     uploadBefore(file, done, loading, column) {
       console.log("上传前", file, column);
-      //如果你想修改file文件,由于上传的file是只读文件，必须复制新的file才可以修改名字，完后赋值到done函数里,如果不修改的话直接写done()即
+      // 如果你想修改file文件,由于上传的file是只读文件，必须复制新的file才可以修改名字，完后赋值到done函数里,如果不修改的话直接写done()即
       done();
       this.$message.success("上传前的方法");
     },
@@ -155,7 +155,7 @@ export default {
     },
     uploadPreview(file, column, done) {
       console.log(file, column);
-      done(); //默认执行打开方法
+      done(); // 默认执行打开方法
       this.$message.success("自定义查看方法,查看控制台");
     }
   }

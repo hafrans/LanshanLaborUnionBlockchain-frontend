@@ -4,6 +4,7 @@ import store from '@/store'
 import { getToken } from '@/utils/auth'
 
 let baseURL = "http://fnl.vip.qydev.com/api"
+// let baseURL = "http://server.ls.dev.scanf.cc:8081/api"
 
 if (process.env.NODE_ENV === 'production') {
   baseURL = "http://server.ls.dev.scanf.cc:8081/api"
@@ -15,7 +16,6 @@ const service = axios.create({
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000 // request timeout
 })
-
 
 // 不使用get 缓存
 // service.interceptors.request.use(config => {
