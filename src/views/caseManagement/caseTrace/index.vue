@@ -2,8 +2,8 @@
   <div calss="app-container">
     <el-container>
       <el-header>
-        <div class="input" style="width: 50%">
-          <el-input v-model="searchText" placeholder="请输入案件号搜索案件" size="medium">
+        <div class="input" style="width: 80%">
+          <el-input v-model="searchText" placeholder="请输入案件号搜索案件" size="large">
             <el-button
               slot="append"
               type="primary"
@@ -80,7 +80,13 @@ export default {
   components: {
 
   },
-
+  props:{
+    caseId: {
+      type: String,
+      required: false,
+      default: '3711002020070715200515941064056154995'
+    }
+  },
   data() {
     return {
       searchText: '3711002020070715200515941064056154995',
@@ -89,7 +95,8 @@ export default {
     }
   },
   created() {
-    this.loadHistory();
+    this.searchText = this.caseId
+    this.loadHistory()
     this.getOneCase()
   },
   methods: {

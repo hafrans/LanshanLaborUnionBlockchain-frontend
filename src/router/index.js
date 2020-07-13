@@ -62,7 +62,7 @@ export const constantRoutes = [
     path: '/user',
     component: Layout,
     redirect: '/user/showinfo',
-    meta: { title: '用户信息管理', icon: 'dashboard' },
+    meta: { title: '用户信息管理', icon: 'el-icon-user-solid' },
     children: [
       {
         path: '/showinfo',
@@ -74,7 +74,7 @@ export const constantRoutes = [
         path: '/updateinfo',
         name: 'updateinfo',
         component: () => import('@/views/user/updateinfo/index'),
-        meta: { title: '用户信息修改', icon: 'el-icon-folder-add' },
+        meta: { title: '用户信息修改', icon: 'el-icon-s-tools' },
         children: [
           {
             path: 'changepass',
@@ -97,13 +97,13 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/caseManagement/newcase',
     name: '案件管理',
-    meta: { title: '案件管理', icon: 'el-icon-s-help' },
+    meta: { title: '案件管理', icon: 'el-icon-s-order' },
     children: [
       {
         path: '/newcase',
         name: 'newCase',
         component: () => import('@/views/caseManagement/newcase/index'),
-        meta: { title: '创建新案件', icon: 'el-icon-folder-add' },
+        meta: { title: '创建新案件', icon: 'el-icon-circle-plus' },
         children: [
           {
             path: 'newform',
@@ -124,13 +124,19 @@ export const constantRoutes = [
         path: '/examine',
         name: 'Examine',
         component: () => import('@/views/caseManagement/examine/index'),
-        meta: { title: '查看案件', icon: 'el-icon-search' }
+        meta: { title: '案件列表', icon: 'el-icon-s-data' }
+      },
+      {
+        path: '/casetrace/caseId/:caseId',
+        name: 'CasetraceView',
+        component: () => import('@/views/caseManagement/caseTrace/index'),
+        props:true
       },
       {
         path: '/casetrace',
         name: 'Casetrace',
         component: () => import('@/views/caseManagement/caseTrace/index'),
-        meta: { title: '案件追溯', icon: 'el-icon-set-up' }
+        meta: { title: '案件追溯查询', icon: 'el-icon-s-claim' },
       },
       {
         name: "viewcase",
