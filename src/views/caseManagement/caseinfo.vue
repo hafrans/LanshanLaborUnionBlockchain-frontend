@@ -205,11 +205,11 @@
           </div>
           <div v-if="caseid != ''">
             <el-table :data="caseinfo.suggestions" style="width: 100%">
-              <el-table-column prop="id" label="建议唯一识别码" width="120" />
-              <el-table-column prop="content" label="建议内容" min-width="180" />
+              <el-table-column prop="id" label="识别码" width="80" />
+              <el-table-column prop="content" label="建议内容" min-width="300" />
               <el-table-column prop="department_info.name" label="提交单位名称" width="180" />
-              <el-table-column prop="department_info.contact" label="联系方式" width="180" />
-              <el-table-column prop="submitter" label="经办人" width="180" />
+              <el-table-column prop="department_info.contact" label="联系方式" width="130" />
+              <el-table-column prop="submitter" label="经办人" width="75" />
             </el-table>
           </div>
           <div v-else style="text-aligin:center">加载中.....</div>
@@ -217,7 +217,7 @@
 
         <el-card class="box-card">
           <div slot="header" class="clearfix">
-            <span>区块链追溯信息</span>
+            <span>信息操作区块链追溯信息</span>
           </div>
           <div v-if="caseid != ''">
             <History :case-id="caseid" />

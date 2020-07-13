@@ -2,9 +2,9 @@
   <div class="block">
     <el-table :data="history" border style="width: 100%">
       <el-table-column fixed prop="user" label="操作人" width="80" height="100" />
-      <el-table-column prop="operation_id" label="操作哈希" width="300" height="100" />
+      <el-table-column prop="operation_id" label="操作追溯唯一识别符" min-width="300" height="100" />
       <el-table-column prop="operation" label="操作内容" width="120" height="100" />
-      <el-table-column prop="content" label="区块记录信息" minwidth="200" height="100" />
+      <!-- <el-table-column prop="content" label="区块记录信息" minwidth="200" height="100" /> -->
       <el-table-column prop="verified" label="区块验证状态" width="110" height="100">
         <template #default>
           <p style="color:#20A53A">
