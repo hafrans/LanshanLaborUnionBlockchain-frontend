@@ -3,13 +3,23 @@
     <el-col :span="24">
       <div class="option">
         <div class="content">
+          <img src="../../../public/img/bkg.png" alt="" class="bkg_img">
+          <img src="../../../public/img/home_rotate.png" alt="" class="ro_img">
+          <div
+            v-for="(item, index) in ball"
+            :key="index"
+            class="jump"
+            :style="{ top: item.top, left: item.left }"
+          >
+            <div :class="item.class" />
+          </div>
           <div
             v-for="(item, index) in sort"
             :key="index"
             class="entry"
             :style="{ top: item.top, left: item.left }"
           >
-            <div :id="idName[index]" class="round" @click="changCon(index)">
+            <div :id="idName[index]" :class="item.class" @click="changCon(index)">
               <el-image :src="item.pic" />
             </div>
             <div class="text">{{ item.text }}</div>
@@ -69,6 +79,7 @@ export default {
         "bkgc6",
         "bkgc7",
         "bkgc8",
+        "bkgc9",
         "bkgc9"
       ],
       idText: [
@@ -81,54 +92,89 @@ export default {
         "劳动关系争议是指职工在履行职务过程中严重违反公司管理制度、存在营私舞弊等法定情形用人单位依法解除劳动关系引起的争议类型或劳动者需要与用人单位确认劳动关系的争议类型。",
         "其他争议是指其他争议类型。"
       ],
+      ball: [
+        {
+          top: "25%",
+          left: "28%",
+          class: "ball1"
+        },
+        {
+          top: "27%",
+          left: "65%",
+          class: "ball2"
+        },
+        {
+          top: "60%",
+          left: "15%",
+          class: "ball3"
+        },
+        {
+          top: "79%",
+          left: "55%",
+          class: "ball4"
+        },
+        {
+          top: "60%",
+          left: "80%",
+          class: "ball5"
+        }
+      ],
       sort: [
         {
           pic: require("../../../public/img/insurance.png"),
           text: "社会保险",
           top: "0%",
-          left: "35%"
+          left: "33%",
+          class: "round"
         },
         {
           pic: require("../../../public/img/remuneration.png"),
           text: "劳动报酬",
           top: "25%",
-          left: "15%"
+          left: "18%",
+          class: "round"
         },
         {
           pic: require("../../../public/img/econ.png"),
           text: "经济补偿金",
           top: "50%",
-          left: "35%"
+          left: "28%",
+          class: "round"
         },
         {
           pic: require("../../../public/img/wage.png"),
           text: "双倍工资",
-          top: "75%",
-          left: "15%"
+          top: "78%",
+          left: "15%",
+          class: "round"
         },
         {
           pic: require("../../../public/img/inductrial_injury.png"),
           text: "工伤",
           top: "0%",
-          left: "65%"
+          left: "60%",
+          class: "round"
         },
         {
           pic: require("../../../public/img/compensation.png"),
           text: "赔偿金",
           top: "25%",
-          left: "85%"
+          left: "75%",
+          class: "round"
         },
         {
           pic: require("../../../public/img/labor_relations.png"),
           text: "劳动关系",
           top: "50%",
-          left: "65%"
+          left: "65%",
+          class: "round"
         },
         {
           pic: require("../../../public/img/other.png"),
           text: "其他",
-          top: "75%",
-          left: "85%"
+          top: "80%",
+          left: "75%",
+          class: "round"
         }
       ]
     };
@@ -151,7 +197,7 @@ export default {
 //   height: auto;
 // }
 .option {
-  width: 85%;
+  width: 100%;
   height: 75vh;
   display: flex;
   justify-content: center;
@@ -161,16 +207,112 @@ export default {
     text-indent: 2em;
   }
   .content {
-    background-image: url("../../../public/img/bkg.png");
-    background-repeat: no-repeat;
-    background-size: 90%;
-    background-position: 45% 45%;
+    // background: url("../../../public/img/home_rotate.png") no-repeat center;
+    // background: url("../../../public/img/bkg.png") no-repeat center;
+    background-size: 20%;
     width: 100%;
     height: 100%;
     margin: 10px 0;
     position: relative;
+     .bkg_img {
+       width: 20%;
+       position: absolute;
+      top: 20%;
+      left: 40%;
+      z-index: 1;
+      }
+      .ro_img {
+        z-index: -1;
+        width: 30%;
+        position: absolute;
+        top: 10%;
+        left: 35%;
+        -webkit-animation:run 6s linear 0s infinite;
+      }
+       @-webkit-keyframes run{
+        from{
+            -webkit-transform:rotate(0deg);
+        }
+        to{
+            -webkit-transform:rotate(360deg);
+        }
+    }
+    .jump {
+      height: 7rem;
+      width: 3rem;
+      // background-color: aqua;
+      position: absolute;
+      z-index: 3;
+      .ball1 {
+        height: 2rem;
+        width: 2rem;
+        border-radius: 50%;
+        background: linear-gradient(
+        to bottom,
+        rgb(255,243,204),
+        rgb(255,236,196)
+      );
+      -webkit-animation: bounce-down 1.5s linear infinite;animation: bounce-down 1.5s linear infinite;
+      }
+      .ball2 {
+        height: 2rem;
+        width: 2rem;
+        border-radius: 50%;
+        background: linear-gradient(
+        to bottom,
+        rgb(226,253,226),
+        rgb(196,238,222)
+      );
+      -webkit-animation: bounce-down 1.5s linear infinite;animation: bounce-down 1.5s linear infinite;
+      }
+      .ball3 {
+        height: 2rem;
+        width: 2rem;
+        border-radius: 50%;
+        background: linear-gradient(
+        to bottom,
+        rgb(209,249,248),
+        rgb(182,239,236)
+      );
+      -webkit-animation: bounce-down 1.5s linear infinite;animation: bounce-down 1.5s linear infinite;
+      }
+      .ball4 {
+        height: 2rem;
+        width: 2rem;
+        border-radius: 50%;
+        background: linear-gradient(
+        to bottom,
+        rgb(243,208,252),
+        rgb(211,184,255)
+      );
+      -webkit-animation: bounce-down 1.5s linear infinite;animation: bounce-down 1.5s linear infinite;
+      }
+       .ball5 {
+        height: 2rem;
+        width: 2rem;
+        border-radius: 50%;
+        background: linear-gradient(
+        to bottom,
+        rgb(255,241,202),
+        rgb(255,232,191)
+        );
+         -webkit-animation: bounce-down 1.5s linear infinite;animation: bounce-down 1.5s linear infinite;
+      }
+      @-webkit-keyframes bounce-down {
+        25% {-webkit-transform: translateY(-1rem);}
+        50%, 100% {-webkit-transform: translateY(0);}
+        75% {-webkit-transform: translateY(1rem);}
+      }
+
+      @keyframes bounce-down {
+        25% {transform: translateY(-1rem);}
+        50%, 100% {transform: translateY(0);}
+        75% {transform: translateY(1rem);}
+      }
+    }
     .entry {
       position: absolute;
+      z-index: 2;
       .round {
         height: 7rem;
         width: 7rem;

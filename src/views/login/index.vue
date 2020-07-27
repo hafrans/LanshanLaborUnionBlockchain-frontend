@@ -1,8 +1,8 @@
 <template>
   <div class="login-container">
     <div class="top">
-      <img src="../../../public/img/logo.png" alt="logo" />
-      <p class="name">岚山区总工会区块链共享平台</p>
+      <img src="../../../public/img/logo.png" alt="logo">
+      <p class="name">岚山区劳动争议调解区块链共享平台</p>
       <div class="registered">
         <el-button style="width:100%;margin-bottom:30px;" @click="goRegistered">{{ regtext }}</el-button>
       </div>
@@ -195,7 +195,7 @@
           type="primary"
           style="width:100%;margin-bottom:30px;"
           @click.native.prevent="handleLogin"
-        >Login</el-button>
+        >登 录</el-button>
 
         <!-- <div class="tips">
           <span style="margin-right:20px;">username: admin</span>
@@ -261,7 +261,7 @@ export default {
     };
     return {
       num: 0,
-      list: ["普通用户", "职能部门", "管理员"],
+      list: ["职工用户", "企业用户", "职能部门", "管理员"],
       regtext: "注册账号",
       pickerOptions0: {
         disabledDate(time) {

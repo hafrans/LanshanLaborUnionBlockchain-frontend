@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="app-container">
     <!-- <Header /> -->
     <div class="main">
       <!-- <Tab /> -->
@@ -25,12 +25,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.home {
-  width: 100%;
-  min-width: 1366px;
-  max-width: 1366px;
-  height: 90vh;
-  margin: 0 auto;
+.app-container {
+  // width: 100%;
+  // min-width: 1366px;
+  // max-width: 1366px;
+  // height: 90vh;
+  // margin: 0 auto;
   position: relative;
   .main {
     position: relative;

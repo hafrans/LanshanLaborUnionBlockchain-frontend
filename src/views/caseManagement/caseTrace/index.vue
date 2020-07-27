@@ -80,16 +80,16 @@ export default {
   components: {
 
   },
-  props:{
+  props: {
     caseId: {
       type: String,
       required: false,
-      default: '3711002020070715200515941064056154995'
+      default: '3711002020071217413815945468986090287'
     }
   },
   data() {
     return {
-      searchText: '3711002020070715200515941064056154995',
+      searchText: '3711002020071217413815945468986090287',
       caseinfo: {},
       history: {}
     }
