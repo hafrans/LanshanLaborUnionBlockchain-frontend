@@ -227,7 +227,7 @@ export default {
         position: absolute;
         top: 10%;
         left: 35%;
-        -webkit-animation:run 6s linear 0s infinite;
+        -webkit-animation:run 8s linear 0s infinite;
       }
        @-webkit-keyframes run{
         from{
@@ -252,7 +252,7 @@ export default {
         rgb(255,243,204),
         rgb(255,236,196)
       );
-      -webkit-animation: bounce-down 1.5s linear infinite;animation: bounce-down 1.5s linear infinite;
+      -webkit-animation: bounce-down 3s linear infinite;animation: bounce-down 3s linear infinite;
       }
       .ball2 {
         height: 2rem;
@@ -263,7 +263,7 @@ export default {
         rgb(226,253,226),
         rgb(196,238,222)
       );
-      -webkit-animation: bounce-down 1.5s linear infinite;animation: bounce-down 1.5s linear infinite;
+      -webkit-animation: bounce-down 3.5s linear infinite;animation: bounce-down 3.5s linear infinite;
       }
       .ball3 {
         height: 2rem;
@@ -274,7 +274,7 @@ export default {
         rgb(209,249,248),
         rgb(182,239,236)
       );
-      -webkit-animation: bounce-down 1.5s linear infinite;animation: bounce-down 1.5s linear infinite;
+      -webkit-animation: bounce-down 3.5s linear infinite;animation: bounce-down 3.5s linear infinite;
       }
       .ball4 {
         height: 2rem;
@@ -285,7 +285,7 @@ export default {
         rgb(243,208,252),
         rgb(211,184,255)
       );
-      -webkit-animation: bounce-down 1.5s linear infinite;animation: bounce-down 1.5s linear infinite;
+      -webkit-animation: bounce-down 3s linear infinite;animation: bounce-down 3s linear infinite;
       }
        .ball5 {
         height: 2rem;
@@ -296,18 +296,18 @@ export default {
         rgb(255,241,202),
         rgb(255,232,191)
         );
-         -webkit-animation: bounce-down 1.5s linear infinite;animation: bounce-down 1.5s linear infinite;
+         -webkit-animation: bounce-down 2s linear infinite;animation: bounce-down 2s linear infinite;
       }
       @-webkit-keyframes bounce-down {
-        25% {-webkit-transform: translateY(-1rem);}
+        25% {-webkit-transform: translateY(-1.5rem);}
         50%, 100% {-webkit-transform: translateY(0);}
-        75% {-webkit-transform: translateY(1rem);}
+        75% {-webkit-transform: translateY(1.5rem);}
       }
 
       @keyframes bounce-down {
-        25% {transform: translateY(-1rem);}
+        25% {transform: translateY(-1.5rem);}
         50%, 100% {transform: translateY(0);}
-        75% {transform: translateY(1rem);}
+        75% {transform: translateY(1.5rem);}
       }
     }
     .entry {
