@@ -11,6 +11,7 @@
         </el-steps>
       </el-header>
       <el-main>
+        <div class="float" @click="proposeCE()">提出质证</div>
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>调解案件信息</span>
@@ -215,6 +216,29 @@
           <div v-else style="text-aligin:center">加载中.....</div>
         </el-card>
 
+        <el-card v-if="caseinfo.comments != []" class="box-card">
+          <div slot="header" class="clearfix">
+            <span>质证环节</span>
+          </div>
+          <div v-if="caseid != ''">
+            <el-table :data="caseinfo.comments" style="width: 100%">
+              <el-table-column prop="submitter" label="提交质证者" width="180" />
+              <el-table-column prop="submitter_phone" label="提交人员联系方式" width="200" />
+              <el-table-column prop="content" label="质证内容" min-width="300" />
+              <el-table-column
+                fixed="right"
+                label="操作"
+                width="100"
+              >
+                <template slot-scope="scope">
+                  <el-button type="text" size="small" @click="delComment(scope.row)">删除</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
+          <div v-else style="text-aligin:center">加载中.....</div>
+        </el-card>
+
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>信息操作区块链追溯信息</span>
@@ -224,6 +248,19 @@
           </div>
           <div v-else style="text-aligin:center">加载中.....</div>
         </el-card>
+
+        <el-dialog title="提出质证" :visible.sync="CEVisible" width="25%">
+          <el-input
+            v-model="comment"
+            type="textarea"
+            :rows="2"
+            placeholder="请输入质证内容"
+          />
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="CEVisible = false">取 消</el-button>
+            <el-button type="primary" @click.stop="createComment()">提 交</el-button>
+          </div>
+        </el-dialog>
       </el-main>
       <el-footer style="text-align:center">
         <el-row>
@@ -239,6 +276,7 @@
 </template>
 <script>
 import { getOneCase } from "@/api/case";
+import { creatCE, deleteCE } from "@/api/comment";
 import History from "@/components/history";
 import laborOption from "@/components/Componentform/option";
 import { getBaseAddr } from "@/api/common";
@@ -253,17 +291,50 @@ export default {
     }
   },
   data: () => ({
+    comment: "",
     status: 1,
     caseid: "",
     caseinfo: {},
     laborData: {},
     infolaborOption: laborOption.option,
-    dialogFormVisible: false
+    dialogFormVisible: false,
+    CEVisible: false
   }),
   created() {
     this.loadCase();
   },
   methods: {
+    async delComment(row) {
+      console.log("111111111", row)
+      const resp = await deleteCE(row.id)
+
+      this.$message({
+        message: resp.message,
+        type: 'success'
+      });
+      this.loadCase();
+    },
+    proposeCE() {
+      this.CEVisible = true
+    },
+    async createComment() {
+      if (this.comment == "") {
+        this.$message({
+          message: '质证内容不得为空',
+          type: 'warning'
+        });
+        return
+      }
+      const resp = await creatCE({ case_id: this.caseid, content: this.comment })
+      if (resp.message == "success") {
+        this.$message({
+          message: '提交成功',
+          type: 'success'
+        });
+        this.loadCase();
+        this.CEVisible = false
+      }
+    },
     getTruePath(path) {
       if (path.indexOf("http://") == 0 || path.indexOf("https://") == 0) {
         return path;
@@ -328,6 +399,19 @@ export default {
 
 .el-main {
   margin: 1rem 10%;
+}
+.float {
+  background-color: rgb(24,144,254);
+  color: aliceblue;
+  line-height: 5rem;
+  text-align: center;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  position: fixed;
+  top: 30%;
+  left: 90%;
+   box-shadow:rgb(24,144,254) 0px 0px 1rem
 }
 .box-card {
   margin: 1rem 0;

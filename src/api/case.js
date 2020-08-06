@@ -48,7 +48,7 @@ export function getAllCase() {
 
 export function getOneCase({ id }) {
   return request({
-    url: 'v1/case/id/' + id,
+    url: 'v1/case/id/' + id + "?random=" + Math.random(),
     method: 'get'
   })
 }
@@ -59,5 +59,4 @@ export function getCase(params) {
     method: 'get'
   })
 }
-
 

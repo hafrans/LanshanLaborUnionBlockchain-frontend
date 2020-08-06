@@ -7,7 +7,7 @@
           <img src="../../../public/img/home_rotate.png" alt="" class="ro_img">
           <div
             v-for="(item, index) in ball"
-            :key="index"
+            :key="'jump-'+ index"
             class="jump"
             :style="{ top: item.top, left: item.left }"
           >

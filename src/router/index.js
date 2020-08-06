@@ -130,13 +130,13 @@ export const constantRoutes = [
         path: '/casetrace/caseId/:caseId',
         name: 'CasetraceView',
         component: () => import('@/views/caseManagement/caseTrace/index'),
-        props:true
+        props: true
       },
       {
         path: '/casetrace',
         name: 'Casetrace',
         component: () => import('@/views/caseManagement/caseTrace/index'),
-        meta: { title: '案件追溯查询', icon: 'el-icon-s-claim' },
+        meta: { title: '案件追溯查询', icon: 'el-icon-s-claim' }
       },
       {
         name: "viewcase",

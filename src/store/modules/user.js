@@ -10,7 +10,8 @@ const getDefaultState = () => {
     email: '',
     avatar: '',
     info: {},
-    claims: {}
+    claims: {},
+    roles: []
   }
 }
 
@@ -40,6 +41,9 @@ const mutations = {
   },
   SET_USER_CLAIMS: (state, infox) => {
     state.claims = infox
+  },
+  SET_ROLES: (state, roles) => {
+    state.roles = roles
   }
 }
 
@@ -116,6 +120,7 @@ const actions = {
         commit('SET_AVATAR', "https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg")
         commit('SET_USER_INFO', user)
         commit('SET_USER_CLAIMS', claims)
+        commit('SET_ROLES', claims.roles)
         resolve(response)
       }).catch(error => {
         reject(error)
@@ -130,6 +135,7 @@ const actions = {
         removeToken() // must remove  token  first
         resetRouter()
         commit('RESET_STATE')
+        commit('SET_ROLES', [])
         resolve()
       }).catch(error => {
         reject(error)
