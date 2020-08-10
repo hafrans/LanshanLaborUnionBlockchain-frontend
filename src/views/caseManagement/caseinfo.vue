@@ -195,6 +195,15 @@
                   <i class="el-icon-link" />
                 </template>
               </el-table-column>
+              <el-table-column
+                fixed="right"
+                label="操作"
+                width="100"
+              >
+                <template slot-scope="scope">
+                  <el-button type="text" size="small" @click="delRecord(scope.row)">删除</el-button>
+                </template>
+              </el-table-column>
             </el-table>
           </div>
           <div v-else style="text-aligin:center">加载中.....</div>
@@ -265,17 +274,60 @@
       <el-footer style="text-align:center">
         <el-row>
           <el-button type="primary" @click="$message({type:'info',message:'建设中'})">处理该案件</el-button>
-          <el-button type="success" @click="$message({type:'info',message:'建设中'})">添加笔录</el-button>
+          <el-button type="success" @click="creatRecordVisible = true">添加笔录</el-button>
           <el-button type="info" @click="$message({type:'info',message:'建设中'})">添加部门建议</el-button>
           <el-button type="warning" @click="$message({type:'info',message:'建设中'})">设置案件状态</el-button>
           <el-button type="danger" @click="$message({type:'info',message:'建设中'})">结束该案件</el-button>
         </el-row>
+        <el-dialog title="添加笔录" :visible.sync="creatRecordVisible" width="40%">
+          <el-form ref="recordForm" :model="recordForm" label-width="10rem" label-position="right">
+            <el-form-item
+              label="记录介绍"
+              prop="name"
+              :rules="[
+                { required: true, message: '请输入记录介绍', trigger: 'blur' }
+              ]"
+            >
+              <el-input v-model="recordForm.name" autocomplete="off" />
+            </el-form-item>
+            <el-form-item
+              label="截图/材料"
+              prop="dialogImageUrl"
+              :rules="[
+                { required: true, message: '请上传截图/材料', trigger: 'blur' }
+              ]"
+            >
+              <el-upload
+                ref="upload"
+                action="a"
+                list-type="picture-card"
+                :on-preview="handlePictureCardPreview"
+                :on-remove="handleRemove"
+                :http-request="uploadSectionFile"
+              >
+                <i class="el-icon-plus" />
+              </el-upload>
+              <el-dialog :visible.sync="imgVisible">
+                <img width="100%" :src="recordForm.dialogImageUrl" alt="">
+              </el-dialog>
+            </el-form-item>
+            <el-form-item>
+              <el-button @click="creatRecordVisible = false">取 消</el-button>
+              <el-button type="primary" @click="addRecord('recordForm')">确 定</el-button>
+            </el-form-item>
+          </el-form>
+          <!-- <div slot="footer" class="dialog-footer">
+            <el-button @click="creatRecordVisible = false">取 消</el-button>
+            <el-button type="primary" @click="addRecord('recordForm')">确 定</el-button>
+          </div> -->
+        </el-dialog>
       </el-footer>
     </el-container>
   </div>
 </template>
 <script>
 import { getOneCase } from "@/api/case";
+import { creatRecord, upLoad, deleteRecord } from "@/api/record";
 import { creatCE, deleteCE } from "@/api/comment";
 import History from "@/components/history";
 import laborOption from "@/components/Componentform/option";
@@ -291,6 +343,9 @@ export default {
     }
   },
   data: () => ({
+    recordForm: { name: '', dialogImageUrl: '' },
+    imgVisible: false,
+    creatRecordVisible: false,
     comment: "",
     status: 1,
     caseid: "",
@@ -304,9 +359,54 @@ export default {
     this.loadCase();
   },
   methods: {
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePictureCardPreview(file) {
+      console.log("file", file)
+      this.recordForm.dialogImageUrl = file.url;
+      this.imgVisible = true;
+    },
+    async uploadSectionFile(params) {
+      const formData = new FormData();
+      const file = params.file
+      formData.append('file', file);
+      const res = await upLoad(formData)
+      this.upload = res.data.path
+    },
+    addRecord(recordForm) {
+      this.$refs[recordForm].validate((valid) => {
+        if (valid) {
+          this.creatRe()
+          this.loadCase();
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    },
+    async creatRe() {
+      const resp = await creatRecord({ case_id: this.caseid, name: this.recordForm.name, path: this.upload })
+      if (resp.message == "success") {
+        this.$message({
+          message: resp.message,
+          type: 'success'
+        });
+        this.creatRecordVisible = false
+      }
+    },
     async delComment(row) {
-      console.log("111111111", row)
       const resp = await deleteCE(row.id)
+
+      this.$message({
+        message: resp.message,
+        type: 'success'
+      });
+      this.loadCase();
+    },
+
+    async  delRecord(row) {
+      const resp = await deleteRecord(row.id)
 
       this.$message({
         message: resp.message,
