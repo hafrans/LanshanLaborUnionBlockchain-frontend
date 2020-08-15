@@ -147,7 +147,24 @@ export const constantRoutes = [
       }
     ]
   },
-
+  {
+    path: '/meeting',
+    component: Layout,
+    redirect: '/meeting/list',
+    meta: { title: '会议管理', icon: 'el-icon-s-comment' },
+    children: [{
+      path: 'list',
+      name: 'meetinglist',
+      component: () => import('@/views/meeting/list.vue'),
+      meta: { title: '我的会议', icon: 'el-icon-s-order' },
+    },
+    {
+      path: 'list2',
+      name: 'meetingaccountunbind',
+      component: () => import('@/views/meeting/accountdelete'),
+      meta: { title: '会议用户解绑', icon: 'el-icon-s-custom' },
+    }]
+  },
   {
     path: '/form',
     component: Layout,

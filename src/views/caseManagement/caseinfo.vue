@@ -1,5 +1,50 @@
 <template>
   <div class="dashboard-container">
+    <!-- 对话框 -->
+    <el-dialog title="创建预约会议" :visible.sync="dialogVisible" width="40%">
+      <el-form :model="meetingCreateForm" ref="meetingform" :rules="formRules">
+        <el-form-item label="案件号码" label-width="80px" prop="case_id">
+          <el-input v-model.lazy.trim="meetingCreateForm.case_id" auto-complete="xxx"  readonly="true"></el-input>
+        </el-form-item>
+        <el-form-item label="会议主题" label-width="80px" prop="subject">
+          <el-input v-model.lazy.trim="meetingCreateForm.subject" auto-complete="xxx"></el-input>
+        </el-form-item>
+        <el-form-item label="会议时间" label-width="80px" prop="end_time">
+          <el-date-picker
+            type="datetime"
+            v-model.trim="meetingCreateForm.start_time"
+            name="xsaxsa"
+            value-format="yyyy-MM-dd HH:mm:ss"
+            placeholder="开始时间"
+            auto-complete="xxx"
+          ></el-date-picker>
+          <el-date-picker
+            type="datetime"
+            name="asxe"
+            v-model.trim="meetingCreateForm.end_time"
+            placeholder="结束时间"
+            value-format="yyyy-MM-dd HH:mm:ss"
+            auto-complete="xxx"
+          ></el-date-picker>
+        </el-form-item>
+        <el-form-item label="会议密码" label-width="80px">
+          <el-input
+            v-model.lazy.trim="meetingCreateForm.password"
+            placeholder="留空为不设密码"
+            auto-complete="new_password"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="会议设置" label-width="80px">
+          <el-checkbox label="成员入会时静音" v-model="meetingCreateForm.mute_enable_join"></el-checkbox>
+          <el-checkbox label="允许自行解除静音" v-model="meetingCreateForm.allow_unmute_self"></el-checkbox>
+          <el-checkbox label="全体静音" v-model="meetingCreateForm.mute_all"></el-checkbox>
+        </el-form-item>
+      </el-form>
+      <span class="dialog-footer" slot="footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handleCreateNewMeeting">确 定</el-button>
+      </span>
+    </el-dialog>
     <el-container>
       <el-header>
         <el-steps :active="status" align-center>
@@ -12,6 +57,11 @@
       </el-header>
       <el-main>
         <div class="float" @click="proposeCE()">提出质证</div>
+        <div
+          v-show="claims.type == 1 || claims.type == 4"
+          class="float second"
+          @click="showCreateMeetingDialog"
+        >创建会议</div>
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>调解案件信息</span>
@@ -195,11 +245,7 @@
                   <i class="el-icon-link" />
                 </template>
               </el-table-column>
-              <el-table-column
-                fixed="right"
-                label="操作"
-                width="100"
-              >
+              <el-table-column fixed="right" label="操作" width="100">
                 <template slot-scope="scope">
                   <el-button type="text" size="small" @click="delRecord(scope.row)">删除</el-button>
                 </template>
@@ -234,11 +280,7 @@
               <el-table-column prop="submitter" label="提交质证者" width="180" />
               <el-table-column prop="submitter_phone" label="提交人员联系方式" width="200" />
               <el-table-column prop="content" label="质证内容" min-width="300" />
-              <el-table-column
-                fixed="right"
-                label="操作"
-                width="100"
-              >
+              <el-table-column fixed="right" label="操作" width="100">
                 <template slot-scope="scope">
                   <el-button type="text" size="small" @click="delComment(scope.row)">删除</el-button>
                 </template>
@@ -259,12 +301,7 @@
         </el-card>
 
         <el-dialog title="提出质证" :visible.sync="CEVisible" width="25%">
-          <el-input
-            v-model="comment"
-            type="textarea"
-            :rows="2"
-            placeholder="请输入质证内容"
-          />
+          <el-input v-model="comment" type="textarea" :rows="2" placeholder="请输入质证内容" />
           <div slot="footer" class="dialog-footer">
             <el-button @click="CEVisible = false">取 消</el-button>
             <el-button type="primary" @click.stop="createComment()">提 交</el-button>
@@ -308,7 +345,7 @@
                 <i class="el-icon-plus" />
               </el-upload>
               <el-dialog :visible.sync="imgVisible">
-                <img width="100%" :src="recordForm.dialogImageUrl" alt="">
+                <img width="100%" :src="recordForm.dialogImageUrl" alt />
               </el-dialog>
             </el-form-item>
             <el-form-item>
@@ -319,120 +356,245 @@
           <!-- <div slot="footer" class="dialog-footer">
             <el-button @click="creatRecordVisible = false">取 消</el-button>
             <el-button type="primary" @click="addRecord('recordForm')">确 定</el-button>
-          </div> -->
+          </div>-->
         </el-dialog>
       </el-footer>
     </el-container>
   </div>
 </template>
 <script>
+import { createMeeting } from "@/api/meeting";
 import { getOneCase } from "@/api/case";
 import { creatRecord, upLoad, deleteRecord } from "@/api/record";
 import { creatCE, deleteCE } from "@/api/comment";
 import History from "@/components/history";
 import laborOption from "@/components/Componentform/option";
 import { getBaseAddr } from "@/api/common";
+import { mapState } from "vuex";
 export default {
   components: {
-    History
+    History,
   },
   props: {
     id: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
-  data: () => ({
-    recordForm: { name: '', dialogImageUrl: '' },
-    imgVisible: false,
-    creatRecordVisible: false,
-    comment: "",
-    status: 1,
-    caseid: "",
-    caseinfo: {},
-    laborData: {},
-    infolaborOption: laborOption.option,
-    dialogFormVisible: false,
-    CEVisible: false
-  }),
+  data() {
+    // validators
+
+    var checkCaseID = (r, v, c) => {
+      if (v.trim().length == 0) {
+        return c(new Error("案件号码为空"));
+      }
+      c();
+    };
+
+    var checkSubject = (r, v, c) => {
+      if (v.trim().length == 0) {
+        return c(new Error("会议主题为空"));
+      }
+      c();
+    };
+
+    var checkStart = (r, v, c) => {
+      if (v.trim().length == 0) {
+        return c(new Error("会议开始时间为空"));
+      }
+      c();
+    };
+
+    var checkEnd = (r, v, c) => {
+      if (this.meetingCreateForm.start_time.length == 0) {
+        return c(new Error("会议开始时间为空"));
+      }
+      if (v.length == 0) {
+        return c(new Error("会议结束时间为空"));
+      }
+      if (this.meetingCreateForm.start_time.length != 0) {
+        let date = new Date(this.meetingCreateForm.start_time);
+        let enddate = new Date(v);
+        if (date > enddate) {
+          return c(new Error("会议结束时间在开始时间之前！"));
+        }
+      }
+      c();
+    };
+    return {
+      meetingCreateForm: {
+        allow_unmute_self: true,
+        case_id: "",
+        start_time: "",
+        end_time: "",
+        meeting_type: 1,
+        mute_all: false,
+        mute_enable_join: false,
+        password: "",
+        subject: "",
+      },
+      formRules: {
+        case_id: [{ validator: checkCaseID, trigger: "blur" }],
+        subject: [{ validator: checkSubject, trigger: "blur" }],
+        end_time: [{ validator: checkEnd, trigger: "blur" }],
+      },
+      dialogVisible: false,
+      recordForm: { name: "", dialogImageUrl: "" },
+      imgVisible: false,
+      creatRecordVisible: false,
+      comment: "",
+      status: 1,
+      caseid: "",
+      caseinfo: {},
+      laborData: {},
+      infolaborOption: laborOption.option,
+      dialogFormVisible: false,
+      CEVisible: false,
+    };
+  },
   created() {
     this.loadCase();
   },
   methods: {
+    showCreateMeetingDialog() {
+      this.meetingCreateForm = {
+        allow_unmute_self: true,
+        case_id: this.caseinfo.case_id,
+        start_time: "",
+        end_time: "",
+        meeting_type: 1,
+        mute_all: false,
+        mute_enable_join: false,
+        password: "",
+        subject: "",
+      };
+      this.dialogVisible = true;
+    },
+    handleCreateNewMeeting() {
+      this.$refs["meetingform"].validate((valid) => {
+        if (valid) {
+          const myLoading = this.$loading({
+            lock: true,
+            text: "处理中",
+            spinner: "el-icon-loading",
+            background: "rgba(0, 0, 0, 0.7)",
+          });
+          // 尝试创建会议
+          createMeeting(this.meetingCreateForm)
+            .then((resp) => {
+              if (resp.status == 0) {
+                let passwordTip = "空";
+                if (resp.data.password != null) {
+                  passwordTip = resp.data.password;
+                }
+                this.$alert(
+                  `会议创建成功，请您牢记以下内容！<br>
+                 会议主题：${resp.data.subject}<br> 
+                 会议号码：<b>${resp.data.meeting_code}</b> <br> 
+                 开始时间：${resp.data.start_time} <br> 
+                 结束时间：${resp.data.end_time} <br>
+                 会议密码：<b>${passwordTip}</b><br>
+                 会议链接：${resp.data.join_url}`,
+                  "创建成功",
+                  {
+                    confirmButtonText: "确定",
+                    dangerouslyUseHTMLString: true,
+                    callback: (action) => {},
+                  }
+                );
+                this.loadMyMeeting();
+              }
+            })
+            .finally(() => {
+              myLoading.close();
+              this.dialogVisible = false;
+            });
+        } else {
+          return false;
+        }
+      });
+    },
     handleRemove(file, fileList) {
       console.log(file, fileList);
     },
     handlePictureCardPreview(file) {
-      console.log("file", file)
+      console.log("file", file);
       this.recordForm.dialogImageUrl = file.url;
       this.imgVisible = true;
     },
     async uploadSectionFile(params) {
       const formData = new FormData();
-      const file = params.file
-      formData.append('file', file);
-      const res = await upLoad(formData)
-      this.upload = res.data.path
+      const file = params.file;
+      formData.append("file", file);
+      const res = await upLoad(formData);
+      this.upload = res.data.path;
     },
     addRecord(recordForm) {
       this.$refs[recordForm].validate((valid) => {
         if (valid) {
-          this.creatRe()
+          this.creatRe();
           this.loadCase();
         } else {
-          console.log('error submit!!');
+          console.log("error submit!!");
           return false;
         }
       });
     },
     async creatRe() {
-      const resp = await creatRecord({ case_id: this.caseid, name: this.recordForm.name, path: this.upload })
+      const resp = await creatRecord({
+        case_id: this.caseid,
+        name: this.recordForm.name,
+        path: this.upload,
+      });
       if (resp.message == "success") {
         this.$message({
           message: resp.message,
-          type: 'success'
+          type: "success",
         });
-        this.creatRecordVisible = false
+        this.creatRecordVisible = false;
       }
     },
     async delComment(row) {
-      const resp = await deleteCE(row.id)
+      const resp = await deleteCE(row.id);
 
       this.$message({
         message: resp.message,
-        type: 'success'
+        type: "success",
       });
       this.loadCase();
     },
 
-    async  delRecord(row) {
-      const resp = await deleteRecord(row.id)
+    async delRecord(row) {
+      const resp = await deleteRecord(row.id);
 
       this.$message({
         message: resp.message,
-        type: 'success'
+        type: "success",
       });
       this.loadCase();
     },
     proposeCE() {
-      this.CEVisible = true
+      this.CEVisible = true;
     },
     async createComment() {
       if (this.comment == "") {
         this.$message({
-          message: '质证内容不得为空',
-          type: 'warning'
+          message: "质证内容不得为空",
+          type: "warning",
         });
-        return
+        return;
       }
-      const resp = await creatCE({ case_id: this.caseid, content: this.comment })
+      const resp = await creatCE({
+        case_id: this.caseid,
+        content: this.comment,
+      });
       if (resp.message == "success") {
         this.$message({
-          message: '提交成功',
-          type: 'success'
+          message: "提交成功",
+          type: "success",
         });
         this.loadCase();
-        this.CEVisible = false
+        this.CEVisible = false;
       }
     },
     getTruePath(path) {
@@ -448,7 +610,7 @@ export default {
     loadCase() {
       this.$nextTick(() => {
         getOneCase({ id: this.id })
-          .then(resp => {
+          .then((resp) => {
             if (resp.status == 0) {
               // ok
               this.caseinfo = resp.data;
@@ -476,20 +638,25 @@ export default {
             } else {
               this.$message({
                 type: "error",
-                error: "获取案件信息失败"
+                error: "获取案件信息失败",
               });
             }
           })
-          .catch(err => {
+          .catch((err) => {
             this.$message({
               type: "error",
-              error: "获取案件信息失败"
+              error: "获取案件信息失败",
             });
             this.$router.push("/");
           });
       });
-    }
-  }
+    },
+  },
+  computed: {
+    ...mapState({
+      claims: (state) => state.user.claims,
+    }),
+  },
 };
 </script>
 <style scoped>
@@ -501,7 +668,7 @@ export default {
   margin: 1rem 10%;
 }
 .float {
-  background-color: rgb(24,144,254);
+  background-color: rgb(24, 144, 254);
   color: aliceblue;
   line-height: 5rem;
   text-align: center;
@@ -511,7 +678,17 @@ export default {
   position: fixed;
   top: 30%;
   left: 90%;
-   box-shadow:rgb(24,144,254) 0px 0px 1rem
+  box-shadow: rgb(24, 144, 254) 0px 0px 0.9rem;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.float:hover {
+  background-color: rgb(10, 75, 156);
+}
+
+.second {
+  top: 42%;
 }
 .box-card {
   margin: 1rem 0;

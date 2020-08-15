@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'Vue Admin Template',
+  title: "日照市岚山区劳动争议调解区块链共享平台",
 
   /**
    * @type {boolean} true | false
