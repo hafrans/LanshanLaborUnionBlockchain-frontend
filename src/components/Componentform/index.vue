@@ -279,6 +279,7 @@
             <el-radio-group v-model="form.payment_type">
               <el-radio :label="1">现金</el-radio>
               <el-radio :label="2">转账</el-radio>
+              <el-radio :label="3">其他</el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item
@@ -291,6 +292,7 @@
             <el-radio-group v-model="form.payment_cycle">
               <el-radio :label="1">当月支付</el-radio>
               <el-radio :label="2">次月支付当月</el-radio>
+              <el-radio :label="3">其他</el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item label="最后一次支付工资时间">

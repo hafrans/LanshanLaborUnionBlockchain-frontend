@@ -57,7 +57,7 @@
             ref="laborForm"
             :model="laborForm"
             status-icon
-            :rules="rules"
+            :rules="laborRules"
             label-width="100px"
             class="laborForm"
             size="small"
@@ -66,7 +66,7 @@
               <el-input v-model="laborForm.applicant.applicant_address" />
             </el-form-item>
             <el-form-item label="邮箱" prop="email">
-              <el-input v-model="ruleForm.email" />
+              <el-input v-model="laborForm.email" />
             </el-form-item>
             <el-form-item label="生日" prop="applicant_birth">
               <el-date-picker
@@ -221,8 +221,18 @@ export default {
       if (value === "") {
         callback(new Error("请输入密码"));
       } else {
-        if (this.ruleForm.checkPass !== "") {
-          this.$refs.ruleForm.validateField("checkPass");
+        if (this.ruleForm.confirm_password !== "") {
+          this.$refs.ruleForm.validateField("confirm_password");
+        }
+        callback();
+      }
+    };
+    const laborValidatePass = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入密码"));
+      } else {
+        if (this.laborForm.confirm_password !== "") {
+          this.$refs.ruleForm.validateField("confirm_password");
         }
         callback();
       }
@@ -230,7 +240,16 @@ export default {
     const validatePass2 = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请再次输入密码"));
-      } else if (value !== this.ruleForm.pass) {
+      } else if (value !== this.ruleForm.password) {
+        callback(new Error("两次输入密码不一致!"));
+      } else {
+        callback();
+      }
+    };
+    const laborValidatePass2 = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请再次输入密码"));
+      } else if (value !== this.laborForm.password) {
         callback(new Error("两次输入密码不一致!"));
       } else {
         callback();
@@ -295,6 +314,17 @@ export default {
           employer_uscc: ""
         }
       },
+      laborRules: {
+        password: [
+          { validator: laborValidatePass, trigger: "blur" },
+          { min: 4, message: "长度最少4字符", trigger: "blur" }
+        ],
+        confirm_password: [
+          { validator: laborValidatePass2, trigger: "blur" },
+          { min: 4, message: "长度最少4字符", trigger: "blur" }
+        ],
+        phone: [{ validator: validatePhone, trigger: "blur" }]
+      },
       rules: {
         // employer_address: [{ required: true, message: '请输入活动名称', trigger: 'blur' }],
         // employer_contact: [{ required: true, trigger: "blur" }],
@@ -352,7 +382,6 @@ export default {
       this.num = index;
     },
     employer(formName) {
-      this.employeRegistered();
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.employeRegistered();
@@ -368,13 +397,18 @@ export default {
     },
     async employeRegistered() {
       const text = await employerReg(this.ruleForm);
+      if (text.message == "注册成功") {
+        this.$message({
+          message: "注册成功",
+          type: 'success'
+        });
+      }
       console.log("employeRegistered", text);
     },
     labor(formName) {
-      this.laborRegistered();
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.employeRegistered();
+          this.laborRegistered();
           this.clickReg = false;
         } else {
           this.$message({
@@ -387,10 +421,10 @@ export default {
     },
     async laborRegistered() {
       const text = await laborReg(this.laborForm);
-      if (text.message !== "注册成功") {
+      if (text.message == "注册成功") {
         this.$message({
-          message: "请填写所有内容",
-          type: "warning"
+          message: "注册成功",
+          type: 'success'
         });
       }
       console.log("laborRegistered", text);
