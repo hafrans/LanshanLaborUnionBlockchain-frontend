@@ -303,10 +303,10 @@ export default {
               res: 'data',
               name: 'filename',
               url: 'path',
-              home: getBaseAddr(),
+              home: getBaseAddr() + "/"
             },
             headers: {},
-            action: getBaseAddr() + "/api/v1/upload",
+            action: getBaseAddr() + "/api/v1/upload"
           }
         ]
       }

@@ -1,53 +1,104 @@
 <template>
   <div class="dashboard-container">
     <!-- 对话框 -->
-    <el-dialog title="创建预约会议" :visible.sync="dialogVisible" width="40%">
-      <el-form :model="meetingCreateForm" ref="meetingform" :rules="formRules">
-        <el-form-item label="案件号码" label-width="80px" prop="case_id">
-          <el-input v-model.lazy.trim="meetingCreateForm.case_id" auto-complete="xxx"  readonly="true"></el-input>
+    <el-dialog
+      title="创建预约会议"
+      :visible.sync="dialogVisible"
+      width="40%"
+    >
+      <el-form
+        ref="meetingform"
+        :model="meetingCreateForm"
+        :rules="formRules"
+      >
+        <el-form-item
+          label="案件号码"
+          label-width="80px"
+          prop="case_id"
+        >
+          <el-input
+            v-model.lazy.trim="meetingCreateForm.case_id"
+            auto-complete="xxx"
+            readonly="true"
+          />
         </el-form-item>
-        <el-form-item label="会议主题" label-width="80px" prop="subject">
-          <el-input v-model.lazy.trim="meetingCreateForm.subject" auto-complete="xxx"></el-input>
+        <el-form-item
+          label="会议主题"
+          label-width="80px"
+          prop="subject"
+        >
+          <el-input
+            v-model.lazy.trim="meetingCreateForm.subject"
+            auto-complete="xxx"
+          />
         </el-form-item>
-        <el-form-item label="会议时间" label-width="80px" prop="end_time">
+        <el-form-item
+          label="会议时间"
+          label-width="80px"
+          prop="end_time"
+        >
           <el-date-picker
-            type="datetime"
             v-model.trim="meetingCreateForm.start_time"
+            type="datetime"
             name="xsaxsa"
             value-format="yyyy-MM-dd HH:mm:ss"
             placeholder="开始时间"
             auto-complete="xxx"
-          ></el-date-picker>
+          />
           <el-date-picker
+            v-model.trim="meetingCreateForm.end_time"
             type="datetime"
             name="asxe"
-            v-model.trim="meetingCreateForm.end_time"
             placeholder="结束时间"
             value-format="yyyy-MM-dd HH:mm:ss"
             auto-complete="xxx"
-          ></el-date-picker>
+          />
         </el-form-item>
-        <el-form-item label="会议密码" label-width="80px">
+        <el-form-item
+          label="会议密码"
+          label-width="80px"
+        >
           <el-input
             v-model.lazy.trim="meetingCreateForm.password"
             placeholder="留空为不设密码"
             auto-complete="new_password"
-          ></el-input>
+          />
         </el-form-item>
-        <el-form-item label="会议设置" label-width="80px">
-          <el-checkbox label="成员入会时静音" v-model="meetingCreateForm.mute_enable_join"></el-checkbox>
-          <el-checkbox label="允许自行解除静音" v-model="meetingCreateForm.allow_unmute_self"></el-checkbox>
-          <el-checkbox label="全体静音" v-model="meetingCreateForm.mute_all"></el-checkbox>
+        <el-form-item
+          label="会议设置"
+          label-width="80px"
+        >
+          <el-checkbox
+            v-model="meetingCreateForm.mute_enable_join"
+            label="成员入会时静音"
+          />
+          <el-checkbox
+            v-model="meetingCreateForm.allow_unmute_self"
+            label="允许自行解除静音"
+          />
+          <el-checkbox
+            v-model="meetingCreateForm.mute_all"
+            label="全体静音"
+          />
         </el-form-item>
       </el-form>
-      <span class="dialog-footer" slot="footer">
+      <span
+        slot="footer"
+        class="dialog-footer"
+      >
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="handleCreateNewMeeting">确 定</el-button>
+        <el-button
+          type="primary"
+          @click="handleCreateNewMeeting"
+        >确 定</el-button>
       </span>
     </el-dialog>
     <el-container>
       <el-header>
-        <el-steps :active="status" align-center>
+        <el-steps
+          :active="status"
+          align-center
+        >
           <el-step title="调解事项已提交" />
           <el-step title="部门正在处理" />
           <el-step title="正在请求确认" />
@@ -56,14 +107,20 @@
         </el-steps>
       </el-header>
       <el-main>
-        <div class="float" @click="proposeCE()">提出质证</div>
+        <div
+          class="float"
+          @click="proposeCE()"
+        >提出质证</div>
         <div
           v-show="claims.type == 1 || claims.type == 4"
           class="float second"
           @click="showCreateMeetingDialog"
         >创建会议</div>
         <el-card class="box-card">
-          <div slot="header" class="clearfix">
+          <div
+            slot="header"
+            class="clearfix"
+          >
             <span>调解案件信息</span>
           </div>
           <div>
@@ -193,7 +250,10 @@
           </div>
         </el-card>
         <el-card class="box-card">
-          <div slot="header" class="clearfix">
+          <div
+            slot="header"
+            class="clearfix"
+          >
             <span>要素表查看</span>
           </div>
           <div v-if="caseid != ''">
@@ -205,119 +265,301 @@
               @click.stop="goform()"
             >点击查看</el-button>
           </div>
-          <div v-else style="text-aligin:center">加载中.....</div>
-          <el-dialog title="案件要素表" :visible.sync="dialogFormVisible" width="70%">
-            <avue-form v-model="caseinfo.form" :option="infolaborOption" />
+          <div
+            v-else
+            style="text-aligin:center"
+          >加载中.....</div>
+          <el-dialog
+            title="案件要素表"
+            :visible.sync="dialogFormVisible"
+            width="70%"
+          >
+            <avue-form
+              v-model="caseinfo.form"
+              :option="infolaborOption"
+            />
           </el-dialog>
         </el-card>
         <el-card class="box-card">
-          <div slot="header" class="clearfix">
+          <div
+            slot="header"
+            class="clearfix"
+          >
             <span>提交材料信息</span>
           </div>
           <div v-if="caseid != ''">
-            <el-table :data="caseinfo.materials" style="width: 100%">
-              <el-table-column prop="id" label="材料唯一识别码" width="120" />
-              <el-table-column prop="name" label="材料名称" width="180" />
-              <el-table-column label="材料路径" min-width="180">
+            <el-table
+              :data="caseinfo.materials"
+              style="width: 100%"
+            >
+              <el-table-column
+                prop="id"
+                label="材料唯一识别码"
+                width="120"
+              />
+              <el-table-column
+                prop="name"
+                label="材料名称"
+                width="180"
+              />
+              <el-table-column
+                label="材料路径"
+                min-width="180"
+              >
                 <template #default="scope">
-                  <a :href="getTruePath(scope.row.path)" target="_blank">点击跳转查看</a>&nbsp;
+                  <a
+                    :href="getTruePath(scope.row.path)"
+                    target="_blank"
+                  >点击跳转查看</a>&nbsp;
                   <i class="el-icon-link" />
                 </template>
               </el-table-column>
             </el-table>
           </div>
-          <div v-else style="text-aligin:center">加载中.....</div>
+          <div
+            v-else
+            style="text-aligin:center"
+          >加载中.....</div>
         </el-card>
         <el-card class="box-card">
-          <div slot="header" class="clearfix">
+          <div
+            slot="header"
+            class="clearfix"
+          >
             <span>提交笔录信息</span>
           </div>
           <div v-if="caseid != ''">
-            <el-table :data="caseinfo.records" style="width: 100%">
-              <el-table-column prop="id" label="笔录唯一识别码" width="120" />
-              <el-table-column prop="name" label="笔录名称" width="180" />
-              <el-table-column prop="department_info.name" label="提交单位名称" width="180" />
-              <el-table-column prop="department_info.contact" label="联系方式" width="180" />
-              <el-table-column prop="submitter" label="经办人" width="180" />
-              <el-table-column label="材料路径" min-width="180">
+            <el-table
+              :data="caseinfo.records"
+              style="width: 100%"
+            >
+              <el-table-column
+                prop="id"
+                label="笔录唯一识别码"
+                width="120"
+              />
+              <el-table-column
+                prop="name"
+                label="笔录名称"
+                width="180"
+              />
+              <el-table-column
+                prop="department_info.name"
+                label="提交单位名称"
+                width="180"
+              />
+              <el-table-column
+                prop="department_info.contact"
+                label="联系方式"
+                width="180"
+              />
+              <el-table-column
+                prop="submitter"
+                label="经办人"
+                width="180"
+              />
+              <el-table-column
+                label="材料路径"
+                min-width="180"
+              >
                 <template #default="scope">
-                  <a :href="scope.row.path" target="_blank">点击跳转查看</a>&nbsp;
+                  <a
+                    :href="scope.row.path"
+                    target="_blank"
+                  >点击跳转查看</a>&nbsp;
                   <i class="el-icon-link" />
                 </template>
               </el-table-column>
-              <el-table-column fixed="right" label="操作" width="100">
+              <el-table-column
+                fixed="right"
+                label="操作"
+                width="100"
+              >
                 <template slot-scope="scope">
-                  <el-button type="text" size="small" @click="delRecord(scope.row)">删除</el-button>
+                  <el-button
+                    type="text"
+                    size="small"
+                    @click="delRecord(scope.row)"
+                  >删除</el-button>
                 </template>
               </el-table-column>
             </el-table>
           </div>
-          <div v-else style="text-aligin:center">加载中.....</div>
+          <div
+            v-else
+            style="text-aligin:center"
+          >加载中.....</div>
         </el-card>
 
         <el-card class="box-card">
-          <div slot="header" class="clearfix">
+          <div
+            slot="header"
+            class="clearfix"
+          >
             <span>部门建议</span>
           </div>
           <div v-if="caseid != ''">
-            <el-table :data="caseinfo.suggestions" style="width: 100%">
-              <el-table-column prop="id" label="识别码" width="80" />
-              <el-table-column prop="content" label="建议内容" min-width="300" />
-              <el-table-column prop="department_info.name" label="提交单位名称" width="180" />
-              <el-table-column prop="department_info.contact" label="联系方式" width="130" />
-              <el-table-column prop="submitter" label="经办人" width="75" />
+            <el-table
+              :data="caseinfo.suggestions"
+              style="width: 100%"
+            >
+              <el-table-column
+                prop="id"
+                label="识别码"
+                width="80"
+              />
+              <el-table-column
+                prop="content"
+                label="建议内容"
+                min-width="300"
+              />
+              <el-table-column
+                prop="department_info.name"
+                label="提交单位名称"
+                width="180"
+              />
+              <el-table-column
+                prop="department_info.contact"
+                label="联系方式"
+                width="130"
+              />
+              <el-table-column
+                prop="submitter"
+                label="经办人"
+                width="75"
+              />
             </el-table>
           </div>
-          <div v-else style="text-aligin:center">加载中.....</div>
+          <div
+            v-else
+            style="text-aligin:center"
+          >加载中.....</div>
         </el-card>
 
-        <el-card v-if="caseinfo.comments != []" class="box-card">
-          <div slot="header" class="clearfix">
+        <el-card
+          v-if="caseinfo.comments != []"
+          class="box-card"
+        >
+          <div
+            slot="header"
+            class="clearfix"
+          >
             <span>质证环节</span>
           </div>
           <div v-if="caseid != ''">
-            <el-table :data="caseinfo.comments" style="width: 100%">
-              <el-table-column prop="submitter" label="提交质证者" width="180" />
-              <el-table-column prop="submitter_phone" label="提交人员联系方式" width="200" />
-              <el-table-column prop="content" label="质证内容" min-width="300" />
-              <el-table-column fixed="right" label="操作" width="100">
+            <el-table
+              :data="caseinfo.comments"
+              style="width: 100%"
+            >
+              <el-table-column
+                prop="submitter"
+                label="提交质证者"
+                width="180"
+              />
+              <el-table-column
+                prop="submitter_phone"
+                label="提交人员联系方式"
+                width="200"
+              />
+              <el-table-column
+                prop="content"
+                label="质证内容"
+                min-width="300"
+              />
+              <el-table-column
+                fixed="right"
+                label="操作"
+                width="100"
+              >
                 <template slot-scope="scope">
-                  <el-button type="text" size="small" @click="delComment(scope.row)">删除</el-button>
+                  <el-button
+                    type="text"
+                    size="small"
+                    @click="delComment(scope.row)"
+                  >删除</el-button>
                 </template>
               </el-table-column>
             </el-table>
           </div>
-          <div v-else style="text-aligin:center">加载中.....</div>
+          <div
+            v-else
+            style="text-aligin:center"
+          >加载中.....</div>
         </el-card>
 
         <el-card class="box-card">
-          <div slot="header" class="clearfix">
+          <div
+            slot="header"
+            class="clearfix"
+          >
             <span>信息操作区块链追溯信息</span>
           </div>
           <div v-if="caseid != ''">
             <History :case-id="caseid" />
           </div>
-          <div v-else style="text-aligin:center">加载中.....</div>
+          <div
+            v-else
+            style="text-aligin:center"
+          >加载中.....</div>
         </el-card>
 
-        <el-dialog title="提出质证" :visible.sync="CEVisible" width="25%">
-          <el-input v-model="comment" type="textarea" :rows="2" placeholder="请输入质证内容" />
-          <div slot="footer" class="dialog-footer">
+        <el-dialog
+          title="提出质证"
+          :visible.sync="CEVisible"
+          width="25%"
+        >
+          <el-input
+            v-model="comment"
+            type="textarea"
+            :rows="2"
+            placeholder="请输入质证内容"
+          />
+          <div
+            slot="footer"
+            class="dialog-footer"
+          >
             <el-button @click="CEVisible = false">取 消</el-button>
-            <el-button type="primary" @click.stop="createComment()">提 交</el-button>
+            <el-button
+              type="primary"
+              @click.stop="createComment()"
+            >提 交</el-button>
           </div>
         </el-dialog>
       </el-main>
       <el-footer style="text-align:center">
         <el-row>
-          <el-button type="primary" @click="$message({type:'info',message:'建设中'})">处理该案件</el-button>
-          <el-button type="success" @click="creatRecordVisible = true">添加笔录</el-button>
-          <el-button type="info" @click="$message({type:'info',message:'建设中'})">添加部门建议</el-button>
-          <el-button type="warning" @click="$message({type:'info',message:'建设中'})">设置案件状态</el-button>
-          <el-button type="danger" @click="$message({type:'info',message:'建设中'})">结束该案件</el-button>
+          <el-button
+            type="primary"
+            @click="$message({type:'info',message:'建设中'})"
+          >处理该案件</el-button>
+          <el-button
+            type="success"
+            @click="creatRecordVisible = true"
+          >添加笔录</el-button>
+          <el-button
+            type="info"
+            @click="$message({type:'info',message:'建设中'})"
+          >添加部门建议</el-button>
+          <el-button
+            type="warning"
+            @click="$message({type:'info',message:'建设中'})"
+          >设置案件状态</el-button>
+          <el-button
+            type="danger"
+            @click="$message({type:'info',message:'建设中'})"
+          >结束该案件</el-button>
         </el-row>
-        <el-dialog title="添加笔录" :visible.sync="creatRecordVisible" width="40%">
-          <el-form ref="recordForm" :model="recordForm" label-width="10rem" label-position="right">
+        <el-dialog
+          title="添加笔录"
+          :visible.sync="creatRecordVisible"
+          width="40%"
+        >
+          <el-form
+            ref="recordForm"
+            :model="recordForm"
+            label-width="10rem"
+            label-position="right"
+          >
             <el-form-item
               label="记录介绍"
               prop="name"
@@ -325,7 +567,10 @@
                 { required: true, message: '请输入记录介绍', trigger: 'blur' }
               ]"
             >
-              <el-input v-model="recordForm.name" autocomplete="off" />
+              <el-input
+                v-model="recordForm.name"
+                autocomplete="off"
+              />
             </el-form-item>
             <el-form-item
               label="截图/材料"
@@ -345,12 +590,19 @@
                 <i class="el-icon-plus" />
               </el-upload>
               <el-dialog :visible.sync="imgVisible">
-                <img width="100%" :src="recordForm.dialogImageUrl" alt />
+                <img
+                  width="100%"
+                  :src="recordForm.dialogImageUrl"
+                  alt
+                >
               </el-dialog>
             </el-form-item>
             <el-form-item>
               <el-button @click="creatRecordVisible = false">取 消</el-button>
-              <el-button type="primary" @click="addRecord('recordForm')">确 定</el-button>
+              <el-button
+                type="primary"
+                @click="addRecord('recordForm')"
+              >确 定</el-button>
             </el-form-item>
           </el-form>
           <!-- <div slot="footer" class="dialog-footer">
@@ -373,13 +625,13 @@ import { getBaseAddr } from "@/api/common";
 import { mapState } from "vuex";
 export default {
   components: {
-    History,
+    History
   },
   props: {
     id: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     // validators
@@ -413,8 +665,8 @@ export default {
         return c(new Error("会议结束时间为空"));
       }
       if (this.meetingCreateForm.start_time.length != 0) {
-        let date = new Date(this.meetingCreateForm.start_time);
-        let enddate = new Date(v);
+        const date = new Date(this.meetingCreateForm.start_time);
+        const enddate = new Date(v);
         if (date > enddate) {
           return c(new Error("会议结束时间在开始时间之前！"));
         }
@@ -431,12 +683,12 @@ export default {
         mute_all: false,
         mute_enable_join: false,
         password: "",
-        subject: "",
+        subject: ""
       },
       formRules: {
         case_id: [{ validator: checkCaseID, trigger: "blur" }],
         subject: [{ validator: checkSubject, trigger: "blur" }],
-        end_time: [{ validator: checkEnd, trigger: "blur" }],
+        end_time: [{ validator: checkEnd, trigger: "blur" }]
       },
       dialogVisible: false,
       recordForm: { name: "", dialogImageUrl: "" },
@@ -449,7 +701,7 @@ export default {
       laborData: {},
       infolaborOption: laborOption.option,
       dialogFormVisible: false,
-      CEVisible: false,
+      CEVisible: false
     };
   },
   created() {
@@ -466,7 +718,7 @@ export default {
         mute_all: false,
         mute_enable_join: false,
         password: "",
-        subject: "",
+        subject: ""
       };
       this.dialogVisible = true;
     },
@@ -477,7 +729,7 @@ export default {
             lock: true,
             text: "处理中",
             spinner: "el-icon-loading",
-            background: "rgba(0, 0, 0, 0.7)",
+            background: "rgba(0, 0, 0, 0.7)"
           });
           // 尝试创建会议
           createMeeting(this.meetingCreateForm)
@@ -499,7 +751,7 @@ export default {
                   {
                     confirmButtonText: "确定",
                     dangerouslyUseHTMLString: true,
-                    callback: (action) => {},
+                    callback: (action) => {}
                   }
                 );
                 this.loadMyMeeting();
@@ -544,12 +796,12 @@ export default {
       const resp = await creatRecord({
         case_id: this.caseid,
         name: this.recordForm.name,
-        path: this.upload,
+        path: this.upload
       });
       if (resp.message == "success") {
         this.$message({
           message: resp.message,
-          type: "success",
+          type: "success"
         });
         this.creatRecordVisible = false;
       }
@@ -559,7 +811,7 @@ export default {
 
       this.$message({
         message: resp.message,
-        type: "success",
+        type: "success"
       });
       this.loadCase();
     },
@@ -569,7 +821,7 @@ export default {
 
       this.$message({
         message: resp.message,
-        type: "success",
+        type: "success"
       });
       this.loadCase();
     },
@@ -580,18 +832,18 @@ export default {
       if (this.comment == "") {
         this.$message({
           message: "质证内容不得为空",
-          type: "warning",
+          type: "warning"
         });
         return;
       }
       const resp = await creatCE({
         case_id: this.caseid,
-        content: this.comment,
+        content: this.comment
       });
       if (resp.message == "success") {
         this.$message({
           message: "提交成功",
-          type: "success",
+          type: "success"
         });
         this.loadCase();
         this.CEVisible = false;
@@ -601,7 +853,7 @@ export default {
       if (path.indexOf("http://") == 0 || path.indexOf("https://") == 0) {
         return path;
       } else {
-        return getBaseAddr() + path;
+        return getBaseAddr() + "/" + path;
       }
     },
     goform() {
@@ -638,25 +890,25 @@ export default {
             } else {
               this.$message({
                 type: "error",
-                error: "获取案件信息失败",
+                error: "获取案件信息失败"
               });
             }
           })
           .catch((err) => {
             this.$message({
               type: "error",
-              error: "获取案件信息失败",
+              error: "获取案件信息失败"
             });
             this.$router.push("/");
           });
       });
-    },
+    }
   },
   computed: {
     ...mapState({
-      claims: (state) => state.user.claims,
-    }),
-  },
+      claims: (state) => state.user.claims
+    })
+  }
 };
 </script>
 <style scoped>

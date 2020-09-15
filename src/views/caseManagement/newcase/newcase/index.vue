@@ -98,7 +98,7 @@ export default {
         },
         category_id: this.obj.category_id,
         content: this.obj.content,
-        materials: [{ name: this.obj.name, path: this.obj.path }],
+        materials: this.obj.materials,
         respondent: {
           employer_name: this.obj.employer_name,
           employer_faren: this.obj.employer_faren,
