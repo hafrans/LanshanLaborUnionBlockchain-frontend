@@ -21,3 +21,11 @@ export function deleteRecord(id) {
     method: 'get'
   })
 }
+
+export function createSuggestion(data) {
+  return request({
+    url: 'v1/suggestion/create',
+    method: 'post',
+    data
+  })
+}

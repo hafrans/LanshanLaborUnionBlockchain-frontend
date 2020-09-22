@@ -538,7 +538,7 @@
           >添加笔录</el-button>
           <el-button
             type="info"
-            @click="$message({type:'info',message:'建设中'})"
+            @click="addSuggestion = true"
           >添加部门建议</el-button>
           <el-button
             type="warning"
@@ -549,6 +549,30 @@
             @click="$message({type:'info',message:'建设中'})"
           >结束该案件</el-button>
         </el-row>
+
+        <el-dialog
+          title="添加部门意见"
+          :visible.sync="addSuggestion"
+          width="25%"
+        >
+          <el-input
+            v-model="departmentSug"
+            type="textarea"
+            :rows="2"
+            placeholder="请输入部门意见"
+          />
+          <div
+            slot="footer"
+            class="dialog-footer"
+          >
+            <el-button @click="addSuggestion = false">取 消</el-button>
+            <el-button
+              type="primary"
+              @click.stop="addDepartSuggest()"
+            >提 交</el-button>
+          </div>
+        </el-dialog>
+
         <el-dialog
           title="添加笔录"
           :visible.sync="creatRecordVisible"
@@ -617,7 +641,7 @@
 <script>
 import { createMeeting } from "@/api/meeting";
 import { getOneCase } from "@/api/case";
-import { creatRecord, upLoad, deleteRecord } from "@/api/record";
+import { creatRecord, upLoad, deleteRecord, createSuggestion } from "@/api/record";
 import { creatCE, deleteCE } from "@/api/comment";
 import History from "@/components/history";
 import laborOption from "@/components/Componentform/option";
@@ -674,6 +698,8 @@ export default {
       c();
     };
     return {
+      departmentSug: '',
+      addSuggestion: false,
       meetingCreateForm: {
         allow_unmute_self: true,
         case_id: "",
@@ -708,6 +734,19 @@ export default {
     this.loadCase();
   },
   methods: {
+    async addDepartSuggest() {
+      const resp = await createSuggestion({
+        case_id: this.caseid,
+        content: this.departmentSug
+      });
+      if (resp.message == "success") {
+        this.$message({
+          message: resp.message,
+          type: "success"
+        });
+        this.addSuggestion = false;
+      }
+    },
     showCreateMeetingDialog() {
       this.meetingCreateForm = {
         allow_unmute_self: true,
