@@ -12,12 +12,14 @@ export default {
     // ]
   },
   option: {
+    emptyBtn: false,
+    submitBtn: false,
     detail: false,
     size: "small",
     // mockBtn: true,
     labelWidth: 200,
     gutter: 150,
-    submitText: '提交',
+    // submitText: '提交',
     // printBtn: true,
     column: [
       {

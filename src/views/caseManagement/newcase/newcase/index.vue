@@ -3,7 +3,12 @@
     <div class="title">案件申请调解表</div>
     <!-- <el-button style="margin-left: 20px" @click="handle">编辑</el-button> -->
     <!-- <el-button v-if="option.detail" style="margin-left: 20px" type="primary" @click="goform">请点击创建案件要素表</el-button> -->
-    <avue-form ref="form" v-model="obj" :option="option" @submit="handleSubmit" />
+    <avue-form ref="form" v-model="obj" :option="option">
+      <template slot="menuForm">
+        <el-button type="primary" :loading="loading" @click="handleSubmit">提 交</el-button>
+        <el-button @click="handleEmpty">清 空</el-button>
+      </template>
+    </avue-form>
     <el-dialog :visible.sync="dialogVisible">
       <img width="100%" :src="dialogImageUrl" alt>
     </el-dialog>
@@ -17,6 +22,7 @@ import { mapGetters, mapState } from "vuex";
 export default {
   data() {
     return {
+      loading: false,
       dialogImageUrl: "",
       dialogVisible: false,
       option: Data.option,
@@ -61,23 +67,26 @@ export default {
         this.option.detail = false;
       }
     },
-    handleSubmit() {
+    handleEmpty() {
+      this.$refs.form.resetForm();
+    },
+    handleSubmit(file, done, loading) {
+      this.loading = true
       this.$refs.form.validate(vaild => {
         if (vaild) {
-          if (this.labor === "") {
+          if (this.labor == undefined) {
             this.$message({
               message: "请先填写并提交案件要素表",
-              type: '"warning"'
+              type: 'warning'
             });
+            this.loading = false
             return;
           }
-
-          // console.log("labor", labor)
           this.postForm();
         } else {
           this.$message({
             message: "请填写必填项",
-            type: '"warning"'
+            type: 'warning'
           });
           return false;
         }
@@ -96,9 +105,9 @@ export default {
           applicant_contact: this.obj.applicant_contact.trim(),
           applicant_address: this.obj.applicant_address.trim()
         },
-        category_id: this.obj.category_id.trim(),
+        category_id: this.obj.category_id,
         content: this.obj.content.trim(),
-        materials: this.obj.materials.trim(),
+        materials: this.obj.materials,
         respondent: {
           employer_name: this.obj.employer_name.trim(),
           employer_faren: this.obj.employer_faren.trim(),
@@ -110,7 +119,7 @@ export default {
       };
       const res = await createNewCases(upload);
       if (res.message === "success") {
-        // console.log("44444444444444", res.case_id)
+        this.loading = false
         this.$alert(res.data.case_id, "请记录案件号方便之后查询", {
           confirmButtonText: "确定",
           callback: action => {
@@ -126,7 +135,6 @@ export default {
           type: "warning"
         });
       }
-      console.log("0000000", res);
     },
     async text() {
       const text = await getFormExm();
