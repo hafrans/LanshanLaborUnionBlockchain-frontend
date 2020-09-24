@@ -107,9 +107,9 @@ export default {
           {
             label: '姓名',
             prop: 'applicant_name',
-            mock: {
-              type: 'name'
-            },
+            // mock: {
+            //   type: 'name'
+            // },
             span: 12,
             rules: [
               {
@@ -142,7 +142,6 @@ export default {
             label: '联系方式',
             prop: 'applicant_contact',
             span: 12,
-            dataType: 'number',
             rules: [
               {
                 required: true,
@@ -155,7 +154,6 @@ export default {
             label: '身份证号',
             prop: 'applicant_id',
             span: 12,
-            dataType: 'number',
             rules: [
               {
                 required: true,
@@ -200,9 +198,9 @@ export default {
           {
             label: '公司名',
             prop: 'employer_name',
-            mock: {
-              type: 'name'
-            },
+            // mock: {
+            //   type: 'name'
+            // },
             span: 12,
             rules: [
               {
@@ -215,9 +213,9 @@ export default {
           {
             label: '法人',
             prop: 'employer_faren',
-            mock: {
-              type: 'name'
-            },
+            // mock: {
+            //   type: 'name'
+            // },
             span: 12,
             rules: [
               {
@@ -231,7 +229,7 @@ export default {
             label: '联系方式',
             prop: 'employer_contact',
             span: 12,
-            dataType: 'number',
+            // dataType: 'number',
             rules: [
               {
                 required: true,
@@ -244,7 +242,7 @@ export default {
             label: '识别号',
             prop: 'employer_uscc',
             span: 12,
-            dataType: 'number',
+            // dataType: 'number',
             rules: [
               {
                 required: true,

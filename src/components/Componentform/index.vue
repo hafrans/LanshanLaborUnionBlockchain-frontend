@@ -229,7 +229,7 @@
       <el-collapse v-model="activeNames">
         <el-collapse-item title="劳动合同规定内容" name="1">
           <el-form-item label="工作岗位">
-            <el-input v-model="form.job_name" placeholder="请输入劳动合同约定的工作岗位" style="width:240px" />
+            <el-input v-model.trim="form.job_name" placeholder="请输入劳动合同约定的工作岗位" style="width:240px" />
           </el-form-item>
           <el-form-item label="工作地点">
             <el-input
@@ -243,7 +243,7 @@
           </el-form-item>
           <el-form-item label="工资构成">
             <el-input
-              v-model="form.contract_wage_component"
+              v-model.trim="form.contract_wage_component"
               placeholder="请输入劳动合同约定的工资构成"
               style="width:240px"
             />
@@ -267,7 +267,7 @@
             <el-input v-model.number="form.wage" placeholder="请输入实发工资数" style="width:220px" />
           </el-form-item>
           <el-form-item label="实发工资构成">
-            <el-input v-model="form.wage_component" placeholder="请输入实发工资构成" style="width:220px" />
+            <el-input v-model.trim="form.wage_component" placeholder="请输入实发工资构成" style="width:220px" />
           </el-form-item>
           <el-form-item
             label="发放形式"
@@ -401,7 +401,7 @@
           </el-form-item>
           <el-form-item label="其他">
             <el-input
-              v-model="form.work_related_treatment_other"
+              v-model.trim="form.work_related_treatment_other"
               placeholder="请输入其他"
               style="width:240px"
             />
@@ -431,7 +431,7 @@
           </el-form-item>
           <el-form-item label="加班工资计算基数">
             <el-input
-              v-model="form.overtime_wage_base"
+              v-model.trim="form.overtime_wage_base"
               placeholder="请输入加班工资计算基数"
               style="width:240px"
             />
@@ -447,7 +447,7 @@
           </el-form-item>
           <el-form-item label="计算期间">
             <el-input
-              v-model="form.before_sever_labor_relationship_range"
+              v-model.trim="form.before_sever_labor_relationship_range"
               placeholder="请输入计算期间"
               style="width:240px"
             />
@@ -455,22 +455,22 @@
         </el-collapse-item>
         <el-collapse-item title="未带薪年休假天数" name="7">
           <el-form-item label="应休天数">
-            <el-input v-model="form.should_rest" placeholder="请输入应休天数" style="width:240px" />
+            <el-input v-model.trim="form.should_rest" placeholder="请输入应休天数" style="width:240px" />
           </el-form-item>
           <el-form-item label="实修天数">
-            <el-input v-model="form.real_rest" placeholder="请输入实修天数" style="width:240px" />
+            <el-input v-model.trim="form.real_rest" placeholder="请输入实修天数" style="width:240px" />
           </el-form-item>
           <el-form-item label="未休天数">
-            <el-input v-model="form.not_take_days" placeholder="请输入未休天数" style="width:240px" />
+            <el-input v-model.trim="form.not_take_days" placeholder="请输入未休天数" style="width:240px" />
           </el-form-item>
         </el-collapse-item>
         <el-collapse-item title="扣除加班工资后十二个月劳动者月平均工资数额" name="8">
           <el-form-item label="金额">
-            <el-input v-model="form.no_overtime_avg_wage" placeholder="请输入金额" style="width:240px" />
+            <el-input v-model.trim="form.no_overtime_avg_wage" placeholder="请输入金额" style="width:240px" />
           </el-form-item>
           <el-form-item label="计算时间">
             <el-input
-              v-model="form.no_overtime_avg_wage_range"
+              v-model.trim="form.no_overtime_avg_wage_range"
               placeholder="请输入计算时间"
               style="width:240px"
             />
@@ -479,14 +479,14 @@
         <el-collapse-item title="双方解除或终止劳动关系原因" name="9">
           <el-form-item label="劳动者提出原因">
             <el-input
-              v-model="form.sever_labor_relationship_employer_reason"
+              v-model.trim="form.sever_labor_relationship_employer_reason"
               placeholder="请输入劳动者提出原因"
               style="width:240px"
             />
           </el-form-item>
           <el-form-item label="用人单位提出原因">
             <el-input
-              v-model="form.sever_labor_relationship_labor_reason"
+              v-model.trim="form.sever_labor_relationship_labor_reason"
               placeholder="请输入用人单位提出原因"
               style="width:240px"
             />

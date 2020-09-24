@@ -89,24 +89,24 @@ export default {
       const upload = {
         form_id: this.$route.query.laborId,
         applicant: {
-          applicant_name: this.obj.applicant_name,
+          applicant_name: this.obj.applicant_name.trim(),
           applicant_birth: this.obj.applicant_birth,
-          applicant_nationality: this.obj.applicant_nationality,
-          applicant_id: this.obj.applicant_id,
-          applicant_contact: this.obj.applicant_contact,
-          applicant_address: this.obj.applicant_address
+          applicant_nationality: this.obj.applicant_nationality.trim(),
+          applicant_id: this.obj.applicant_id.trim(),
+          applicant_contact: this.obj.applicant_contact.trim(),
+          applicant_address: this.obj.applicant_address.trim()
         },
-        category_id: this.obj.category_id,
-        content: this.obj.content,
-        materials: this.obj.materials,
+        category_id: this.obj.category_id.trim(),
+        content: this.obj.content.trim(),
+        materials: this.obj.materials.trim(),
         respondent: {
-          employer_name: this.obj.employer_name,
-          employer_faren: this.obj.employer_faren,
-          employer_uscc: this.obj.employer_uscc,
-          employer_contact: this.obj.employer_contact,
-          employer_address: this.obj.employer_address
+          employer_name: this.obj.employer_name.trim(),
+          employer_faren: this.obj.employer_faren.trim(),
+          employer_uscc: this.obj.employer_uscc.trim(),
+          employer_contact: this.obj.employer_contact.trim(),
+          employer_address: this.obj.employer_address.trim()
         },
-        title: this.obj.title
+        title: this.obj.title.trim()
       };
       const res = await createNewCases(upload);
       if (res.message === "success") {
