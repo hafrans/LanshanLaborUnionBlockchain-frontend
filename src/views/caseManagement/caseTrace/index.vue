@@ -1,6 +1,16 @@
 <template>
   <div calss="app-container">
-    <el-container>
+    <div v-if="searchText == undefined" class="noinput" style="width: 80%">
+      <el-input v-model="searchT" placeholder="请输入案件号搜索案件" size="large">
+        <el-button
+          slot="append"
+          type="primary"
+          icon="el-icon-search"
+          @click="searchL()"
+        >搜索</el-button>
+      </el-input>
+    </div>
+    <el-container v-else>
       <el-header>
         <div class="input" style="width: 80%">
           <el-input v-model="searchText" placeholder="请输入案件号搜索案件" size="large">
@@ -80,28 +90,35 @@ export default {
   components: {
 
   },
-  props: {
-    caseId: {
-      type: String,
-      required: false,
-      default: '3711002020071217413815945468986090287'
-    }
-  },
+  // props: {
+  //   caseId: {
+  //     type: String,
+  //     required: true,
+  //     default: '3711002020071217413815945468986090287'
+  //   }
+  // },
   data() {
     return {
-      searchText: '3711002020071217413815945468986090287',
+      searchT: '',
+      searchText: '',
       caseinfo: {},
       history: {}
     }
   },
   created() {
-    this.searchText = this.caseId
-    this.loadHistory()
-    this.getOneCase()
+    this.searchText = this.$route.params.caseId
+    if (this.searchText !== undefined) {
+      this.loadHistory()
+      this.getOneCase()
+    }
   },
   methods: {
     goDetail() {
       this.$router.push("caseManagement/view/" + this.caseinfo.id)
+    },
+    searchL() {
+      this.searchText = this.searchT
+      this.search()
     },
     search() {
       this.getOneCase()
@@ -138,6 +155,10 @@ export default {
 <style scoped>
 .app-container {
   padding: 30px;
+}
+.noinput {
+  margin: 15% 10%;
+  padding: 0 15%;
 }
 .input {
   margin: 2rem  5rem;

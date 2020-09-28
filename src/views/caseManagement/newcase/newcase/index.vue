@@ -88,6 +88,7 @@ export default {
             message: "请填写必填项",
             type: 'warning'
           });
+          this.loading = false
           return false;
         }
       });
@@ -117,6 +118,14 @@ export default {
         },
         title: this.obj.title.trim()
       };
+      // setTimeout(function() {
+      //   console.log(111);
+      //   this.loading = false
+      //   this.$message({
+      //     message: "请检查网络",
+      //     type: 'warning'
+      //   });
+      // }, 10000);
       const res = await createNewCases(upload);
       if (res.message === "success") {
         this.loading = false

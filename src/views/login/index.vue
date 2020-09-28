@@ -529,12 +529,12 @@ $cursor: #fff;
       padding: 12px 5px 12px 15px;
       color: $light_gray;
       height: 47px;
-      caret-color: $cursor;
+      caret-color: #000;
 
-      &:-webkit-autofill {
-        box-shadow: 0 0 0px 1000px $bg inset !important;
-        -webkit-text-fill-color: $cursor !important;
-      }
+      // &:-webkit-autofill {
+      //   box-shadow: 0 0 0px 1000px $bg inset !important;
+      //   -webkit-text-fill-color: $cursor !important;
+      // }
     }
   }
 
@@ -553,6 +553,7 @@ $cursor: #fff;
 $bg: #2d3a4b;
 $dark_gray: #889aa4;
 $light_gray: #eee;
+$cursor: #fff;
 
 .active {
   color: #fff;
@@ -591,7 +592,11 @@ ul li {
   font-size: 14px;
   background-color: #fff;
 }
-
+@supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
+  .login-container .el-input input {
+    color: $cursor;
+  }
+}
 .login-container {
   min-height: 100%;
   width: 100%;

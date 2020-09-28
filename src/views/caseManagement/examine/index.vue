@@ -6,7 +6,13 @@
       </el-input>
     </div>
     <div class="content">
-      <avue-crud v-model="obj" :data="allCase" :option="option">
+      <avue-crud
+        v-model="obj"
+        :data="allCase"
+        :option="option"
+        :page="page"
+        @on-load="onLoad"
+      >
         <template slot="menuLeft">
           <el-button
             type="primary"
@@ -67,6 +73,9 @@ export default {
   components: {},
   data() {
     return {
+      page: {
+        pageSize: 10
+      },
       obj: {},
       activeName: "first",
       dialogFormVisible: false,
@@ -114,20 +123,22 @@ export default {
     };
   },
   created() {
-    this.text();
   },
   methods: {
-    async text() {
-      const text = await getAllCase();
+    async onLoad(page) {
+      const text = await getAllCase({
+        currentPage: page.currentPage,
+        pageSize: page.pageSize
+      });
+      this.page = page
+      this.page.total = text.data.total_count
       this.allCase = text.data.list;
-      console.log("text", text.data.list);
     },
     async handleEdit(row, index) {
       this.dialogFormVisible = true;
       const text = await getCase({ caseId: this.allCase[index].case_id });
       this.id = this.allCase[index].id;
       this.infoData = text.data;
-      console.log("777777777777", this.infoData);
       this.laborData = text.data.form;
     },
     handleTrace(row, index) {

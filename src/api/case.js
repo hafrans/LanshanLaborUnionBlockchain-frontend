@@ -39,9 +39,9 @@ export function getFormExm() {
     method: 'get'
   })
 }
-export function getAllCase() {
+export function getAllCase(data) {
   return request({
-    url: 'v1/case/',
+    url: 'v1/case/' + "?page=" + data.currentPage + "&pageSize=" + data.pageSize,
     method: 'get'
   })
 }
