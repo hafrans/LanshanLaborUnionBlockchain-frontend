@@ -71,10 +71,16 @@ export const constantRoutes = [
         meta: { title: '用户信息展示', icon: 'el-icon-search' }
       },
       {
+        path: 'selfcheckphone',
+        name: 'selfcheckphone',
+        component: ()=> import('@/views/user/checkphone'),
+        meta: { title: '实名认证', icon: 'el-icon-s-claim' },
+      },
+      {
         path: '/updateinfo',
         name: 'updateinfo',
         component: () => import('@/views/user/updateinfo/index'),
-        meta: { title: '用户信息修改', icon: 'el-icon-s-tools' },
+        meta: { title: '用户信息修改', icon: 'el-icon-s-claim' },
         children: [
           {
             path: 'changepass',

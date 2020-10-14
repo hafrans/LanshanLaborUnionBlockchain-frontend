@@ -56,3 +56,15 @@ export function setEmail(data) {
     data
   })
 }
+
+
+export function checkSelf(data){
+  return request({
+    url:'/v1/user/check_phone',
+    method: 'post',
+    /**
+     * phone_captcha
+     */
+    data
+  })
+}

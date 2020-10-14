@@ -12,3 +12,19 @@ export function getBaseAddr() {
     ? "http://server.ls.dev.scanf.cc:8081"
     : "http://fnl.vip.qydev.com";
 }
+
+
+export function sendShortMessage(data){
+  return request({
+    url: '/auth/sms/captcha/request',
+    method: 'post',
+    /**
+     * phone
+     * captcha_code
+     * captcha_time
+     * captcha_challenge
+     */
+    data 
+  })
+}
+

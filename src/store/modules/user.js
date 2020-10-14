@@ -121,6 +121,7 @@ const actions = {
         commit('SET_USER_INFO', user)
         commit('SET_USER_CLAIMS', claims)
         commit('SET_ROLES', claims.roles)
+        console.log("fetch user data");
         resolve(response)
       }).catch(error => {
         reject(error)
