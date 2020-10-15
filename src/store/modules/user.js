@@ -129,7 +129,6 @@ const actions = {
           roles.push("user")
         }
         commit('SET_ROLES', roles)
-        console.log("fetch user data");
         resolve(response)
       }).catch(error => {
         reject(error)
