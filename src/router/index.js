@@ -59,10 +59,23 @@ export const constantRoutes = [
     }]
   },
   {
+    path: '/userManagement',
+    component: Layout,
+    redirect: '/userManagement',
+
+    children: [
+      {
+        path: '/departmentUser',
+        name: 'departmentUser',
+        component: () => import('@/views/userManagement/departmentUser'),
+        meta: { title: '用户管理', icon: 'el-icon-s-help' }
+      }]
+  },
+  {
     path: '/user',
     component: Layout,
     redirect: '/user/showinfo',
-    meta: { title: '用户信息管理', icon: 'el-icon-user-solid' },
+    meta: { title: '个人中心', icon: 'el-icon-user-solid' },
     children: [
       {
         path: '/showinfo',
@@ -73,8 +86,8 @@ export const constantRoutes = [
       {
         path: 'selfcheckphone',
         name: 'selfcheckphone',
-        component: ()=> import('@/views/user/checkphone'),
-        meta: { title: '实名认证', icon: 'el-icon-s-claim' },
+        component: () => import('@/views/user/checkphone'),
+        meta: { title: '实名认证', icon: 'el-icon-s-claim' }
       },
       {
         path: '/updateinfo',
@@ -162,13 +175,13 @@ export const constantRoutes = [
       path: 'list',
       name: 'meetinglist',
       component: () => import('@/views/meeting/list.vue'),
-      meta: { title: '我的会议', icon: 'el-icon-s-order' },
+      meta: { title: '我的会议', icon: 'el-icon-s-order' }
     },
     {
       path: 'list2',
       name: 'meetingaccountunbind',
       component: () => import('@/views/meeting/accountdelete'),
-      meta: { title: '会议用户解绑', icon: 'el-icon-s-custom' },
+      meta: { title: '会议用户解绑', icon: 'el-icon-s-custom' }
     }]
   },
   {
