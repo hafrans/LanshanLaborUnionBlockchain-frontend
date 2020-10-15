@@ -10,6 +10,7 @@
           <el-row type="flex" justify="space-around">
             <el-col :span="9"
               ><Captcha
+                v-if="dialogVisible" 
                 style="height: 3em; width: 8em"
                 id="captcha"
                 ref="compCaptcha"

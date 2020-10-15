@@ -120,7 +120,15 @@ const actions = {
         commit('SET_AVATAR', "https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg")
         commit('SET_USER_INFO', user)
         commit('SET_USER_CLAIMS', claims)
-        commit('SET_ROLES', claims.roles)
+        let roles = []
+        if (claims.type == 1){
+          roles.push("admin")
+        }else if( claims.type == 4){
+          roles.push("department")
+        } else {
+          roles.push("user")
+        }
+        commit('SET_ROLES', roles)
         console.log("fetch user data");
         resolve(response)
       }).catch(error => {
