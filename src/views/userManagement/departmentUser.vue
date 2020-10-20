@@ -218,10 +218,14 @@ export default {
       postOptions: [],
       // 角色选项
       departmentOptions: [
-        { department_id: 1, departmentName: '系统管理员' },
-        { department_id: 2, departmentName: '劳动者' },
-        { department_id: 3, departmentName: '用人单位' },
-        { department_id: 4, departmentName: '部门管理员' }
+        // { department_id: 1, departmentName: '系统管理员' },
+        // { department_id: 2, departmentName: '劳动者' },
+        // { department_id: 3, departmentName: '用人单位' },
+        // { department_id: 4, departmentName: '部门管理员' }
+        { department_id: 1, departmentName: '日照市岚山区总工会' },
+        { department_id: 2, departmentName: '日照市岚山区人民法院' },
+        { department_id: 3, departmentName: '日照市岚山区人力和资源社会保障局' },
+        { department_id: 4, departmentName: '日照市部门岚山区司法局' }
       ],
       // 表单参数
       form: {},
@@ -235,7 +239,7 @@ export default {
         currentPage: 1,
         pageSize: 10,
         username: undefined,
-        search: undefined,
+        search: '',
         status: undefined,
         deptId: undefined
       },
@@ -244,10 +248,10 @@ export default {
         username: [
           { required: true, message: '用户名称不能为空', trigger: 'blur' },
           { min: 3, message: "长度最少3字符", trigger: "blur" },
-          { min: 20, message: "长度最长20字符", trigger: "blur" }
+          { max: 20, message: "长度最长20字符", trigger: "blur" }
         ],
         department_id: [
-          { required: true, message: '部门不能为空', trigger: 'blur' }
+          // { required: true, message: '部门不能为空', trigger: 'blur' }
         ],
         phone_checked: [
           { required: true, message: '手机验证状态不能为空', trigger: 'blur' }
@@ -256,12 +260,12 @@ export default {
           { required: true, message: '账户状态不能为空', trigger: 'blur' }
         ],
         password: [
-          { required: true, message: '用户密码不能为空', trigger: 'blur' },
+          // { required: true, message: '用户密码不能为空', trigger: 'blur' },
           { min: 3, message: "长度最少3字符", trigger: "blur" },
-          { min: 20, message: "长度最长20字符", trigger: "blur" }
+          { max: 20, message: "长度最长20字符", trigger: "blur" }
         ],
         confirm_password: [
-          { required: true, message: '确认密码不能为空', validator: validatePass2, trigger: 'blur' }
+          { required: false, message: '确认密码不能为空', validator: validatePass2, trigger: 'blur' }
         ],
         email: [
           { required: true, message: '邮箱地址不能为空', trigger: 'blur' },
@@ -347,6 +351,7 @@ export default {
     /** 重置按钮操作 */
     resetQuery() {
       this.dateRange = []
+      this.queryParams.search = ''
       // this.resetForm('queryForm')
       this.handleQuery()
     },
@@ -381,7 +386,7 @@ export default {
         if (valid) {
           if (this.form.id !== undefined) {
             updateUser(this.form).then(response => {
-              if (response.message === '注册成功') {
+              if (response.message === '更新信息成功') {
                 this.$message({
                   message: response.message,
                   type: "success"
@@ -416,8 +421,9 @@ export default {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
-      }).then(
+      }).then(() => {
         delUser(id)
+      }
       ).then(() => {
         this.getList()
       }).catch(function() {})

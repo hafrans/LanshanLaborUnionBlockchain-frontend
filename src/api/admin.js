@@ -48,7 +48,7 @@ export function getAllUser(data) {
 
 export function delUser(id) {
   return request({
-    url: 'v1/admin/user/' + id,
+    url: 'v1/admin/user/delete/' + id,
     method: 'delete'
   })
 }
