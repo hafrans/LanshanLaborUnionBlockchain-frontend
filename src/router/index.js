@@ -59,19 +59,6 @@ export const constantRoutes = [
     }]
   },
   {
-    path: '/userManagement',
-    component: Layout,
-    redirect: '/userManagement',
-
-    children: [
-      {
-        path: '/departmentUser',
-        name: 'departmentUser',
-        component: () => import('@/views/userManagement/departmentUser'),
-        meta: { title: '用户管理', icon: 'el-icon-s-help' }
-      }]
-  },
-  {
     path: '/user',
     component: Layout,
     redirect: '/user/showinfo',
@@ -270,6 +257,22 @@ export const constantRoutes = [
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
+]
+
+
+export const asyncRoutes = [
+  {
+    path: '/admin',
+    component: Layout,
+    redirect: '/admin/usermanagment',
+    children: [
+      {
+        path: 'usermanagment',
+        name: 'usermanagment',
+        component: () => import('@/views/userManagement/departmentUser'),
+        meta: { title: '用户管理', icon: 'el-icon-s-help', roles: ['admin'] },
+      }]
+  },
 ]
 
 const createRouter = () => new Router({
