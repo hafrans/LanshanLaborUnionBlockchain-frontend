@@ -7,7 +7,7 @@
           <el-form ref="queryForm" :model="queryParams" :inline="true" label-width="68px">
             <el-form-item label="手机号码" prop="phone">
               <el-input
-                v-model="queryParams.phone"
+                v-model="queryParams.search"
                 placeholder="请输入手机号码"
                 clearable
                 size="small"
@@ -98,7 +98,7 @@
           <pagination
             v-show="total>0"
             :total="total"
-            :page.sync="queryParams.pageIndex"
+            :page.sync="queryParams.currentPage"
             :limit.sync="queryParams.pageSize"
             @pagination="getList()"
           />
@@ -232,10 +232,10 @@ export default {
 
       // 查询参数
       queryParams: {
-        pageIndex: 1,
+        currentPage: 1,
         pageSize: 10,
         username: undefined,
-        phone: undefined,
+        search: undefined,
         status: undefined,
         deptId: undefined
       },
@@ -295,10 +295,9 @@ export default {
     /** 查询用户列表 */
     getList() {
       this.loading = true
-      getAllUser({
-        currentPage: this.queryParams.pageIndex,
-        pageSize: this.queryParams.pageSize
-      }).then(response => {
+      getAllUser(
+        this.queryParams
+      ).then(response => {
         this.userList = response.data.list
         this.total = response.data.total_count
         this.loading = false

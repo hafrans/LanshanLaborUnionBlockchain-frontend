@@ -41,7 +41,7 @@ export function getFormExm() {
 }
 export function getAllUser(data) {
   return request({
-    url: 'v1/admin/user' + "?page=" + data.currentPage + "&pageSize=" + data.pageSize,
+    url: 'v1/admin/user' + "?page=" + data.currentPage + "&pageSize=" + data.pageSize + "&search=" + data.search,
     method: 'get'
   })
 }
