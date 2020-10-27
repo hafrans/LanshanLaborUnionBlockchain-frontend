@@ -60,3 +60,10 @@ export function getCase(params) {
   })
 }
 
+export function CaseStatus(data) {
+  return request({
+    url: 'v1/case/status_change/' + data.id,
+    method: 'post',
+    data
+  })
+}

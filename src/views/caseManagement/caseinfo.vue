@@ -526,11 +526,11 @@
           </div>
         </el-dialog>
       </el-main>
-      <el-footer style="text-align:center">
+      <el-footer v-if="user_type == 1||user_type == 4" style="text-align:center">
         <el-row>
           <el-button
             type="primary"
-            @click="$message({type:'info',message:'建设中'})"
+            @click="changeStatus(1)"
           >处理该案件</el-button>
           <el-button
             type="success"
@@ -542,105 +542,116 @@
           >添加部门建议</el-button>
           <el-button
             type="warning"
-            @click="$message({type:'info',message:'建设中'})"
-          >设置案件状态</el-button>
+            @click="changeStatus(2)"
+          >通知当事人调解结果</el-button>
           <el-button
             type="danger"
-            @click="$message({type:'info',message:'建设中'})"
+            @click="changeStatus(5)"
           >结束该案件</el-button>
         </el-row>
-
-        <el-dialog
-          title="添加部门意见"
-          :visible.sync="addSuggestion"
-          width="25%"
+      </el-footer>
+      <el-footer v-if="user_type == 2||user_type == 3" style="text-align:center">
+        <el-row>
+          <el-button
+            type="success"
+            @click="changeStatus(4)"
+          >确认调解</el-button>
+          <el-button
+            type="danger"
+            @click="changeStatus(3)"
+          >拒绝调解</el-button>
+        </el-row>
+      </el-footer>
+      <el-dialog
+        title="添加部门意见"
+        :visible.sync="addSuggestion"
+        width="25%"
+      >
+        <el-input
+          v-model="departmentSug"
+          type="textarea"
+          :rows="2"
+          placeholder="请输入部门意见"
+        />
+        <div
+          slot="footer"
+          class="dialog-footer"
         >
-          <el-input
-            v-model="departmentSug"
-            type="textarea"
-            :rows="2"
-            placeholder="请输入部门意见"
-          />
-          <div
-            slot="footer"
-            class="dialog-footer"
+          <el-button @click="addSuggestion = false">取 消</el-button>
+          <el-button
+            type="primary"
+            @click.stop="addDepartSuggest()"
+          >提 交</el-button>
+        </div>
+      </el-dialog>
+
+      <el-dialog
+        title="添加笔录"
+        :visible.sync="creatRecordVisible"
+        width="40%"
+      >
+        <el-form
+          ref="recordForm"
+          :model="recordForm"
+          label-width="10rem"
+          label-position="right"
+        >
+          <el-form-item
+            label="记录介绍"
+            prop="name"
+            :rules="[
+              { required: true, message: '请输入记录介绍', trigger: 'blur' }
+            ]"
           >
-            <el-button @click="addSuggestion = false">取 消</el-button>
+            <el-input
+              v-model="recordForm.name"
+              autocomplete="off"
+            />
+          </el-form-item>
+          <el-form-item
+            label="截图/材料"
+            prop="dialogImageUrl"
+            :rules="[
+              { required: true, message: '请上传截图/材料', trigger: 'blur' }
+            ]"
+          >
+            <el-upload
+              ref="upload"
+              action="a"
+              list-type="picture-card"
+              :on-preview="handlePictureCardPreview"
+              :on-remove="handleRemove"
+              :http-request="uploadSectionFile"
+            >
+              <i class="el-icon-plus" />
+            </el-upload>
+            <el-dialog :visible.sync="imgVisible">
+              <img
+                width="100%"
+                :src="recordForm.dialogImageUrl"
+                alt
+              >
+            </el-dialog>
+          </el-form-item>
+          <el-form-item>
+            <el-button @click="creatRecordVisible = false">取 消</el-button>
             <el-button
               type="primary"
-              @click.stop="addDepartSuggest()"
-            >提 交</el-button>
-          </div>
-        </el-dialog>
-
-        <el-dialog
-          title="添加笔录"
-          :visible.sync="creatRecordVisible"
-          width="40%"
-        >
-          <el-form
-            ref="recordForm"
-            :model="recordForm"
-            label-width="10rem"
-            label-position="right"
-          >
-            <el-form-item
-              label="记录介绍"
-              prop="name"
-              :rules="[
-                { required: true, message: '请输入记录介绍', trigger: 'blur' }
-              ]"
-            >
-              <el-input
-                v-model="recordForm.name"
-                autocomplete="off"
-              />
-            </el-form-item>
-            <el-form-item
-              label="截图/材料"
-              prop="dialogImageUrl"
-              :rules="[
-                { required: true, message: '请上传截图/材料', trigger: 'blur' }
-              ]"
-            >
-              <el-upload
-                ref="upload"
-                action="a"
-                list-type="picture-card"
-                :on-preview="handlePictureCardPreview"
-                :on-remove="handleRemove"
-                :http-request="uploadSectionFile"
-              >
-                <i class="el-icon-plus" />
-              </el-upload>
-              <el-dialog :visible.sync="imgVisible">
-                <img
-                  width="100%"
-                  :src="recordForm.dialogImageUrl"
-                  alt
-                >
-              </el-dialog>
-            </el-form-item>
-            <el-form-item>
-              <el-button @click="creatRecordVisible = false">取 消</el-button>
-              <el-button
-                type="primary"
-                @click="addRecord('recordForm')"
-              >确 定</el-button>
-            </el-form-item>
-          </el-form>
-          <!-- <div slot="footer" class="dialog-footer">
+              @click="addRecord('recordForm')"
+            >确 定</el-button>
+          </el-form-item>
+        </el-form>
+        <!-- <div slot="footer" class="dialog-footer">
             <el-button @click="creatRecordVisible = false">取 消</el-button>
             <el-button type="primary" @click="addRecord('recordForm')">确 定</el-button>
           </div>-->
-        </el-dialog>
-      </el-footer>
+      </el-dialog>
     </el-container>
   </div>
 </template>
 <script>
 import { createMeeting } from "@/api/meeting";
-import { getOneCase } from "@/api/case";
+import { getOneCase, CaseStatus } from "@/api/case";
 import { creatRecord, upLoad, deleteRecord, createSuggestion } from "@/api/record";
 import { creatCE, deleteCE } from "@/api/comment";
 import History from "@/components/history";
@@ -727,13 +738,47 @@ export default {
       laborData: {},
       infolaborOption: laborOption.option,
       dialogFormVisible: false,
-      CEVisible: false
+      CEVisible: false,
+      user_type: ''
     };
   },
   created() {
     this.loadCase();
+    this.getUserInfo()
   },
   methods: {
+    getUserInfo() {
+      this.user_type = this.$store.state.user.info.user_type
+    },
+    // 修改案件状态
+    async changeStatus(status) {
+      if (status == 3 || status == 4) {
+        if (this.status == 2) {
+          const res = await CaseStatus({ id: this.id, status: status })
+          if (res.message == '状态修改成功') {
+            this.$message({
+              message: res.message,
+              type: "success"
+            });
+            this.loadCase();
+          }
+        } else {
+          this.$message({
+            message: '请等待工作人员调解',
+            type: "warning"
+          });
+        }
+      } else {
+        const res = await CaseStatus({ id: this.id, status: status })
+        if (res.message == '状态修改成功') {
+          this.$message({
+            message: res.message,
+            type: "success"
+          });
+          this.loadCase();
+        }
+      }
+    },
     async addDepartSuggest() {
       const resp = await createSuggestion({
         case_id: this.caseid,
@@ -908,24 +953,25 @@ export default {
               this.caseid = resp.data.case_id;
               this.laborData = resp.data.form;
               console.log(resp.data);
-              if (this.caseinfo.status === 0) {
-                this.status = 1;
-              } else if (this.caseinfo.status === 1) {
-                // pending
-                this.status = 2;
-              } else if (this.caseinfo.status === 2) {
-                // confirming
-                this.status = 3;
-              } else if (this.caseinfo.status === 3) {
-                // accept
-                this.status = 4;
-              } else if (this.caseinfo.status === 4) {
-                // refuse
-                this.status = 4;
-              } else if (this.caseinfo.status === 5) {
-                // completed
-                this.status = 5;
-              }
+              this.status = this.caseinfo.status
+              // if (this.caseinfo.status === 0) {
+              //   this.status = 1;
+              // } else if (this.caseinfo.status === 1) {
+              //   // pending
+              //   this.status = 2;
+              // } else if (this.caseinfo.status === 2) {
+              //   // confirming
+              //   this.status = 3;
+              // } else if (this.caseinfo.status === 3) {
+              //   // accept
+              //   this.status = 4;
+              // } else if (this.caseinfo.status === 4) {
+              //   // refuse
+              //   this.status = 4;
+              // } else if (this.caseinfo.status === 5) {
+              //   // completed
+              //   this.status = 5;
+              // }
             } else {
               this.$message({
                 type: "error",
