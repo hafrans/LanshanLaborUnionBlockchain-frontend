@@ -47,19 +47,26 @@
         </template>
       </avue-crud>
       <el-dialog title="案件表单" :visible.sync="dialogFormVisible" width="80%">
-        <el-tabs v-model="activeName" type="card">
-          <el-tab-pane label="案件表单" name="first">
-            <avue-form ref="form" v-model="infoData" :option="infoOption" @submit="handleSubmit" />
-          </el-tab-pane>
-          <el-tab-pane label="案件要素表" name="second">
+        <!-- <el-tabs v-model="activeName" type="card">
+          <el-tab-pane label="案件表单" name="first"> -->
+        <avue-form ref="form" v-model="infoData" :option="infoOption">
+          <template slot="menuForm">
+            <el-button type="primary" @click="handleSubmit">提 交</el-button>
+          </template>
+        </avue-form>
+        <!-- </el-tab-pane> -->
+        <!-- <el-tab-pane label="案件要素表" name="second">
             <avue-form
               ref="form"
               v-model="laborData"
               :option="infolaborOption"
-              @submit="handleSubmit"
-            />
-          </el-tab-pane>
-        </el-tabs>
+            >
+              <template slot="menuForm">
+                <el-button type="primary" @click="handleSubmit">提 交</el-button>
+              </template>
+            </avue-form>
+          </el-tab-pane> -->
+        <!-- </el-tabs> -->
       </el-dialog>
     </div>
   </div>
@@ -138,7 +145,8 @@ export default {
       this.dialogFormVisible = true;
       const text = await getCase({ caseId: this.allCase[index].case_id });
       this.id = this.allCase[index].id;
-      this.infoData = text.data;
+      const infoData = { title: text.data.title, content: text.data.content, category_id: text.data.category.id }
+      Object.assign(this.infoData, infoData, text.data.applicant, text.data.respondent, text.data.materials)
       this.laborData = text.data.form;
     },
     handleTrace(row, index) {
@@ -150,7 +158,29 @@ export default {
       });
     },
     async handleSubmit() {
-      const res = await modifyForm({ id: this.id, data: this.infoData });
+      const upload = {
+        form_id: this.laborData.id,
+        applicant: {
+          applicant_name: this.infoData.applicant_name.trim(),
+          applicant_birth: this.infoData.applicant_birth,
+          applicant_nationality: this.infoData.applicant_nationality.trim(),
+          applicant_id: this.infoData.applicant_id.trim(),
+          applicant_contact: this.infoData.applicant_contact.trim(),
+          applicant_address: this.infoData.applicant_address.trim()
+        },
+        category_id: this.infoData.category_id,
+        content: this.infoData.content.trim(),
+        materials: this.infoData.materials,
+        respondent: {
+          employer_name: this.infoData.employer_name.trim(),
+          employer_faren: this.infoData.employer_faren.trim(),
+          employer_uscc: this.infoData.employer_uscc.trim(),
+          employer_contact: this.infoData.employer_contact.trim(),
+          employer_address: this.infoData.employer_address.trim()
+        },
+        title: this.infoData.title.trim()
+      };
+      const res = await modifyForm({ id: this.id, data: upload });
       if (res.message === "success") {
         this.dialogFormVisible = false;
       } else {

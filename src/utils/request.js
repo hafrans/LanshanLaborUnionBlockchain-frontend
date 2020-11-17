@@ -3,7 +3,8 @@ import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 
-let baseURL = "http://fnl.vip.qydev.com/api"
+// let baseURL = "http://fnl.vip.qydev.com/api"
+let baseURL = "http://192.168.1.102:3000/api"
 // let baseURL = "http://server.ls.dev.scanf.cc:8081/api"
 
 if (process.env.NODE_ENV === 'production') {
@@ -19,13 +20,13 @@ const service = axios.create({
 
 // 不使用get 缓存
 service.interceptors.request.use(config => {
-	if (/get/i.test(config.method)) { //判断get请求
-		config.params  =  config.params || {};
-		config.params.t = Date.parse(new Date())/1000; //添加时间戳
-	}
-    return config;
+  if (/get/i.test(config.method)) { // 判断get请求
+    config.params = config.params || {};
+    config.params.t = Date.parse(new Date()) / 1000; // 添加时间戳
+  }
+  return config;
 }, error => {
-    return Promise.reject(error);
+  return Promise.reject(error);
 })
 
 // request interceptor
@@ -116,6 +117,5 @@ service.interceptors.response.use(
     return Promise.reject(error)
   }
 )
-
 
 export default service

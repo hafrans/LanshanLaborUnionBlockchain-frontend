@@ -13,8 +13,7 @@ export function getBaseAddr() {
     : "http://fnl.vip.qydev.com";
 }
 
-
-export function sendShortMessage(data){
+export function sendShortMessage(data) {
   return request({
     url: '/auth/sms/captcha/request',
     method: 'post',
@@ -24,7 +23,7 @@ export function sendShortMessage(data){
      * captcha_time
      * captcha_challenge
      */
-    data 
+    data
   })
 }
 

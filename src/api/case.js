@@ -16,9 +16,9 @@ export function createNewCases(data) {
   })
 }
 
-export function modifyForm(data) {
+export function modifyForm({ id, data }) {
   return request({
-    url: 'v1/case/update/' + data.id,
+    url: 'v1/case/update/' + id,
     method: 'post',
     data
   })
